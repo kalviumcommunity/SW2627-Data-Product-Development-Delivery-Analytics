@@ -40,9 +40,9 @@ def ingest_all_datasets(data_dir: str) -> dict:
     
     for filename, label in RAW_DATASETS.items():
         file_path = data_path / filename
-        print(f"\n{'─' * 60}")
+        print(f"\n{'-' * 60}")
         print(f"Loading: {label} ({filename})")
-        print(f"{'─' * 60}")
+        print(f"{'-' * 60}")
         
         # Check file info
         info = get_file_info(str(file_path))
@@ -50,7 +50,7 @@ def ingest_all_datasets(data_dir: str) -> dict:
         print(f"  Extension: {info['extension']}")
         
         if not info["exists"]:
-            print(f"  ❌ FILE NOT FOUND")
+            print(f"  [MISSING] FILE NOT FOUND")
             continue
         
         try:
@@ -61,13 +61,13 @@ def ingest_all_datasets(data_dir: str) -> dict:
             print(f"  Columns: {report['columns']}")
             print(f"  Memory: {report['memory_mb']} MB")
             print(f"  Null columns: {sum(1 for v in report['null_counts'].values() if v > 0)}")
-            print(f"  ✅ LOADED SUCCESSFULLY")
+            print(f"  [OK] LOADED SUCCESSFULLY")
             
             datasets[filename] = df
             reports[filename] = report
             
         except Exception as e:
-            print(f"  ❌ ERROR: {str(e)}")
+            print(f"  [ERROR] {str(e)}")
     
     print(f"\n{'=' * 60}")
     print(f"SUMMARY: Loaded {len(datasets)}/{len(RAW_DATASETS)} datasets")
@@ -77,8 +77,11 @@ def ingest_all_datasets(data_dir: str) -> dict:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python ingest_data.py <data_directory>")
-        sys.exit(1)
+    if len(sys.argv) == 2:
+        data_dir = sys.argv[1]
+    else:
+        # Default to data/raw/ relative to project root
+        data_dir = str(Path(__file__).parent.parent / "data" / "raw")
+        print(f"No directory specified, using default: {data_dir}")
     
-    datasets = ingest_all_datasets(sys.argv[1])
+    datasets = ingest_all_datasets(data_dir)
