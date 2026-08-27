@@ -76,12 +76,12 @@ def validate_all_datasets(data_dir: str) -> None:
     
     for filename, schema in SCHEMAS.items():
         file_path = data_path / filename
-        print(f"\n{'─' * 60}")
+        print(f"\n{'-' * 60}")
         print(f"Validating: {filename}")
-        print(f"{'─' * 60}")
+        print(f"{'-' * 60}")
         
         if not file_path.exists():
-            print(f"  ❌ FILE NOT FOUND: {file_path}")
+            print(f"  [MISSING] FILE NOT FOUND: {file_path}")
             all_valid = False
             continue
         
@@ -99,26 +99,29 @@ def validate_all_datasets(data_dir: str) -> None:
                     print(f"    Missing: {results['schema']['missing_columns']}")
             
             if results["overall_valid"]:
-                print(f"  ✅ PASSED")
+                print(f"  [PASS] PASSED")
             else:
-                print(f"  ⚠️  ISSUES FOUND")
+                print(f"  [WARN] ISSUES FOUND")
                 all_valid = False
                 
         except Exception as e:
-            print(f"  ❌ ERROR: {str(e)}")
+            print(f"  [ERROR] {str(e)}")
             all_valid = False
     
     print(f"\n{'=' * 60}")
     if all_valid:
-        print("OVERALL: ✅ ALL VALIDATIONS PASSED")
+        print("OVERALL: [PASS] ALL VALIDATIONS PASSED")
     else:
-        print("OVERALL: ⚠️  SOME VALIDATIONS FAILED")
+        print("OVERALL: [WARN] SOME VALIDATIONS FAILED")
     print(f"{'=' * 60}")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python validate_datasets.py <data_directory>")
-        sys.exit(1)
+    if len(sys.argv) == 2:
+        data_dir = sys.argv[1]
+    else:
+        # Default to data/raw/ relative to project root
+        data_dir = str(Path(__file__).parent.parent / "data" / "raw")
+        print(f"No directory specified, using default: {data_dir}")
     
-    validate_all_datasets(sys.argv[1])
+    validate_all_datasets(data_dir)
