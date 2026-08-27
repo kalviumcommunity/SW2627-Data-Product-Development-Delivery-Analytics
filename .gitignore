@@ -1,0 +1,79 @@
+# Virtual environment - machine-specific, never commit
+venv/
+.venv/
+env/
+ENV/
+
+# Secrets and credentials - NEVER commit these
+.env
+*.key
+*.pem
+.env.local
+
+# Python cache files - auto-generated, not useful to teammates
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Jupyter notebook checkpoints - auto-saved drafts, not needed in repo
+.ipynb_checkpoints/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+
+# Large output files - regenerable from scripts
+output/*.csv
+output/*.pdf
+output/*.png
+output/*.html
+
+# Distribution and build artifacts
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Distribution and packaging
+.Python
+develop-eggs/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.whl
+
+# Logs
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# Testing
+.pytest_cache/
+.tox/
+.nox/
+
+# Mandatory files (module-specific, never commit)
+video_script.md
+issues.md
+DUMMY-README.md
+git_log.md
