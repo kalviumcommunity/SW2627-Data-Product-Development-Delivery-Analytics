@@ -1,0 +1,851 @@
+employee_id,employee_name,department,team,designation,employment_type,experience_years,joining_date,location,manager_id,skill_primary,skill_secondary,grade_level,employment_status,cost_center,capacity_hours_monthly
+EMP0001,Employee 0001,Data & Analytics,Team A,Junior Engineer,Full-Time,5,2021-01-31,Bengaluru,EMP0076,Testing,Python,G3,Active,CC-103,160
+EMP0002,Employee 0002,Data & Analytics,Team B,Lead Engineer,Full-Time,4,2020-08-10,Noida,EMP0029,Excel,Testing,G3,Active,CC-100,160
+EMP0003,Employee 0003,QA,Team C,Support Engineer,Full-Time,6,2022-09-28,Bengaluru,EMP0012,Testing,SQL,G4,Active,CC-145,160
+EMP0004,Employee 0004,DevOps,Team E,Designer,Full-Time,9,2020-12-19,Bengaluru,EMP0119,Testing,SQL,G5,Active,CC-170,160
+EMP0005,Employee 0005,Design,Team E,Finance Analyst,Full-Time,3,2025-01-18,Pune,EMP0091,Java,Python,G2,Active,CC-184,160
+EMP0006,Employee 0006,Product,Team A,HR Executive,Intern,3,2021-03-31,Noida,EMP0036,Excel,Analytics,G2,Active,CC-120,100
+EMP0007,Employee 0007,DevOps,Team A,Data Scientist,Full-Time,9,2020-05-08,Hyderabad,EMP0069,React,Cloud,G5,Active,CC-159,160
+EMP0008,Employee 0008,Support,Team C,Data Analyst,Full-Time,6,2025-03-06,Delhi,EMP0030,Python,Analytics,G4,Active,CC-151,160
+EMP0009,Employee 0009,Design,Team C,Software Engineer,Contract,3,2020-05-14,Pune,EMP0084,Excel,UI/UX,G2,Active,CC-182,160
+EMP0010,Employee 0010,Finance,Team E,Senior Engineer,Full-Time,6,2020-12-20,Mumbai,EMP0096,Data Science,UI/UX,G4,Active,CC-174,160
+EMP0011,Employee 0011,SUPPORT,Team D,Data Scientist,Intern,3,2020-06-17,Bengaluru,EMP0097,Python,SQL,G2,Active,CC-119,100
+EMP0012,Employee 0012,QA,Team D,HR Executive,Full-Time,3,2025-08-19,Remote,EMP0068,AWS,Python,G2,Active,CC-187,160
+EMP0013,Employee 0013,Data & Analytics,Team C,DevOps Engineer,Full-Time,5,2024-01-09,Bengaluru,EMP0038,Testing,,G3,Active,CC-158,160
+EMP0014,Employee 0014,Engineering,Team E,Support Engineer,Intern,0,2020-12-14,Bengaluru,EMP0112,AWS,Agile,G1,Active,CC-119,100
+EMP0015,Employee 0015,DevOps,Team E,HR Executive,Full-Time,0,2019-10-24,Delhi,EMP0077,Power BI,DevOps,G1,Active,CC-102,160
+EMP0016,Employee 0016,Data & Analytics,Team C,Sales Executive,Contract,2,2022-01-26,Pune,EMP0008,React,SQL,G2,Active,CC-110,160
+EMP0017,Employee 0017,Finance,Team B,Finance Analyst,Intern,1,2018-10-11,Hyderabad,EMP0085,Excel,Cloud,G1,Active,CC-133,100
+EMP0018,Employee 0018,HR,Team E,Finance Analyst,Full-Time,5,2024-10-20,Pune,EMP0092,AWS,UI/UX,G3,Active,CC-185,160
+EMP0019,Employee 0019,DevOps,Team A,Product Analyst,Full-Time,1,2023-10-21,Chennai,EMP0003,Data Science,Agile,G1,Active,CC-175,160
+EMP0020,Employee 0020,Product,Team A,Junior Engineer,Full-Time,0,2018-10-18,Delhi,EMP0111,Power BI,SQL,G1,Active,CC-165,160
+EMP0021,Employee 0021,Product,Team E,Data Analyst,Full-Time,8,2025-07-03,Remote,EMP0032,Excel,UI/UX,G5,Active,CC-124,160
+EMP0022,Employee 0022,DATA & ANALYTICS,Team D,Software Engineer,Full-Time,3,2025-05-23,Delhi,EMP0087,Java,Python,G2,Active,CC-151,160
+EMP0023,Employee 0023,DevOps,Team D,HR Executive,Full-Time,4,2019-03-24,Hyderabad,EMP0055,SQL,Testing,G3,Active,CC-159,160
+EMP0024,Employee 0024,Product,Team E,Finance Analyst,Full-Time,0,2018-11-05,Bengaluru,EMP0007,Node.js,Python,G1,Active,CC-111,160
+EMP0025,Employee 0025,Product,Team D,Senior Engineer,Full-Time,2,2022-07-23,Delhi,EMP0022,Testing,Python,G2,Active,CC-149,160
+EMP0026,Employee 0026,Design,Team E,Sales Executive,Full-Time,4,2023-02-07,Remote,EMP0020,React,Testing,G3,Active,CC-127,160
+EMP0027,Employee 0027,Engineering,Team A,Designer,Full-Time,1,2024-01-30,Remote,EMP0065,Node.js,Cloud,G1,Active,CC-107,160
+EMP0028,Employee 0028,HR,Team B,Software Engineer,Full-Time,5,2020-02-01,Noida,EMP0016,Data Science,Agile,G3,Active,CC-174,160
+EMP0029,Employee 0029,Sales,Team E,Junior Engineer,Full-Time,2,2024-12-11,Chennai,EMP0120,AWS,Agile,G2,Active,CC-185,160
+EMP0030,Employee 0030,DevOps,Team C,Lead Engineer,Full-Time,3,2020-12-23,Remote,EMP0041,Java,,G2,Active,CC-158,160
+EMP0031,Employee 0031,Sales,Team C,Designer,Full-Time,2,2019-02-14,Hyderabad,EMP0120,Power BI,SQL,G2,Active,CC-131,160
+EMP0032,Employee 0032,DevOps,Team C,Data Analyst,Full-Time,10,2019-10-09,Delhi,EMP0086,Node.js,Testing,G6,Active,CC-184,160
+EMP0033,Employee 0033,Data & Analytics,Team E,Sales Executive,Full-Time,4,2019-07-05,Hyderabad,EMP0035,AWS,Agile,G3,Active,CC-191,160
+EMP0034,Employee 0034,DevOps,Team D,Lead Engineer,Full-Time,1,2025-09-16,Mumbai,EMP0116,Python,SQL,G1,Active,CC-181,160
+EMP0035,Employee 0035,Support,Team B,Finance Analyst,Full-Time,6,2021-02-07,Mumbai,EMP0021,Excel,UI/UX,G4,Active,CC-171,160
+EMP0036,Employee 0036,Engineering,Team B,Software Engineer,Contract,0,2018-11-05,Delhi,EMP0107,Power BI,Cloud,G1,Active,CC-155,160
+EMP0037,Employee 0037,QA,Team A,Junior Engineer,Full-Time,5,2021-06-16,Chennai,EMP0027,React,SQL,G3,Active,CC-145,160
+EMP0038,Employee 0038,HR,Team B,Sales Executive,Intern,0,2022-07-23,Hyderabad,EMP0103,SQL,UI/UX,G1,Active,CC-103,100
+EMP0039,Employee 0039,QA,Team B,Support Engineer,Full-Time,0,2021-09-22,Mumbai,EMP0021,Java,UI/UX,G1,Active,CC-104,160
+EMP0040,Employee 0040,Finance,Team C,Lead Engineer,Full-Time,5,2020-03-28,Pune,EMP0029,Python,Agile,G3,Active,CC-151,160
+EMP0041,Employee 0041,DevOps,Team E,Data Analyst,Contract,6,2018-10-12,Noida,EMP0087,Node.js,Analytics,G4,Active,CC-103,160
+EMP0042,Employee 0042,Data & Analytics,Team C,Sales Executive,Full-Time,5,2020-12-05,Delhi,EMP0014,Data Science,UI/UX,G3,Inactive,CC-144,160
+EMP0043,Employee 0043,DevOps,Team E,QA Engineer,Intern,4,2024-10-19,Pune,EMP0033,Python,UI/UX,G3,Active,CC-100,100
+EMP0044,Employee 0044,HR,Team B,Sales Executive,Full-Time,3,2024-01-15,Chennai,EMP0056,Java,Analytics,G2,Inactive,CC-179,160
+EMP0045,Employee 0045,DevOps,Team C,DevOps Engineer,Full-Time,0,2019-05-26,Noida,EMP0042,Testing,Testing,G1,Active,CC-170,160
+EMP0046,Employee 0046,QA,Team B,Lead Engineer,Full-Time,2,2022-09-19,Mumbai,EMP0052,Node.js,Python,G2,Active,CC-138,160
+EMP0047,Employee 0047,Design,Team C,Lead Engineer,Full-Time,3,2022-10-27,Remote,EMP0057,Excel,Agile,G2,Active,CC-165,160
+EMP0048,Employee 0048,Finance,Team E,HR Executive,Full-Time,7,2019-11-27,Chennai,EMP0012,React,Testing,G4,Active,CC-128,160
+EMP0049,Employee 0049,Product,Team E,Senior Engineer,Full-Time,5,2018-04-11,,EMP0059,Testing,Agile,G3,On Leave,CC-191,160
+EMP0050,Employee 0050,Support,Team A,Product Analyst,Full-Time,0,2022-06-25,Bengaluru,EMP0100,Testing,Agile,G1,Active,CC-122,160
+EMP0051,Employee 0051,HR,Team A,Product Analyst,Full-Time,5,2018-07-25,Remote,EMP0018,Excel,Analytics,G3,Active,CC-196,160
+EMP0052,Employee 0052,Finance,Team D,Designer,Full-Time,3,2023-08-30,Hyderabad,EMP0096,Excel,DevOps,G2,Active,CC-133,160
+EMP0053,Employee 0053,Product,Team D,Finance Analyst,Full-Time,2,2025-02-24,Pune,EMP0036,Excel,SQL,G2,Active,CC-191,160
+EMP0054,Employee 0054,Design,Team A,Lead Engineer,Full-Time,6,2021-01-17,Hyderabad,EMP0020,React,UI/UX,G4,Active,CC-188,160
+EMP0055,Employee 0055,QA,Team E,Support Engineer,Full-Time,7,2020-05-26,Remote,EMP0054,Python,Agile,G4,Active,CC-153,160
+EMP0056,Employee 0056,Support,Team E,Sales Executive,Contract,7,2024-07-20,Noida,EMP0062,Python,Analytics,G4,Active,CC-138,160
+EMP0057,Employee 0057,Support,Team E,Finance Analyst,Full-Time,1,2022-09-13,Pune,EMP0063,React,Testing,G1,Active,CC-155,160
+EMP0058,Employee 0058,Finance,Team D,Junior Engineer,Full-Time,3,2022-05-12,Hyderabad,EMP0108,Excel,Cloud,G2,Active,CC-179,160
+EMP0059,Employee 0059,HR,Team A,Junior Engineer,Full-Time,5,2022-06-02,Noida,EMP0018,Excel,Cloud,G3,Active,CC-106,160
+EMP0060,Employee 0060,Design,Team D,QA Engineer,Full-Time,7,2021-09-02,Mumbai,EMP0097,Testing,Testing,G4,Active,CC-110,160
+EMP0061,Employee 0061,Finance,Team B,Junior Engineer,Full-Time,3,2024-01-19,Bengaluru,EMP0100,Python,Python,G2,Inactive,CC-131,160
+EMP0062,Employee 0062,Product,Team D,Finance Analyst,Full-Time,3,2018-03-25,Bengaluru,EMP0073,React,DevOps,G2,Active,CC-189,160
+EMP0063,Employee 0063,Design,Team A,HR Executive,Full-Time,1,2022-02-19,Hyderabad,EMP0040,Java,Python,G1,Active,CC-139,160
+EMP0064,Employee 0064,Sales,Team A,DevOps Engineer,Full-Time,0,2022-03-18,Pune,EMP0014,AWS,SQL,G1,Active,CC-172,160
+EMP0065,Employee 0065,Engineering,Team E,Data Scientist,Full-Time,6,2023-12-23,Chennai,EMP0002,Testing,DevOps,G4,Active,CC-113,160
+EMP0066,Employee 0066,Support,Team B,Data Scientist,Contract,8,2025-02-16,Noida,EMP0023,Node.js,Testing,G5,Active,CC-178,160
+EMP0067,Employee 0067,HR,Team E,HR Executive,Full-Time,4,2023-06-04,Mumbai,EMP0042,React,SQL,G3,Active,CC-135,160
+EMP0068,Employee 0068,Finance,Team C,Lead Engineer,Full-Time,7,2023-03-19,Delhi,EMP0064,Power BI,Cloud,G4,Active,CC-162,160
+EMP0069,Employee 0069,Product,Team C,Data Scientist,Full-Time,5,2020-11-24,Delhi,EMP0067,React,SQL,G3,Active,CC-130,160
+EMP0070,Employee 0070,Support,Team D,Product Analyst,Full-Time,2,2024-03-24,Remote,EMP0102,Python,SQL,G2,Active,CC-137,160
+EMP0071,Employee 0071,PRODUCT,Team C,QA Engineer,Full-Time,5,2025-10-04,Remote,EMP0071,Node.js,Analytics,G3,Active,CC-154,160
+EMP0072,Employee 0072,HR,Team C,Data Scientist,Full-Time,9,2021-12-12,Pune,EMP0016,React,Analytics,G5,Active,CC-115,160
+EMP0073,Employee 0073,HR,Team D,HR Executive,Full-Time,4,2025-09-27,Mumbai,EMP0093,Data Science,Testing,G3,Active,CC-112,160
+EMP0074,Employee 0074,Product,Team E,Data Analyst,Full-Time,9,2020-07-20,Hyderabad,EMP0036,Python,Python,G5,Active,CC-170,160
+EMP0075,Employee 0075,Design,Team A,Support Engineer,Full-Time,0,2019-06-02,Delhi,EMP0074,AWS,DevOps,G1,Active,CC-161,160
+EMP0076,Employee 0076,Finance,Team D,Data Scientist,Contract,6,2020-01-26,Bengaluru,EMP0106,Java,UI/UX,G4,Active,CC-162,160
+EMP0077,Employee 0077,Data & Analytics,Team E,Designer,Full-Time,4,2025-01-22,Mumbai,EMP0011,React,SQL,G3,Active,CC-171,160
+EMP0078,Employee 0078,Support,Team E,Designer,Full-Time,3,2024-09-07,Noida,EMP0058,Excel,Testing,G2,Active,CC-175,160
+EMP0079,Employee 0079,Support,Team A,Data Analyst,Full-Time,4,2024-05-18,Pune,EMP0081,React,Testing,G3,Active,CC-184,160
+EMP0080,Employee 0080,Data & Analytics,Team A,Senior Engineer,Full-Time,0,2020-09-09,Noida,EMP0058,Data Science,DevOps,G1,Active,CC-137,160
+EMP0081,Employee 0081,Engineering,Team D,Lead Engineer,Full-Time,3,2021-03-26,Bengaluru,EMP0088,React,Testing,G2,Active,CC-180,160
+EMP0082,Employee 0082,Sales,Team B,DevOps Engineer,Full-Time,5,2020-03-21,Mumbai,EMP0106,SQL,SQL,G3,Active,CC-107,160
+EMP0083,Employee 0083,QA,Team C,HR Executive,Full-Time,8,2021-06-13,Remote,EMP0016,Excel,Testing,G5,Active,CC-189,160
+EMP0084,Employee 0084,Support,Team E,Data Analyst,Full-Time,2,2023-08-12,Delhi,EMP0114,Testing,Analytics,G2,Active,CC-177,160
+EMP0085,Employee 0085,Design,Team E,Junior Engineer,Full-Time,2,2019-01-10,Delhi,EMP0098,AWS,Python,G2,Active,CC-197,160
+EMP0086,Employee 0086,QA,Team B,Product Analyst,Full-Time,2,2023-10-27,Noida,EMP0082,Excel,SQL,G2,Active,CC-160,160
+EMP0087,Employee 0087,DevOps,Team B,QA Engineer,Full-Time,7,2021-09-27,Chennai,EMP0053,Excel,Testing,G4,Active,CC-184,160
+EMP0088,Employee 0088,Support,Team C,Finance Analyst,Full-Time,5,2024-03-03,Chennai,EMP0015,Testing,Python,G3,Active,CC-184,160
+EMP0089,Employee 0089,HR,Team E,Product Analyst,Full-Time,2,2022-08-20,Remote,EMP0081,Excel,Python,G2,Active,CC-126,160
+EMP0090,Employee 0090,Design,Team D,Product Manager,Contract,6,2019-06-21,Bengaluru,EMP0004,Data Science,Agile,G4,Active,CC-190,160
+EMP0091,Employee 0091,QA,Team B,Data Analyst,Full-Time,4,2024-03-06,Bengaluru,EMP0060,Java,Cloud,G3,Active,CC-163,160
+EMP0092,Employee 0092,Design,Team D,Product Manager,Full-Time,7,2025-11-29,Pune,EMP0059,Node.js,Cloud,G4,Active,CC-149,160
+EMP0093,Employee 0093,Product,Team A,Sales Executive,Full-Time,2,2024-09-21,Mumbai,EMP0099,Testing,Analytics,G2,Active,CC-164,160
+EMP0094,Employee 0094,Design,Team E,Finance Analyst,Full-Time,3,2018-01-11,Remote,EMP0111,SQL,DevOps,G2,Active,CC-168,160
+EMP0095,Employee 0095,Finance,Team D,Data Scientist,Full-Time,3,2021-09-23,Chennai,EMP0112,React,Agile,G2,Active,CC-173,160
+EMP0096,Employee 0096,Support,Team D,Lead Engineer,Full-Time,0,2022-08-10,Noida,EMP0085,SQL,DevOps,G1,Active,CC-104,160
+EMP0097,Employee 0097,QA,Team D,Product Manager,Full-Time,5,2024-08-14,Bengaluru,EMP0068,Excel,Python,G3,Active,CC-192,160
+EMP0098,Employee 0098,QA,Team C,QA Engineer,Contract,5,2025-05-05,Chennai,EMP0080,Testing,SQL,G3,Active,CC-142,160
+EMP0099,Employee 0099,HR,Team D,QA Engineer,Full-Time,4,2021-07-21,Delhi,EMP0080,Java,Agile,G3,Active,CC-180,160
+EMP0100,Employee 0100,Design,Team A,Lead Engineer,Full-Time,3,2019-01-06,Remote,EMP0022,AWS,Python,G2,Active,CC-105,160
+EMP0101,Employee 0101,DevOps,Team B,HR Executive,Full-Time,0,2018-08-18,Pune,EMP0068,Testing,Cloud,G1,Active,CC-121,160
+EMP0102,Employee 0102,QA,Team B,Software Engineer,Contract,3,2024-11-01,Remote,EMP0117,Data Science,Cloud,G2,Active,CC-129,160
+EMP0103,Employee 0103,Finance,Team D,DevOps Engineer,Full-Time,3,2020-11-06,Mumbai,EMP0087,Node.js,Cloud,G2,Active,CC-109,160
+EMP0104,Employee 0104,Finance,Team C,Data Scientist,Full-Time,2,2024-08-03,Remote,EMP0109,AWS,Agile,G2,Inactive,CC-149,160
+EMP0105,Employee 0105,Finance,Team C,Software Engineer,Full-Time,4,2020-08-29,Mumbai,EMP0003,Testing,Testing,G3,Active,CC-101,160
+EMP0106,Employee 0106,Sales,Team E,Finance Analyst,Full-Time,5,2025-09-10,Remote,EMP0107,AWS,Agile,G3,On Leave,CC-177,160
+EMP0107,Employee 0107,DevOps,Team B,Lead Engineer,Full-Time,10,2025-02-20,Bengaluru,EMP0116,Python,,G6,Active,CC-156,160
+EMP0108,Employee 0108,Engineering,Team C,Designer,Full-Time,5,2022-02-03,Chennai,EMP0096,Testing,Cloud,G3,Active,CC-125,160
+EMP0109,Employee 0109,QA,Team E,HR Executive,Contract,5,2024-01-19,Mumbai,EMP0107,SQL,Testing,G3,Active,CC-161,160
+EMP0110,Employee 0110,Design,Team A,Support Engineer,Full-Time,4,2021-10-19,Hyderabad,EMP0097,React,UI/UX,G3,Active,CC-171,160
+EMP0111,Employee 0111,DevOps,Team D,Software Engineer,Full-Time,0,2022-06-05,Chennai,EMP0087,AWS,UI/UX,G1,Active,CC-181,160
+EMP0112,Employee 0112,DevOps,Team E,Software Engineer,Full-Time,4,2025-07-27,Chennai,EMP0118,Data Science,Agile,G3,Active,CC-182,160
+EMP0113,Employee 0113,Data & Analytics,Team D,DevOps Engineer,Contract,4,2023-03-17,Bengaluru,EMP0018,Python,Python,G3,Active,CC-138,160
+EMP0114,Employee 0114,Finance,Team D,Software Engineer,Full-Time,11,2019-02-03,Remote,EMP0048,Node.js,UI/UX,G6,Active,CC-175,160
+EMP0115,Employee 0115,QA,Team E,Sales Executive,Full-Time,3,2022-08-27,Noida,EMP0036,Python,Analytics,G2,Active,CC-127,160
+EMP0116,Employee 0116,Finance,Team C,Product Analyst,Contract,5,2020-08-25,Chennai,EMP0008,Testing,Testing,G3,Active,CC-124,160
+EMP0117,Employee 0117,Data & Analytics,Team E,Finance Analyst,Full-Time,4,2023-02-06,Delhi,EMP0007,Power BI,Agile,G3,Active,CC-116,160
+EMP0118,Employee 0118,Sales,Team E,Lead Engineer,Contract,0,2018-10-09,Pune,EMP0105,React,Analytics,G1,Active,CC-199,160
+EMP0119,Employee 0119,QA,Team B,HR Executive,Full-Time,7,2024-09-07,Hyderabad,EMP0070,AWS,Cloud,G4,Active,CC-114,160
+EMP0120,Employee 0120,Engineering,Team E,Senior Engineer,Full-Time,6,2018-03-02,Chennai,EMP0003,SQL,Testing,G4,Active,CC-106,160
+EMP0121,Employee 0121,QA,Team D,Support Engineer,Full-Time,6,2022-09-21,Remote,EMP0100,Power BI,SQL,G4,Active,CC-157,160
+EMP0122,Employee 0122,HR,Team E,Lead Engineer,Full-Time,1,2024-11-24,Mumbai,EMP0059,Python,Python,G1,Active,CC-161,160
+EMP0123,Employee 0123,Support,Team D,QA Engineer,Full-Time,8,2025-09-11,Bengaluru,EMP0116,Java,Analytics,G5,Active,CC-177,160
+EMP0124,Employee 0124,QA,Team E,Software Engineer,Full-Time,0,2019-06-01,Chennai,EMP0049,Data Science,Testing,G1,Active,CC-158,160
+EMP0125,Employee 0125,HR,Team E,Designer,Full-Time,6,2022-10-29,Pune,EMP0056,Excel,Agile,G4,Active,CC-152,160
+EMP0126,Employee 0126,DevOps,Team C,Finance Analyst,Full-Time,11,2023-02-01,Noida,EMP0041,AWS,Analytics,G6,Active,CC-119,160
+EMP0127,Employee 0127,Finance,Team A,Software Engineer,Contract,1,2019-01-09,Chennai,EMP0104,SQL,Python,G1,Active,CC-175,160
+EMP0128,Employee 0128,HR,Team D,Product Manager,Full-Time,2,2021-09-12,Delhi,EMP0037,Data Science,Testing,G2,Active,CC-145,160
+EMP0129,Employee 0129,Data & Analytics,Team B,Designer,Full-Time,4,2023-09-10,Bengaluru,EMP0045,Node.js,Analytics,G3,Active,CC-114,160
+EMP0130,Employee 0130,Design,Team E,Designer,Full-Time,2,2020-07-15,Delhi,EMP0078,AWS,Python,G2,Active,CC-123,160
+EMP0131,Employee 0131,Design,Team B,Support Engineer,Contract,0,2021-06-19,Hyderabad,EMP0073,Testing,SQL,G1,Active,CC-118,160
+EMP0132,Employee 0132,Engineering,Team C,Software Engineer,Full-Time,4,2023-12-13,Hyderabad,EMP0048,AWS,Analytics,G3,Active,CC-199,160
+EMP0133,Employee 0133,Sales,Team E,Designer,Contract,1,2018-12-14,Delhi,EMP0087,Java,Testing,G1,Active,CC-156,160
+EMP0134,Employee 0134,Support,Team E,Product Analyst,Full-Time,5,2024-10-22,Bengaluru,EMP0045,Testing,SQL,G3,Active,CC-136,160
+EMP0135,Employee 0135,Sales,Team D,Product Analyst,Full-Time,1,2023-11-29,Delhi,EMP0001,React,Testing,G1,Active,CC-127,160
+EMP0136,Employee 0136,QA,Team D,HR Executive,Full-Time,9,2020-11-12,Noida,EMP0023,SQL,UI/UX,G5,Active,CC-168,160
+EMP0137,Employee 0137,Product,Team A,Product Manager,Contract,2,2024-04-07,Noida,EMP0111,Python,UI/UX,G2,Active,CC-102,160
+EMP0138,Employee 0138,Finance,Team E,Sales Executive,Contract,3,2018-11-15,Noida,EMP0091,Testing,Testing,G2,Active,CC-114,160
+EMP0139,Employee 0139,Support,Team D,Junior Engineer,Full-Time,6,2021-08-23,Chennai,EMP0012,Testing,SQL,G4,Inactive,CC-131,160
+EMP0140,Employee 0140,Support,Team C,Designer,Full-Time,0,2022-06-29,Chennai,EMP0029,Power BI,Cloud,G1,Active,CC-109,160
+EMP0141,Employee 0141,HR,Team C,DevOps Engineer,Full-Time,5,2019-04-13,Chennai,EMP0094,SQL,Agile,G3,Active,CC-113,160
+EMP0142,Employee 0142,QA,Team A,Data Analyst,Full-Time,8,2020-03-19,Hyderabad,EMP0099,Excel,DevOps,G5,Active,CC-196,160
+EMP0143,Employee 0143,Sales,Team E,HR Executive,Full-Time,0,2024-07-01,Chennai,EMP0111,Power BI,Cloud,G1,Active,CC-156,160
+EMP0144,Employee 0144,Data & Analytics,Team E,Product Analyst,Full-Time,5,2022-12-17,Delhi,EMP0046,Node.js,SQL,G3,Active,CC-139,160
+EMP0145,Employee 0145,Finance,Team A,Product Analyst,Full-Time,5,2018-06-04,Bengaluru,EMP0079,Data Science,UI/UX,G3,Active,CC-159,160
+EMP0146,Employee 0146,Sales,Team B,Product Manager,Full-Time,6,2018-06-18,Chennai,EMP0078,Excel,Cloud,G4,Active,CC-107,160
+EMP0147,Employee 0147,Finance,Team B,Software Engineer,Intern,0,2021-11-07,Delhi,EMP0032,Excel,DevOps,G1,Active,CC-167,100
+EMP0148,Employee 0148,HR,Team D,Designer,Full-Time,0,2019-10-13,Noida,EMP0100,Power BI,Python,G1,Active,CC-180,160
+EMP0149,Employee 0149,DevOps,Team C,Software Engineer,Full-Time,6,2021-09-12,Mumbai,EMP0093,Data Science,Cloud,G4,Active,CC-142,160
+EMP0150,Employee 0150,Data & Analytics,Team D,Designer,Full-Time,5,2025-06-11,Hyderabad,EMP0077,Java,Testing,G3,Active,CC-171,160
+EMP0151,Employee 0151,Support,Team E,DevOps Engineer,Full-Time,5,2021-09-07,Bengaluru,EMP0083,Testing,Analytics,G3,Active,CC-102,160
+EMP0152,Employee 0152,DevOps,Team D,Data Analyst,Contract,5,2020-01-09,Pune,EMP0029,SQL,Cloud,G3,Active,CC-109,160
+EMP0153,Employee 0153,Design,Team E,Finance Analyst,Full-Time,2,2019-02-19,Delhi,EMP0085,Power BI,Cloud,G2,Active,CC-176,160
+EMP0154,Employee 0154,Support,Team E,Senior Engineer,Full-Time,5,2019-10-27,Hyderabad,EMP0093,Excel,,G3,Active,CC-152,160
+EMP0155,Employee 0155,DevOps,Team D,DevOps Engineer,Contract,5,2020-08-30,Pune,EMP0069,React,Testing,G3,Active,CC-160,160
+EMP0156,Employee 0156,Product,Team D,Data Scientist,Contract,2,2025-08-10,Mumbai,EMP0100,Testing,UI/UX,G2,On Leave,CC-120,160
+EMP0157,Employee 0157,Product,Team D,HR Executive,Full-Time,10,2024-10-12,Chennai,EMP0071,Java,SQL,G6,Active,CC-136,160
+EMP0158,Employee 0158,Data & Analytics,Team B,HR Executive,Full-Time,5,2019-10-19,Noida,EMP0012,React,DevOps,G3,Active,CC-144,160
+EMP0159,Employee 0159,Engineering,Team D,QA Engineer,Full-Time,0,2018-08-07,Bengaluru,EMP0048,React,Python,G1,Active,CC-140,160
+EMP0160,Employee 0160,Data & Analytics,Team A,Finance Analyst,Full-Time,6,2025-04-16,Mumbai,EMP0118,Excel,Cloud,G4,Active,CC-197,160
+EMP0161,Employee 0161,Finance,Team C,Product Analyst,Full-Time,1,2024-11-25,Pune,EMP0107,SQL,UI/UX,G1,Active,CC-114,160
+EMP0162,Employee 0162,Design,Team E,Lead Engineer,Full-Time,6,2021-05-18,Remote,EMP0009,Java,DevOps,G4,Active,CC-176,160
+EMP0163,Employee 0163,HR,Team B,Junior Engineer,Full-Time,7,2025-02-01,Mumbai,EMP0055,Python,Analytics,G4,Active,CC-130,160
+EMP0164,Employee 0164,Sales,Team C,QA Engineer,Full-Time,2,2020-02-07,Bengaluru,EMP0068,Node.js,Python,G2,Active,CC-149,160
+EMP0165,Employee 0165,Finance,Team A,Junior Engineer,Full-Time,7,2025-02-16,Chennai,EMP0101,Java,Analytics,G4,Active,CC-130,160
+EMP0166,Employee 0166,Data & Analytics,Team A,HR Executive,Full-Time,5,2024-07-11,Chennai,EMP0070,Power BI,Cloud,G3,Active,CC-199,160
+EMP0167,Employee 0167,Finance,Team A,Support Engineer,Full-Time,6,2023-05-15,Remote,EMP0005,AWS,Agile,G4,Active,CC-105,160
+EMP0168,Employee 0168,Product,Team D,Sales Executive,Full-Time,10,2018-06-21,Remote,EMP0033,Python,Agile,G6,Active,CC-136,160
+EMP0169,Employee 0169,DevOps,Team A,Finance Analyst,Contract,3,2018-07-15,Chennai,EMP0056,Testing,DevOps,G2,Active,CC-149,160
+EMP0170,Employee 0170,DevOps,Team E,Senior Engineer,Full-Time,2,2023-07-26,Mumbai,EMP0103,Java,UI/UX,G2,Active,CC-110,160
+EMP0171,Employee 0171,Support,Team A,Designer,Full-Time,1,2020-01-10,Chennai,EMP0085,AWS,Testing,G1,Active,CC-157,160
+EMP0172,Employee 0172,Sales,Team D,Support Engineer,Full-Time,2,2022-10-12,Delhi,EMP0094,Power BI,UI/UX,G2,Active,CC-135,160
+EMP0173,Employee 0173,Engineering,Team B,Software Engineer,Full-Time,4,2025-07-12,Delhi,EMP0019,Data Science,DevOps,G3,Active,CC-104,160
+EMP0174,Employee 0174,QA,Team D,Software Engineer,Full-Time,5,2020-08-24,Delhi,EMP0078,SQL,DevOps,G3,Active,CC-147,160
+EMP0175,Employee 0175,DevOps,Team D,Product Analyst,Full-Time,5,2018-11-11,Chennai,EMP0084,AWS,Agile,G3,Active,CC-114,160
+EMP0176,Employee 0176,Engineering,Team E,Support Engineer,Full-Time,6,2020-02-02,Bengaluru,EMP0034,AWS,DevOps,G4,Active,CC-127,160
+EMP0177,Employee 0177,Sales,Team A,Data Analyst,Contract,4,2025-10-13,Hyderabad,EMP0110,Java,DevOps,G3,Active,CC-122,160
+EMP0178,Employee 0178,Finance,Team C,Software Engineer,Contract,8,2025-08-25,Bengaluru,EMP0071,Node.js,Testing,G5,On Leave,CC-138,160
+EMP0179,Employee 0179,QA,Team E,Support Engineer,Full-Time,3,2025-11-08,Pune,EMP0016,React,Cloud,G2,Active,CC-130,160
+EMP0180,Employee 0180,Finance,Team E,Junior Engineer,Full-Time,12,2022-01-18,Hyderabad,EMP0079,Java,SQL,G7,Active,CC-139,160
+EMP0181,Employee 0181,Support,Team E,Support Engineer,Full-Time,6,2023-05-15,Bengaluru,EMP0017,Power BI,SQL,G4,Active,CC-157,160
+EMP0182,Employee 0182,Finance,Team E,DevOps Engineer,Full-Time,1,2023-10-21,Hyderabad,EMP0099,SQL,UI/UX,G1,Active,CC-164,160
+EMP0183,Employee 0183,Engineering,Team B,Finance Analyst,Full-Time,1,2019-05-24,Chennai,EMP0120,React,Analytics,G1,Active,CC-166,160
+EMP0184,Employee 0184,Design,Team E,Finance Analyst,Full-Time,5,2018-11-20,Mumbai,EMP0017,AWS,SQL,G3,Active,CC-164,160
+EMP0185,Employee 0185,QA,Team E,Designer,Full-Time,3,2024-07-06,Chennai,EMP0108,Data Science,Python,G2,Active,CC-103,160
+EMP0186,Employee 0186,Data & Analytics,Team B,Junior Engineer,Full-Time,6,2025-03-12,Noida,EMP0080,Python,DevOps,G4,Active,CC-180,160
+EMP0187,Employee 0187,HR,Team D,Data Analyst,Contract,5,2025-03-14,Mumbai,EMP0059,Java,Python,G3,Active,CC-120,160
+EMP0188,Employee 0188,Finance,Team B,QA Engineer,Full-Time,4,2023-06-07,Chennai,EMP0111,Power BI,Analytics,G3,Active,CC-151,160
+EMP0189,Employee 0189,QA,Team B,HR Executive,Full-Time,1,2022-02-26,Remote,EMP0016,AWS,DevOps,G1,Active,CC-131,160
+EMP0190,Employee 0190,QA,Team E,Software Engineer,Full-Time,0,2018-07-27,Noida,EMP0032,SQL,Analytics,G1,Active,CC-173,160
+EMP0191,Employee 0191,DevOps,Team D,Lead Engineer,Full-Time,3,2019-10-15,Mumbai,EMP0064,Python,SQL,G2,Active,CC-150,160
+EMP0192,Employee 0192,HR,Team A,Product Analyst,Full-Time,7,2020-09-13,Mumbai,EMP0064,Data Science,DevOps,G4,Active,CC-136,160
+EMP0193,Employee 0193,HR,Team C,Junior Engineer,Full-Time,5,2019-03-17,Noida,EMP0047,Python,UI/UX,G3,Active,CC-106,160
+EMP0194,Employee 0194,Sales,Team D,Product Manager,Full-Time,0,2020-03-08,Remote,EMP0098,Node.js,,G1,Active,CC-179,160
+EMP0195,Employee 0195,Sales,Team C,Software Engineer,Intern,5,2019-06-12,Chennai,EMP0097,SQL,,G3,Active,CC-177,100
+EMP0196,Employee 0196,HR,Team C,QA Engineer,Full-Time,5,2023-08-11,Remote,EMP0067,Excel,Cloud,G3,Active,CC-177,160
+EMP0197,Employee 0197,HR,Team D,Senior Engineer,Contract,1,2021-09-05,Mumbai,EMP0076,Power BI,DevOps,G1,Active,CC-190,160
+EMP0198,Employee 0198,Sales,Team A,Data Analyst,Full-Time,4,2023-04-30,Noida,EMP0075,AWS,Python,G3,Active,CC-176,160
+EMP0199,Employee 0199,Finance,Team E,Data Analyst,Full-Time,4,2025-05-09,Pune,,Python,DevOps,G3,Active,CC-121,160
+EMP0200,Employee 0200,HR,Team B,DevOps Engineer,Full-Time,1,2024-12-13,Delhi,,Java,Agile,G1,Active,CC-102,160
+EMP0201,Employee 0201,Finance,Team D,Data Scientist,Full-Time,5,2022-09-12,Remote,EMP0112,Python,Cloud,G3,Active,CC-166,160
+EMP0202,Employee 0202,Product,Team D,Product Manager,Intern,6,2021-08-24,Chennai,EMP0023,Excel,Analytics,G4,Active,CC-169,100
+EMP0203,Employee 0203,DevOps,Team E,DevOps Engineer,Full-Time,7,2025-08-20,Remote,EMP0025,React,Testing,G4,Active,CC-171,160
+EMP0204,Employee 0204,Design,Team D,Lead Engineer,Full-Time,7,2021-05-04,Chennai,EMP0062,Power BI,Testing,G4,Active,CC-136,160
+EMP0205,Employee 0205,Data & Analytics,Team D,Designer,Full-Time,0,2025-08-03,Chennai,EMP0099,SQL,Testing,G1,Active,CC-105,160
+EMP0206,Employee 0206,Design,Team C,Support Engineer,Full-Time,1,2018-11-20,Remote,EMP0028,React,Testing,G1,Active,CC-171,160
+EMP0207,Employee 0207,DESIGN,Team B,Senior Engineer,Full-Time,6,2019-03-24,Delhi,EMP0086,Node.js,Agile,G4,Active,CC-181,160
+EMP0208,Employee 0208,Product,Team A,Junior Engineer,Full-Time,6,2019-02-15,Hyderabad,EMP0001,Node.js,Cloud,G4,Active,CC-152,160
+EMP0209,Employee 0209,Finance,Team C,Product Analyst,Full-Time,6,2025-04-18,Mumbai,EMP0083,Python,SQL,G4,Inactive,CC-183,160
+EMP0210,Employee 0210,Sales,Team A,Lead Engineer,Full-Time,16,2024-01-01,Hyderabad,EMP0054,SQL,Python,G8,Active,CC-150,160
+EMP0211,Employee 0211,Finance,Team E,Senior Engineer,Contract,6,2021-03-31,Bengaluru,EMP0119,Power BI,Testing,G4,Active,CC-158,160
+EMP0212,Employee 0212,HR,Team E,Product Manager,Contract,7,2023-07-17,Remote,EMP0035,React,SQL,G4,Active,CC-142,160
+EMP0213,Employee 0213,QA,Team A,Support Engineer,Full-Time,7,2023-02-23,Chennai,EMP0102,AWS,Agile,G4,Active,CC-122,160
+EMP0214,Employee 0214,Sales,Team E,Finance Analyst,Contract,6,2025-03-01,Chennai,EMP0012,Testing,SQL,G4,Active,CC-123,160
+EMP0215,Employee 0215,QA,Team D,Product Analyst,Contract,3,2021-08-18,Pune,EMP0058,AWS,Analytics,G2,Active,CC-138,160
+EMP0216,Employee 0216,Sales,Team B,Support Engineer,Full-Time,6,2024-06-04,Delhi,EMP0086,Java,DevOps,G4,Active,CC-139,160
+EMP0217,Employee 0217,QA,Team C,QA Engineer,Full-Time,2,2025-09-11,Bengaluru,EMP0082,AWS,Analytics,G2,Active,CC-178,160
+EMP0218,Employee 0218,Product,Team E,Lead Engineer,Full-Time,3,2019-07-02,Chennai,EMP0054,Node.js,DevOps,G2,Active,CC-196,160
+EMP0219,Employee 0219,HR,Team E,HR Executive,Contract,3,2025-06-13,Bengaluru,EMP0068,Excel,Analytics,G2,Active,CC-109,160
+EMP0220,Employee 0220,Sales,Team B,Software Engineer,Contract,4,2018-09-10,Hyderabad,EMP0022,Power BI,DevOps,G3,Active,CC-114,160
+EMP0221,Employee 0221,Product,Team D,Support Engineer,Full-Time,11,2024-07-16,Delhi,EMP0059,SQL,UI/UX,G6,Active,CC-158,160
+EMP0222,Employee 0222,Sales,Team A,Junior Engineer,Full-Time,0,2024-04-07,Noida,EMP0033,Python,Agile,G1,Active,CC-174,160
+EMP0223,Employee 0223,Data & Analytics,Team A,Junior Engineer,Full-Time,6,2022-10-02,Bengaluru,EMP0120,Excel,Python,G4,Active,CC-136,160
+EMP0224,Employee 0224,Support,Team D,Senior Engineer,Full-Time,0,2019-07-09,Chennai,EMP0115,Testing,DevOps,G1,On Leave,CC-148,160
+EMP0225,Employee 0225,SUPPORT,Team B,Software Engineer,Contract,3,2025-08-28,Chennai,EMP0016,SQL,UI/UX,G2,Active,CC-167,160
+EMP0226,Employee 0226,QA,Team C,Support Engineer,Contract,7,2020-07-01,Remote,EMP0087,Node.js,UI/UX,G4,Active,CC-168,160
+EMP0227,Employee 0227,Support,Team C,Finance Analyst,Full-Time,4,2020-07-29,Pune,EMP0120,Java,Python,G3,Active,CC-184,160
+EMP0228,Employee 0228,Support,Team E,Designer,Full-Time,1,2018-03-06,Delhi,EMP0058,Data Science,Python,G1,Active,CC-131,160
+EMP0229,Employee 0229,Engineering,Team A,QA Engineer,Full-Time,2,2022-12-03,Hyderabad,EMP0065,AWS,Agile,G2,Active,CC-193,160
+EMP0230,Employee 0230,Sales,Team C,Data Scientist,Full-Time,6,2024-06-23,Pune,EMP0039,SQL,Agile,G4,Active,CC-152,160
+EMP0231,Employee 0231,Design,Team B,Data Analyst,Full-Time,2,2018-09-07,Noida,EMP0072,Excel,Python,G2,Active,CC-144,160
+EMP0232,Employee 0232,Support,Team B,HR Executive,Full-Time,5,2023-11-19,Mumbai,,SQL,DevOps,G3,Active,CC-130,160
+EMP0233,Employee 0233,Product,Team A,Data Analyst,Full-Time,4,2025-12-08,Noida,EMP0054,Node.js,Cloud,G3,Active,CC-149,160
+EMP0234,Employee 0234,Product,Team D,Data Analyst,Full-Time,2,2020-04-12,Chennai,EMP0012,Node.js,Agile,G2,Active,CC-106,160
+EMP0235,Employee 0235,Design,Team A,QA Engineer,Full-Time,10,2025-07-22,Pune,EMP0103,Data Science,Agile,G6,Active,CC-161,160
+EMP0236,Employee 0236,Product,Team B,Finance Analyst,Full-Time,6,2021-09-25,Pune,EMP0095,Java,DevOps,G4,Active,CC-131,160
+EMP0237,Employee 0237,Sales,Team C,Support Engineer,Full-Time,0,2020-04-17,Mumbai,EMP0049,Excel,Analytics,G1,Active,CC-139,160
+EMP0238,Employee 0238,Design,Team D,Data Scientist,Contract,5,2023-10-02,Chennai,EMP0118,React,Analytics,G3,Active,CC-140,160
+EMP0239,Employee 0239,Support,Team A,Junior Engineer,Contract,2,2024-04-23,Mumbai,EMP0071,Data Science,UI/UX,G2,Active,CC-137,160
+EMP0240,Employee 0240,QA,Team B,Lead Engineer,Full-Time,7,2021-09-13,Remote,EMP0071,Power BI,Testing,G4,Active,CC-197,160
+EMP0241,Employee 0241,Finance,Team C,Support Engineer,Full-Time,2,2025-03-13,Hyderabad,EMP0018,Node.js,DevOps,G2,Active,CC-123,160
+EMP0242,Employee 0242,HR,Team A,DevOps Engineer,Full-Time,4,2018-08-29,Delhi,EMP0098,Python,UI/UX,G3,Active,CC-117,160
+EMP0243,Employee 0243,Product,Team D,Software Engineer,Full-Time,6,2025-12-06,Chennai,EMP0008,Data Science,DevOps,G4,Active,CC-184,160
+EMP0244,Employee 0244,Finance,Team A,Junior Engineer,Full-Time,7,2018-01-28,Mumbai,EMP0069,AWS,Python,G4,Active,CC-164,160
+EMP0245,Employee 0245,Support,Team B,HR Executive,Full-Time,0,2020-01-05,Pune,EMP0025,Data Science,Testing,G1,Active,CC-145,160
+EMP0246,Employee 0246,Design,Team D,HR Executive,Full-Time,3,2022-06-14,Pune,EMP0090,React,,G2,Inactive,CC-187,160
+EMP0247,Employee 0247,Data & Analytics,Team D,DevOps Engineer,Full-Time,3,2025-04-15,Noida,EMP0071,Excel,Python,G2,Active,CC-181,160
+EMP0248,Employee 0248,Engineering,Team C,Support Engineer,Full-Time,2,2019-12-03,Bengaluru,EMP0115,Node.js,Python,G2,Active,CC-129,160
+EMP0249,Employee 0249,Product,Team A,Sales Executive,Contract,9,2025-10-06,,EMP0088,AWS,Python,G5,Active,CC-122,160
+EMP0250,Employee 0250,DevOps,Team D,Junior Engineer,Full-Time,5,2020-04-28,Bengaluru,EMP0039,SQL,Agile,G3,Active,CC-172,160
+EMP0251,Employee 0251,Support,Team B,DevOps Engineer,Full-Time,0,2024-01-24,Bengaluru,EMP0065,Power BI,Python,G1,Active,CC-112,160
+EMP0252,Employee 0252,Support,Team E,Lead Engineer,Full-Time,7,2018-11-08,Noida,EMP0100,Power BI,Python,G4,Active,CC-181,160
+EMP0253,Employee 0253,Design,Team D,HR Executive,Full-Time,10,2023-01-20,,EMP0024,Data Science,UI/UX,G6,Active,CC-110,160
+EMP0254,Employee 0254,Sales,Team B,Data Analyst,Full-Time,7,2020-10-06,Noida,EMP0092,SQL,UI/UX,G4,Active,CC-140,160
+EMP0255,Employee 0255,DevOps,Team C,Software Engineer,Full-Time,0,2019-01-10,Mumbai,EMP0014,SQL,SQL,G1,Active,CC-123,160
+EMP0256,Employee 0256,Support,Team A,Product Analyst,Full-Time,3,2024-03-31,Bengaluru,EMP0046,Node.js,,G2,Active,CC-176,160
+EMP0257,Employee 0257,Sales,Team D,HR Executive,Contract,8,2021-08-21,Noida,EMP0100,Java,Agile,G5,Active,CC-173,160
+EMP0258,Employee 0258,HR,Team C,Senior Engineer,Full-Time,2,2025-09-08,Mumbai,EMP0064,SQL,SQL,G2,Active,CC-121,160
+EMP0259,Employee 0259,Support,Team C,Data Analyst,Full-Time,5,2022-09-21,Mumbai,EMP0032,Excel,Agile,G3,Active,CC-158,160
+EMP0260,Employee 0260,DATA & ANALYTICS,Team E,Senior Engineer,Full-Time,6,2021-06-01,Noida,EMP0103,Power BI,DevOps,G4,Active,CC-142,160
+EMP0261,Employee 0261,Support,Team C,Finance Analyst,Intern,1,2025-04-20,Pune,EMP0062,Power BI,Cloud,G1,Active,CC-150,100
+EMP0262,Employee 0262,DevOps,Team B,Data Analyst,Full-Time,4,2025-10-17,Chennai,EMP0049,AWS,UI/UX,G3,Inactive,CC-146,160
+EMP0263,Employee 0263,Data & Analytics,Team B,Sales Executive,Full-Time,0,2024-04-28,Delhi,EMP0094,Excel,Agile,G1,On Leave,CC-156,160
+EMP0264,Employee 0264,Design,Team D,Finance Analyst,Full-Time,1,2025-10-08,Remote,EMP0018,AWS,Agile,G1,Active,CC-132,160
+EMP0265,Employee 0265,QA,Team E,Support Engineer,Full-Time,3,2022-09-30,Remote,EMP0075,Testing,UI/UX,G2,Active,CC-169,160
+EMP0266,Employee 0266,Engineering,Team E,HR Executive,Full-Time,0,2022-01-12,Bengaluru,EMP0014,React,Analytics,G1,Active,CC-121,160
+EMP0267,Employee 0267,Sales,Team D,Junior Engineer,Intern,9,2024-04-25,Chennai,EMP0102,Testing,SQL,G5,Active,CC-101,100
+EMP0268,Employee 0268,Data & Analytics,Team E,Data Analyst,Full-Time,0,2020-06-28,Pune,EMP0058,Power BI,UI/UX,G1,Active,CC-159,160
+EMP0269,Employee 0269,Sales,Team D,Support Engineer,Full-Time,3,2023-08-12,Bengaluru,EMP0038,Testing,SQL,G2,On Leave,CC-114,160
+EMP0270,Employee 0270,QA,Team E,Data Scientist,Full-Time,4,2021-07-01,Remote,EMP0045,Excel,SQL,G3,Active,CC-156,160
+EMP0271,Employee 0271,Finance,Team A,Data Scientist,Full-Time,8,2018-10-03,Delhi,EMP0109,Power BI,SQL,G5,Active,CC-186,160
+EMP0272,Employee 0272,QA,Team C,Sales Executive,Full-Time,0,2020-09-26,Noida,EMP0060,React,UI/UX,G1,Active,CC-180,160
+EMP0273,Employee 0273,QA,Team E,Senior Engineer,Full-Time,7,2025-03-08,Pune,EMP0058,Data Science,UI/UX,G4,Active,CC-149,160
+EMP0274,Employee 0274,Engineering,Team A,Support Engineer,Full-Time,4,2020-05-29,Bengaluru,EMP0103,Node.js,Cloud,G3,Active,CC-146,160
+EMP0275,Employee 0275,DevOps,Team D,Lead Engineer,Full-Time,1,2023-02-18,Chennai,EMP0077,Testing,UI/UX,G1,Active,CC-175,160
+EMP0276,Employee 0276,DATA & ANALYTICS,Team C,Data Scientist,Contract,5,2021-12-12,Bengaluru,EMP0087,SQL,Analytics,G3,Active,CC-115,160
+EMP0277,Employee 0277,Product,Team E,Data Analyst,Full-Time,5,2019-04-25,Noida,EMP0054,Data Science,Cloud,G3,Active,CC-173,160
+EMP0278,Employee 0278,Support,Team B,QA Engineer,Full-Time,2,2020-01-31,Hyderabad,EMP0063,AWS,Cloud,G2,Active,CC-123,160
+EMP0279,Employee 0279,DevOps,Team A,Finance Analyst,Full-Time,4,2023-01-22,Remote,EMP0018,React,UI/UX,G3,Active,CC-171,160
+EMP0280,Employee 0280,HR,Team D,DevOps Engineer,Full-Time,3,2023-07-21,Remote,EMP0022,Java,Python,G2,Active,CC-197,160
+EMP0281,Employee 0281,Product,Team B,Data Analyst,Full-Time,4,2018-05-14,Remote,EMP0073,Excel,SQL,G3,Active,CC-173,160
+EMP0282,Employee 0282,Data & Analytics,Team A,Data Analyst,Contract,6,2024-02-03,Remote,EMP0070,React,UI/UX,G4,Active,CC-113,160
+EMP0283,Employee 0283,Product,Team A,Data Analyst,Full-Time,9,2018-05-13,Remote,EMP0111,Java,Agile,G5,Active,CC-126,160
+EMP0284,Employee 0284,Sales,Team D,Support Engineer,Contract,0,2021-12-07,Hyderabad,EMP0079,SQL,Agile,G1,Active,CC-126,160
+EMP0285,Employee 0285,Engineering,Team B,Designer,Full-Time,10,2021-12-07,Chennai,EMP0091,AWS,Testing,G6,Active,CC-173,160
+EMP0286,Employee 0286,Design,Team A,Finance Analyst,Intern,0,2023-10-09,Hyderabad,EMP0097,Testing,Python,G1,Active,CC-135,100
+EMP0287,Employee 0287,QA,Team B,Support Engineer,Full-Time,4,2019-06-28,Noida,EMP0063,SQL,Testing,G3,Active,CC-180,160
+EMP0288,Employee 0288,Support,Team A,QA Engineer,Full-Time,6,2023-01-26,Noida,EMP0066,AWS,Analytics,G4,Active,CC-158,160
+EMP0289,Employee 0289,Finance,Team A,Data Scientist,Full-Time,5,2024-07-11,Remote,EMP0082,Power BI,SQL,G3,Active,CC-168,160
+EMP0290,Employee 0290,Support,Team C,Lead Engineer,Contract,2,2022-10-26,Mumbai,EMP0044,Node.js,Cloud,G2,Active,CC-172,160
+EMP0291,Employee 0291,Finance,Team A,HR Executive,Contract,3,2021-11-08,Bengaluru,EMP0081,Excel,Python,G2,Active,CC-115,160
+EMP0292,Employee 0292,QA,Team B,Product Analyst,Full-Time,3,2023-02-13,Hyderabad,EMP0113,AWS,Cloud,G2,Inactive,CC-135,160
+EMP0293,Employee 0293,Data & Analytics,Team B,DevOps Engineer,Full-Time,2,2022-01-16,Delhi,EMP0051,AWS,Agile,G2,Active,CC-154,160
+EMP0294,Employee 0294,Data & Analytics,Team B,Support Engineer,Full-Time,7,2019-01-25,Pune,EMP0067,Excel,Python,G4,Active,CC-101,160
+EMP0295,Employee 0295,DevOps,Team B,Finance Analyst,Intern,5,2019-05-09,Remote,EMP0010,React,UI/UX,G3,Active,CC-111,100
+EMP0296,Employee 0296,Data & Analytics,Team D,Software Engineer,Full-Time,2,2021-07-07,Hyderabad,EMP0083,SQL,SQL,G2,Active,CC-167,160
+EMP0297,Employee 0297,Sales,Team B,Junior Engineer,Full-Time,7,2024-11-04,Hyderabad,EMP0118,Testing,DevOps,G4,Active,CC-127,160
+EMP0298,Employee 0298,Data & Analytics,Team D,Sales Executive,Full-Time,5,2019-02-16,Chennai,EMP0055,Power BI,Cloud,G3,Active,CC-131,160
+EMP0299,Employee 0299,Design,Team E,DevOps Engineer,Full-Time,6,2018-12-12,Mumbai,EMP0100,Python,Testing,G4,Active,CC-126,160
+EMP0300,Employee 0300,HR,Team A,Designer,Full-Time,6,2023-09-19,Pune,EMP0064,Testing,SQL,G4,Active,CC-130,160
+EMP0301,Employee 0301,Finance,Team A,DevOps Engineer,Full-Time,2,2024-08-29,Chennai,EMP0120,Power BI,Cloud,G2,Active,CC-149,160
+EMP0302,Employee 0302,Sales,Team D,QA Engineer,Full-Time,2,2022-02-05,Bengaluru,EMP0003,Data Science,SQL,G2,Active,CC-101,160
+EMP0303,Employee 0303,Design,Team D,Lead Engineer,Contract,6,2018-06-13,Mumbai,EMP0081,Node.js,UI/UX,G4,Inactive,CC-154,160
+EMP0304,Employee 0304,Support,Team C,Software Engineer,Full-Time,6,2025-03-08,Bengaluru,EMP0040,Java,Agile,G4,Active,CC-119,160
+EMP0305,Employee 0305,HR,Team A,Data Scientist,Full-Time,4,2022-05-20,Mumbai,EMP0090,Testing,Agile,G3,Active,CC-107,160
+EMP0306,Employee 0306,Product,Team A,Software Engineer,Full-Time,4,2022-11-15,Mumbai,EMP0086,SQL,SQL,G3,Active,CC-101,160
+EMP0307,Employee 0307,QA,Team E,Support Engineer,Full-Time,8,2018-02-16,Mumbai,EMP0022,Power BI,Cloud,G5,Inactive,CC-195,160
+EMP0308,Employee 0308,Design,Team D,Support Engineer,Full-Time,2,2019-04-29,Mumbai,EMP0068,Java,Testing,G2,Active,CC-191,160
+EMP0309,Employee 0309,Sales,Team A,DevOps Engineer,Full-Time,6,2018-11-12,Remote,EMP0110,Data Science,Cloud,G4,Active,CC-147,160
+EMP0310,Employee 0310,QA,Team A,Data Analyst,Contract,3,2019-02-26,Pune,EMP0095,Node.js,Python,G2,Active,CC-105,160
+EMP0311,Employee 0311,Engineering,Team B,Lead Engineer,Full-Time,3,2018-07-08,Hyderabad,EMP0120,Python,UI/UX,G2,Active,CC-128,160
+EMP0312,Employee 0312,DevOps,Team A,Lead Engineer,Contract,7,2022-09-01,Chennai,EMP0016,Node.js,Python,G4,Active,CC-122,160
+EMP0313,Employee 0313,Product,Team A,HR Executive,Intern,6,2023-10-14,Remote,EMP0111,AWS,Testing,G4,Inactive,CC-141,100
+EMP0314,Employee 0314,Data & Analytics,Team E,Product Manager,Full-Time,6,2023-02-14,Mumbai,EMP0095,Data Science,Agile,G4,Active,CC-159,160
+EMP0315,Employee 0315,DevOps,Team E,Designer,Intern,8,2023-07-14,Pune,EMP0020,Python,UI/UX,G5,Active,CC-103,100
+EMP0316,Employee 0316,Product,Team A,Product Manager,Full-Time,4,2021-11-19,Chennai,EMP0001,Testing,Testing,G3,Active,CC-113,160
+EMP0317,Employee 0317,Product,Team B,Product Manager,Full-Time,6,2020-09-02,Mumbai,EMP0012,Python,Agile,G4,Inactive,CC-166,160
+EMP0318,Employee 0318,Support,Team E,Support Engineer,Full-Time,3,2022-03-06,Bengaluru,EMP0065,SQL,UI/UX,G2,Active,CC-109,160
+EMP0319,Employee 0319,Sales,Team B,Designer,Full-Time,5,2018-09-13,Mumbai,EMP0034,Power BI,UI/UX,G3,Inactive,CC-189,160
+EMP0320,Employee 0320,DevOps,Team B,Data Scientist,Full-Time,4,2023-01-29,Hyderabad,EMP0100,Data Science,,G3,Active,CC-119,160
+EMP0321,Employee 0321,Data & Analytics,Team E,Senior Engineer,Full-Time,4,2023-01-16,Chennai,EMP0099,React,DevOps,G3,Active,CC-139,160
+EMP0322,Employee 0322,Finance,Team C,Data Analyst,Full-Time,6,2019-05-07,Delhi,EMP0028,Power BI,Cloud,G4,Active,CC-111,160
+EMP0323,Employee 0323,Product,Team C,Data Scientist,Full-Time,2,2022-06-12,Hyderabad,EMP0004,Testing,DevOps,G2,Active,CC-171,160
+EMP0324,Employee 0324,HR,Team B,Lead Engineer,Full-Time,10,2019-01-23,Bengaluru,EMP0002,Python,Agile,G6,Active,CC-116,160
+EMP0325,Employee 0325,Product,Team A,Finance Analyst,Full-Time,1,2022-06-29,Mumbai,EMP0118,Java,Python,G1,Active,CC-108,160
+EMP0326,Employee 0326,Product,Team C,Sales Executive,Full-Time,0,2025-03-30,Bengaluru,EMP0006,Excel,Python,G1,Active,CC-121,160
+EMP0327,Employee 0327,Sales,Team D,QA Engineer,Full-Time,7,2022-06-06,Hyderabad,EMP0046,React,Cloud,G4,Active,CC-135,160
+EMP0328,Employee 0328,Design,Team B,Product Analyst,Full-Time,6,2019-09-01,Mumbai,EMP0064,Testing,DevOps,G4,Active,CC-107,160
+EMP0329,Employee 0329,Data & Analytics,Team E,Data Analyst,Full-Time,6,2022-04-18,Pune,EMP0081,Node.js,Python,G4,Active,CC-148,160
+EMP0330,Employee 0330,DevOps,Team E,Product Analyst,Full-Time,6,2024-02-09,Chennai,EMP0050,AWS,Cloud,G4,Active,CC-103,160
+EMP0331,Employee 0331,DevOps,Team C,Designer,Full-Time,4,2020-06-16,Delhi,EMP0104,Excel,Analytics,G3,Active,CC-198,160
+EMP0332,Employee 0332,Sales,Team C,Lead Engineer,Full-Time,1,2019-10-16,Delhi,EMP0098,React,UI/UX,G1,Active,CC-145,160
+EMP0333,Employee 0333,QA,Team C,Senior Engineer,Full-Time,4,2020-08-26,Delhi,EMP0091,Power BI,Cloud,G3,Active,CC-172,160
+EMP0334,Employee 0334,Product,Team A,Finance Analyst,Full-Time,2,2023-07-10,Bengaluru,EMP0008,React,Agile,G2,Active,CC-102,160
+EMP0335,Employee 0335,HR,Team B,Product Analyst,Full-Time,7,2018-01-03,Chennai,EMP0092,SQL,Analytics,G4,Active,CC-107,160
+EMP0336,Employee 0336,Engineering,Team A,Senior Engineer,Full-Time,4,2024-07-30,Chennai,EMP0010,Power BI,UI/UX,G3,Active,CC-175,160
+EMP0337,Employee 0337,Data & Analytics,Team D,Data Scientist,Full-Time,2,2021-05-21,Remote,EMP0084,Power BI,Cloud,G2,On Leave,CC-190,160
+EMP0338,Employee 0338,HR,Team E,Support Engineer,Full-Time,3,2024-11-18,Hyderabad,EMP0049,AWS,Testing,G2,Active,CC-116,160
+EMP0339,Employee 0339,QA,Team D,Support Engineer,Contract,5,2018-01-08,Delhi,,Data Science,Analytics,G3,Inactive,CC-178,160
+EMP0340,Employee 0340,Product,Team C,DevOps Engineer,Full-Time,2,2024-05-05,Bengaluru,EMP0031,Power BI,Analytics,G2,Active,CC-121,160
+EMP0341,Employee 0341,Data & Analytics,Team D,Finance Analyst,Full-Time,2,2025-07-07,Delhi,EMP0034,React,Agile,G2,Active,CC-188,160
+EMP0342,Employee 0342,Data & Analytics,Team A,Data Scientist,Full-Time,5,2020-11-17,Noida,EMP0057,Testing,Cloud,G3,Active,CC-152,160
+EMP0343,Employee 0343,Finance,Team D,Sales Executive,Full-Time,5,2022-04-01,Pune,EMP0021,Excel,SQL,G3,Active,CC-104,160
+EMP0344,Employee 0344,Design,Team C,Junior Engineer,Full-Time,2,2021-07-29,Hyderabad,EMP0114,Testing,Cloud,G2,Active,CC-193,160
+EMP0345,Employee 0345,Data & Analytics,Team D,Product Manager,Full-Time,3,2019-01-17,Delhi,EMP0056,SQL,UI/UX,G2,On Leave,CC-120,160
+EMP0346,Employee 0346,Engineering,Team E,Software Engineer,Full-Time,5,2021-09-18,Mumbai,EMP0085,AWS,Testing,G3,Active,CC-130,160
+EMP0347,Employee 0347,Data & Analytics,Team B,Junior Engineer,Full-Time,0,2022-05-29,Delhi,EMP0047,Python,UI/UX,G1,Active,CC-111,160
+EMP0348,Employee 0348,Design,Team A,Finance Analyst,Full-Time,0,2025-06-04,Delhi,EMP0027,SQL,Testing,G1,Active,CC-110,160
+EMP0349,Employee 0349,Finance,Team D,Finance Analyst,Full-Time,2,2019-04-19,Mumbai,EMP0012,Node.js,UI/UX,G2,Active,CC-123,160
+EMP0350,Employee 0350,DevOps,Team C,Sales Executive,Full-Time,3,2022-04-12,Remote,EMP0060,AWS,Agile,G2,Active,CC-134,160
+EMP0351,Employee 0351,Sales,Team A,Junior Engineer,Full-Time,5,2019-09-12,Chennai,EMP0104,Node.js,UI/UX,G3,Active,CC-196,160
+EMP0352,Employee 0352,Sales,Team E,Lead Engineer,Full-Time,8,2024-03-17,Noida,EMP0069,Excel,Agile,G5,Active,CC-160,160
+EMP0353,Employee 0353,Design,Team E,Software Engineer,Contract,7,2022-06-06,Hyderabad,EMP0016,Excel,Cloud,G4,Active,CC-121,160
+EMP0354,Employee 0354,Product,Team D,HR Executive,Full-Time,4,2020-02-29,Pune,EMP0106,SQL,Testing,G3,Active,CC-140,160
+EMP0355,Employee 0355,Data & Analytics,Team C,Software Engineer,Full-Time,4,2022-05-09,Remote,EMP0118,Python,UI/UX,G3,Active,CC-114,160
+EMP0356,Employee 0356,Support,Team A,Senior Engineer,Full-Time,1,2019-08-31,Bengaluru,EMP0073,Java,Testing,G1,Active,CC-168,160
+EMP0357,Employee 0357,DevOps,Team E,Sales Executive,Full-Time,4,2022-08-11,Remote,EMP0005,SQL,Testing,G3,Active,CC-151,160
+EMP0358,Employee 0358,QA,Team D,Designer,Full-Time,3,2024-10-29,Chennai,EMP0089,React,Python,G2,Active,CC-195,160
+EMP0359,Employee 0359,Finance,Team C,Sales Executive,Contract,5,2021-01-05,Mumbai,EMP0036,Excel,SQL,G3,Active,CC-129,160
+EMP0360,Employee 0360,QA,Team D,Data Analyst,Full-Time,2,2022-12-20,Bengaluru,EMP0025,Excel,Agile,G2,Active,CC-152,160
+EMP0361,Employee 0361,Finance,Team E,HR Executive,Contract,6,2023-10-17,Hyderabad,EMP0009,AWS,UI/UX,G4,Active,CC-117,160
+EMP0362,Employee 0362,HR,Team B,Sales Executive,Full-Time,9,2024-05-18,Delhi,EMP0032,Python,DevOps,G5,Active,CC-106,160
+EMP0363,Employee 0363,DevOps,Team E,Support Engineer,Full-Time,4,2020-03-26,Noida,EMP0082,Java,Python,G3,Active,CC-130,160
+EMP0364,Employee 0364,DevOps,Team D,Product Analyst,Full-Time,5,2024-08-30,Chennai,EMP0045,SQL,Testing,G3,Inactive,CC-195,160
+EMP0365,Employee 0365,Data & Analytics,Team E,Data Analyst,Full-Time,6,2018-04-23,Pune,EMP0110,React,Agile,G4,Active,CC-186,160
+EMP0366,Employee 0366,Product,Team A,Data Analyst,Full-Time,3,2025-04-22,Remote,EMP0117,SQL,Cloud,G2,Active,CC-176,160
+EMP0367,Employee 0367,Engineering,Team C,Lead Engineer,Full-Time,5,2020-10-30,Noida,EMP0115,Testing,Analytics,G3,Inactive,CC-158,160
+EMP0368,Employee 0368,Design,Team E,Lead Engineer,Full-Time,4,2023-03-27,Noida,EMP0075,Java,Python,G3,Active,CC-165,160
+EMP0369,Employee 0369,DevOps,Team A,Product Manager,Full-Time,4,2025-04-05,Remote,EMP0009,Power BI,Testing,G3,Active,CC-181,160
+EMP0370,Employee 0370,DevOps,Team C,Finance Analyst,Full-Time,2,2021-02-08,Pune,EMP0020,Node.js,Agile,G2,Active,CC-107,160
+EMP0371,Employee 0371,Sales,Team A,QA Engineer,Full-Time,4,2025-05-29,Remote,EMP0038,AWS,UI/UX,G3,Active,CC-151,160
+EMP0372,Employee 0372,Support,Team B,Support Engineer,Full-Time,5,2018-05-25,Chennai,EMP0093,React,DevOps,G3,On Leave,CC-185,160
+EMP0373,Employee 0373,DevOps,Team E,Product Manager,Contract,8,2021-05-14,Hyderabad,EMP0038,Java,DevOps,G5,Active,CC-116,160
+EMP0374,Employee 0374,Design,Team C,Support Engineer,Full-Time,7,2024-04-08,Bengaluru,EMP0029,Power BI,Agile,G4,Active,CC-195,160
+EMP0375,Employee 0375,Design,Team D,QA Engineer,Full-Time,10,2021-09-19,Bengaluru,EMP0061,Python,SQL,G6,Active,CC-160,160
+EMP0376,Employee 0376,Product,Team C,Product Manager,Contract,2,2019-05-06,Noida,EMP0007,SQL,Cloud,G2,Active,CC-125,160
+EMP0377,Employee 0377,DevOps,Team B,QA Engineer,Contract,7,2024-05-21,Chennai,EMP0111,SQL,SQL,G4,On Leave,CC-162,160
+EMP0378,Employee 0378,DevOps,Team D,DevOps Engineer,Full-Time,5,2019-12-26,Mumbai,EMP0027,SQL,Cloud,G3,Active,CC-162,160
+EMP0379,Employee 0379,Data & Analytics,Team D,Senior Engineer,Full-Time,11,2024-11-21,Remote,EMP0050,Python,Python,G6,Active,CC-168,160
+EMP0380,Employee 0380,Product,Team E,Support Engineer,Contract,2,2022-03-09,Pune,EMP0003,Python,Agile,G2,Active,CC-128,160
+EMP0381,Employee 0381,DevOps,Team C,Data Analyst,Full-Time,1,2019-06-13,Hyderabad,EMP0009,Python,Testing,G1,Active,CC-137,160
+EMP0382,Employee 0382,Finance,Team B,Support Engineer,Full-Time,2,2023-11-02,Chennai,EMP0116,Excel,Analytics,G2,Active,CC-196,160
+EMP0383,Employee 0383,Product,Team B,Senior Engineer,Full-Time,0,2022-07-11,Pune,EMP0094,Python,Cloud,G1,Active,CC-115,160
+EMP0384,Employee 0384,DevOps,Team C,Support Engineer,Full-Time,2,2025-04-18,Delhi,EMP0077,Python,SQL,G2,Active,CC-183,160
+EMP0385,Employee 0385,Engineering,Team A,Junior Engineer,Full-Time,2,2025-09-26,Mumbai,EMP0061,SQL,Agile,G2,Active,CC-188,160
+EMP0386,Employee 0386,Engineering,Team C,Data Analyst,Full-Time,4,2022-09-20,Hyderabad,EMP0054,Java,SQL,G3,Active,CC-136,160
+EMP0387,Employee 0387,Data & Analytics,Team C,HR Executive,Full-Time,5,2019-03-12,Pune,EMP0046,Testing,Testing,G3,Active,CC-120,160
+EMP0388,Employee 0388,Engineering,Team D,Product Manager,Contract,10,2023-07-27,Chennai,EMP0031,Python,Python,G6,Active,CC-185,160
+EMP0389,Employee 0389,Data & Analytics,Team B,Sales Executive,Contract,7,2019-03-29,Bengaluru,EMP0100,Node.js,SQL,G4,Active,CC-192,160
+EMP0390,Employee 0390,Data & Analytics,Team C,Sales Executive,Full-Time,2,2020-11-14,Mumbai,EMP0060,Python,SQL,G2,Active,CC-122,160
+EMP0391,Employee 0391,Engineering,Team D,Finance Analyst,Full-Time,1,2021-04-05,Bengaluru,EMP0013,Python,Python,G1,Active,CC-117,160
+EMP0392,Employee 0392,QA,Team C,Data Scientist,Contract,5,2022-01-04,Bengaluru,EMP0048,Power BI,Cloud,G3,Inactive,CC-114,160
+EMP0393,Employee 0393,Support,Team D,QA Engineer,Full-Time,0,2023-02-13,Noida,EMP0084,SQL,SQL,G1,Active,CC-116,160
+EMP0394,Employee 0394,Engineering,Team D,Finance Analyst,Full-Time,9,2019-10-15,Remote,EMP0024,Data Science,UI/UX,G5,Active,CC-199,160
+EMP0395,Employee 0395,DevOps,Team B,Designer,Contract,8,2018-04-29,Remote,EMP0118,Excel,SQL,G5,Active,CC-152,160
+EMP0396,Employee 0396,Finance,Team E,Junior Engineer,Full-Time,3,2018-09-17,Pune,EMP0086,Power BI,SQL,G2,Active,CC-155,160
+EMP0397,Employee 0397,Product,Team B,Product Analyst,Full-Time,0,2021-11-17,Delhi,EMP0002,SQL,DevOps,G1,Active,CC-163,160
+EMP0398,Employee 0398,QA,Team C,Software Engineer,Full-Time,8,2023-07-07,Delhi,EMP0065,React,UI/UX,G5,Active,CC-151,160
+EMP0399,Employee 0399,Product,Team A,Software Engineer,Full-Time,4,2023-02-24,Remote,EMP0058,Power BI,SQL,G3,Active,CC-163,160
+EMP0400,Employee 0400,Engineering,Team A,Software Engineer,Full-Time,8,2022-07-11,Bengaluru,EMP0102,Data Science,Testing,G5,Active,CC-165,160
+EMP0401,Employee 0401,HR,Team C,Lead Engineer,Full-Time,0,2025-05-05,Delhi,EMP0105,React,DevOps,G1,Inactive,CC-142,160
+EMP0402,Employee 0402,HR,Team C,HR Executive,Full-Time,2,2024-12-13,Remote,EMP0015,Java,Agile,G2,Active,CC-100,160
+EMP0403,Employee 0403,DevOps,Team E,Data Scientist,Contract,4,2025-02-08,Chennai,EMP0090,Java,Python,G3,Active,CC-121,160
+EMP0404,Employee 0404,Finance,Team B,Senior Engineer,Full-Time,4,2022-08-04,Bengaluru,EMP0120,Testing,Agile,G3,Active,CC-158,160
+EMP0405,Employee 0405,Product,Team E,Support Engineer,Full-Time,3,2021-10-16,Bengaluru,EMP0099,Excel,DevOps,G2,Active,CC-184,160
+EMP0406,Employee 0406,Sales,Team A,Product Manager,Contract,6,2019-07-06,Noida,EMP0108,Data Science,DevOps,G4,Active,CC-165,160
+EMP0407,Employee 0407,QA,Team A,Support Engineer,Full-Time,1,2024-06-27,Noida,EMP0085,Data Science,Analytics,G1,Active,CC-164,160
+EMP0408,Employee 0408,Support,Team C,QA Engineer,Contract,4,2024-10-30,Noida,EMP0044,AWS,DevOps,G3,Active,CC-117,160
+EMP0409,Employee 0409,QA,Team C,QA Engineer,Full-Time,4,2024-10-03,Chennai,EMP0092,Node.js,Agile,G3,Active,CC-125,160
+EMP0410,Employee 0410,Product,Team B,Designer,Full-Time,6,2021-04-05,Hyderabad,EMP0065,Node.js,Analytics,G4,Active,CC-190,160
+EMP0411,Employee 0411,Data & Analytics,Team D,HR Executive,Full-Time,6,2021-12-13,Mumbai,EMP0113,Testing,Python,G4,Active,CC-166,160
+EMP0412,Employee 0412,Data & Analytics,Team B,Junior Engineer,Full-Time,1,2022-04-10,Mumbai,EMP0097,SQL,Testing,G1,Active,CC-187,160
+EMP0413,Employee 0413,Design,Team E,Senior Engineer,Full-Time,0,2018-09-12,Delhi,EMP0046,Excel,SQL,G1,Active,CC-178,160
+EMP0414,Employee 0414,HR,Team B,Finance Analyst,Full-Time,8,2020-07-07,Mumbai,EMP0089,Python,UI/UX,G5,Active,CC-149,160
+EMP0415,Employee 0415,Support,Team A,HR Executive,Full-Time,5,2025-09-07,Mumbai,EMP0026,Data Science,DevOps,G3,Active,CC-128,160
+EMP0416,Employee 0416,DevOps,Team B,HR Executive,Full-Time,2,2024-08-07,Mumbai,EMP0058,SQL,SQL,G2,Active,CC-123,160
+EMP0417,Employee 0417,QA,Team C,Support Engineer,Full-Time,9,2023-10-06,Mumbai,EMP0017,SQL,Testing,G5,Active,CC-100,160
+EMP0418,Employee 0418,DevOps,Team E,Product Analyst,Full-Time,4,2019-09-27,Delhi,EMP0100,Data Science,Testing,G3,Active,CC-162,160
+EMP0419,Employee 0419,Sales,Team E,Product Manager,Full-Time,8,2022-01-06,,EMP0024,Node.js,SQL,G5,Active,CC-164,160
+EMP0420,Employee 0420,QA,Team B,QA Engineer,Full-Time,4,2024-02-03,Pune,EMP0085,Power BI,Analytics,G3,Active,CC-146,160
+EMP0421,Employee 0421,Design,Team A,Lead Engineer,Full-Time,10,2024-12-07,Bengaluru,EMP0086,Power BI,DevOps,G6,On Leave,CC-130,160
+EMP0422,Employee 0422,Sales,Team C,Sales Executive,Full-Time,9,2024-12-19,Noida,EMP0118,Java,UI/UX,G5,Active,CC-132,160
+EMP0423,Employee 0423,HR,Team C,Support Engineer,Full-Time,3,2021-03-04,Remote,EMP0063,Python,Testing,G2,Active,CC-183,160
+EMP0424,Employee 0424,Product,Team E,Data Scientist,Full-Time,7,2023-10-06,Delhi,EMP0081,Java,Agile,G4,Active,CC-185,160
+EMP0425,Employee 0425,Product,Team E,Finance Analyst,Full-Time,6,2025-09-08,Noida,EMP0083,Java,Cloud,G4,Active,CC-103,160
+EMP0426,Employee 0426,Finance,Team B,Support Engineer,Full-Time,8,2021-09-20,Mumbai,EMP0072,Java,Agile,G5,Active,CC-133,160
+EMP0427,Employee 0427,Support,Team A,QA Engineer,Full-Time,1,2023-01-22,Noida,EMP0087,Java,Python,G1,Active,CC-182,160
+EMP0428,Employee 0428,Sales,Team C,Software Engineer,Full-Time,6,2024-07-26,Bengaluru,EMP0038,AWS,SQL,G4,Active,CC-136,160
+EMP0429,Employee 0429,Finance,Team B,QA Engineer,Contract,7,2022-06-07,Pune,EMP0018,Testing,Testing,G4,Active,CC-181,160
+EMP0430,Employee 0430,QA,Team C,Data Analyst,Contract,0,2025-08-06,Delhi,EMP0071,Node.js,Cloud,G1,Inactive,CC-115,160
+EMP0431,Employee 0431,Engineering,Team A,Junior Engineer,Full-Time,0,2024-06-03,Mumbai,EMP0027,Power BI,Agile,G1,Active,CC-152,160
+EMP0432,Employee 0432,HR,Team C,Senior Engineer,Full-Time,0,2019-10-22,Pune,EMP0015,SQL,Python,G1,Active,CC-196,160
+EMP0433,Employee 0433,HR,Team A,Product Analyst,Full-Time,3,2025-03-25,Mumbai,EMP0013,React,DevOps,G2,Active,CC-142,160
+EMP0434,Employee 0434,DevOps,Team E,Senior Engineer,Full-Time,6,2025-07-12,Bengaluru,EMP0116,React,Analytics,G4,Active,CC-162,160
+EMP0435,Employee 0435,Finance,Team B,Data Scientist,Full-Time,9,2024-11-29,Chennai,EMP0104,Power BI,UI/UX,G5,Active,CC-121,160
+EMP0436,Employee 0436,Engineering,Team D,Data Scientist,Full-Time,4,2020-10-05,Mumbai,EMP0108,Power BI,Cloud,G3,Active,CC-186,160
+EMP0437,Employee 0437,DevOps,Team C,Sales Executive,Full-Time,9,2023-05-20,Remote,EMP0071,Java,Cloud,G5,Active,CC-182,160
+EMP0438,Employee 0438,Sales,Team E,Software Engineer,Contract,0,2021-02-23,Pune,EMP0034,Java,SQL,G1,Active,CC-102,160
+EMP0439,Employee 0439,HR,Team E,DevOps Engineer,Full-Time,0,2018-05-08,Pune,EMP0117,Python,Testing,G1,Active,CC-169,160
+EMP0440,Employee 0440,HR,Team B,Product Analyst,Full-Time,4,2025-05-02,Mumbai,EMP0018,Excel,SQL,G3,Active,CC-150,160
+EMP0441,Employee 0441,DevOps,Team E,Product Manager,Full-Time,5,2018-02-13,Hyderabad,EMP0097,Node.js,Cloud,G3,Active,CC-157,160
+EMP0442,Employee 0442,QA,Team B,Senior Engineer,Contract,4,2024-05-08,Remote,EMP0046,Python,Agile,G3,Active,CC-197,160
+EMP0443,Employee 0443,Finance,Team B,Lead Engineer,Full-Time,0,2018-09-15,Chennai,EMP0050,Excel,DevOps,G1,Active,CC-105,160
+EMP0444,Employee 0444,Engineering,Team C,DevOps Engineer,Full-Time,4,2021-08-20,Mumbai,EMP0075,Node.js,Cloud,G3,Inactive,CC-148,160
+EMP0445,Employee 0445,Support,Team E,Data Scientist,Full-Time,0,2024-08-04,Mumbai,EMP0049,React,UI/UX,G1,Active,CC-145,160
+EMP0446,Employee 0446,DevOps,Team B,Product Analyst,Contract,6,2023-05-29,Remote,EMP0022,React,SQL,G4,Active,CC-165,160
+EMP0447,Employee 0447,Design,Team A,Lead Engineer,Full-Time,5,2019-09-08,Pune,EMP0054,Power BI,SQL,G3,Active,CC-161,160
+EMP0448,Employee 0448,Finance,Team D,Product Analyst,Full-Time,1,2020-05-13,Delhi,EMP0032,Python,Cloud,G1,Active,CC-173,160
+EMP0449,Employee 0449,SALES,Team E,Senior Engineer,Full-Time,2,2019-07-06,Hyderabad,EMP0008,SQL,Testing,G2,Active,CC-123,160
+EMP0450,Employee 0450,HR,Team C,QA Engineer,Contract,1,2024-09-20,Bengaluru,EMP0028,Excel,DevOps,G1,Active,CC-161,160
+EMP0451,Employee 0451,QA,Team B,Lead Engineer,Full-Time,4,2022-08-10,Mumbai,EMP0022,Power BI,DevOps,G3,Active,CC-176,160
+EMP0452,Employee 0452,Sales,Team A,Software Engineer,Full-Time,7,2020-07-30,Pune,EMP0067,Node.js,UI/UX,G4,Active,CC-119,160
+EMP0453,Employee 0453,Sales,Team A,Software Engineer,Full-Time,1,2019-12-28,Bengaluru,EMP0012,Excel,Cloud,G1,Active,CC-177,160
+EMP0454,Employee 0454,HR,Team D,Finance Analyst,Contract,6,2018-01-05,Noida,EMP0048,Python,UI/UX,G4,Active,CC-129,160
+EMP0455,Employee 0455,Finance,Team E,HR Executive,Full-Time,2,2022-04-11,Bengaluru,EMP0055,SQL,Testing,G2,Active,CC-161,160
+EMP0456,Employee 0456,Product,Team D,Sales Executive,Full-Time,2,2018-12-10,Mumbai,EMP0025,Python,Python,G2,Active,CC-173,160
+EMP0457,Employee 0457,HR,Team C,Software Engineer,Full-Time,4,2023-10-30,Noida,EMP0047,Java,Cloud,G3,Active,CC-154,160
+EMP0458,Employee 0458,Sales,Team C,Data Analyst,Contract,1,2020-12-06,Mumbai,EMP0088,Testing,Agile,G1,Active,CC-152,160
+EMP0459,Employee 0459,HR,Team E,HR Executive,Full-Time,2,2024-04-02,Remote,EMP0033,AWS,Analytics,G2,Active,CC-199,160
+EMP0460,Employee 0460,Support,Team B,Support Engineer,Contract,0,2019-07-20,Remote,EMP0101,SQL,SQL,G1,Active,CC-127,160
+EMP0461,Employee 0461,HR,Team A,QA Engineer,Full-Time,10,2021-10-18,Hyderabad,EMP0050,Python,SQL,G6,Active,CC-118,160
+EMP0462,Employee 0462,Finance,Team B,Sales Executive,Full-Time,4,2024-09-24,Chennai,EMP0011,Data Science,Python,G3,Active,CC-192,160
+EMP0463,Employee 0463,Support,Team E,Sales Executive,Full-Time,2,2022-06-30,Delhi,EMP0100,SQL,DevOps,G2,Active,CC-156,160
+EMP0464,Employee 0464,Engineering,Team B,Lead Engineer,Contract,5,2025-05-14,Delhi,EMP0101,Data Science,Agile,G3,Active,CC-178,160
+EMP0465,Employee 0465,QA,Team B,DevOps Engineer,Full-Time,4,2018-05-28,Bengaluru,EMP0036,Testing,Analytics,G3,Active,CC-185,160
+EMP0466,Employee 0466,Support,Team A,QA Engineer,Full-Time,3,2024-07-28,Bengaluru,EMP0071,AWS,Analytics,G2,Active,CC-144,160
+EMP0467,Employee 0467,Design,Team D,Lead Engineer,Contract,6,2024-10-19,Delhi,EMP0034,SQL,UI/UX,G4,Active,CC-164,160
+EMP0468,Employee 0468,Data & Analytics,Team A,Product Manager,Full-Time,6,2018-10-24,Mumbai,EMP0113,Node.js,Testing,G4,Active,CC-188,160
+EMP0469,Employee 0469,Finance,Team C,QA Engineer,Full-Time,2,2024-04-25,Remote,EMP0088,Excel,Python,G2,Active,CC-161,160
+EMP0470,Employee 0470,Data & Analytics,Team B,Data Analyst,Full-Time,2,2018-10-04,Pune,EMP0103,Power BI,UI/UX,G2,Active,CC-145,160
+EMP0471,Employee 0471,HR,Team C,Product Manager,Full-Time,3,2018-02-09,Bengaluru,,Power BI,SQL,G2,Active,CC-170,160
+EMP0472,Employee 0472,QA,Team C,Product Analyst,Full-Time,0,2021-07-09,Hyderabad,EMP0096,React,DevOps,G1,Active,CC-194,160
+EMP0473,Employee 0473,Product,Team B,Lead Engineer,Contract,0,2020-09-18,Pune,EMP0108,Data Science,Analytics,G1,Active,CC-119,160
+EMP0474,Employee 0474,Data & Analytics,Team E,Software Engineer,Full-Time,8,2018-11-18,,EMP0098,Node.js,Python,G5,Active,CC-161,160
+EMP0475,Employee 0475,DevOps,Team E,Designer,Full-Time,9,2021-07-15,Mumbai,EMP0063,SQL,Testing,G5,On Leave,CC-150,160
+EMP0476,Employee 0476,Product,Team D,HR Executive,Full-Time,3,2024-06-20,Remote,EMP0070,Python,Analytics,G2,Active,CC-150,160
+EMP0477,Employee 0477,QA,Team A,Product Analyst,Full-Time,6,2019-05-09,Delhi,EMP0087,React,UI/UX,G4,Active,CC-174,160
+EMP0478,Employee 0478,Data & Analytics,Team E,Data Scientist,Full-Time,5,2022-01-21,Mumbai,EMP0031,AWS,DevOps,G3,Active,CC-178,160
+EMP0479,Employee 0479,DevOps,Team C,Data Scientist,Full-Time,13,2020-01-24,Chennai,EMP0110,Testing,Testing,G7,Active,CC-157,160
+EMP0480,Employee 0480,QA,Team A,Designer,Intern,7,2019-06-22,,EMP0103,React,UI/UX,G4,Active,CC-148,100
+EMP0481,Employee 0481,PRODUCT,Team D,Senior Engineer,Full-Time,4,2019-09-05,Remote,EMP0018,Node.js,Analytics,G3,Active,CC-162,160
+EMP0482,Employee 0482,Design,Team A,Data Analyst,Contract,1,2024-04-21,Hyderabad,EMP0008,React,Testing,G1,Active,CC-160,160
+EMP0483,Employee 0483,Data & Analytics,Team E,Product Analyst,Full-Time,0,2021-10-02,Mumbai,EMP0045,Python,UI/UX,G1,Active,CC-115,160
+EMP0484,Employee 0484,DevOps,Team E,Finance Analyst,Contract,5,2025-08-15,Hyderabad,EMP0100,AWS,Analytics,G3,Active,CC-141,160
+EMP0485,Employee 0485,HR,Team C,Product Analyst,Contract,2,2023-01-05,Remote,EMP0081,SQL,Cloud,G2,Active,CC-181,160
+EMP0486,Employee 0486,DevOps,Team A,QA Engineer,Full-Time,0,2025-01-29,Bengaluru,EMP0021,Power BI,Agile,G1,Active,CC-140,160
+EMP0487,Employee 0487,DevOps,Team D,DevOps Engineer,Full-Time,2,2021-04-08,Mumbai,EMP0114,Excel,Analytics,G2,Active,CC-195,160
+EMP0488,Employee 0488,Sales,Team A,Product Manager,Full-Time,1,2023-01-19,Hyderabad,EMP0094,React,Testing,G1,Active,CC-195,160
+EMP0489,Employee 0489,Data & Analytics,Team D,Lead Engineer,Full-Time,9,2019-11-15,Delhi,EMP0004,Testing,SQL,G5,Active,CC-113,160
+EMP0490,Employee 0490,Design,Team D,Designer,Full-Time,7,2019-09-29,Mumbai,EMP0030,React,Testing,G4,Active,CC-156,160
+EMP0491,Employee 0491,QA,Team C,Senior Engineer,Contract,4,2023-11-28,Chennai,EMP0111,Excel,DevOps,G3,Active,CC-169,160
+EMP0492,Employee 0492,Design,Team E,Product Manager,Full-Time,8,2022-12-28,Hyderabad,EMP0076,Data Science,DevOps,G5,Inactive,CC-180,160
+EMP0493,Employee 0493,Sales,Team C,QA Engineer,Full-Time,4,2023-11-15,Remote,EMP0070,React,SQL,G3,Active,CC-156,160
+EMP0494,Employee 0494,Design,Team A,Data Scientist,Full-Time,1,2022-08-16,Hyderabad,EMP0045,AWS,DevOps,G1,Active,CC-168,160
+EMP0495,Employee 0495,Engineering,Team A,Support Engineer,Contract,9,2023-07-08,,,AWS,Agile,G5,Active,CC-100,160
+EMP0496,Employee 0496,HR,Team D,Data Scientist,Full-Time,6,2020-02-12,Pune,EMP0021,Testing,UI/UX,G4,Active,CC-128,160
+EMP0497,Employee 0497,Design,Team E,Software Engineer,Full-Time,1,2022-09-26,,EMP0037,Node.js,Testing,G1,Active,CC-152,160
+EMP0498,Employee 0498,Product,Team D,Finance Analyst,Full-Time,3,2018-10-08,Remote,EMP0035,Data Science,DevOps,G2,Active,CC-124,160
+EMP0499,Employee 0499,DevOps,Team B,Junior Engineer,Full-Time,1,2019-09-16,Bengaluru,EMP0037,AWS,Cloud,G1,Active,CC-191,160
+EMP0500,Employee 0500,Finance,Team D,Support Engineer,Full-Time,0,2018-02-03,Pune,EMP0044,Testing,Testing,G1,Active,CC-163,160
+EMP0501,Employee 0501,DevOps,Team B,Product Analyst,Full-Time,7,2025-10-25,Delhi,EMP0035,Testing,SQL,G4,Active,CC-169,160
+EMP0502,Employee 0502,Finance,Team D,Senior Engineer,Contract,10,2020-02-27,Delhi,EMP0016,React,UI/UX,G6,Active,CC-198,160
+EMP0503,Employee 0503,Finance,Team A,Lead Engineer,Full-Time,0,2018-05-18,Pune,EMP0061,Testing,Testing,G1,Active,CC-141,160
+EMP0504,Employee 0504,QA,Team A,DevOps Engineer,Full-Time,6,2018-06-22,Mumbai,EMP0062,AWS,Agile,G4,Active,CC-146,160
+EMP0505,Employee 0505,Engineering,Team D,Finance Analyst,Full-Time,2,2025-06-23,Chennai,EMP0002,SQL,Testing,G2,Active,CC-174,160
+EMP0506,Employee 0506,Data & Analytics,Team D,QA Engineer,Full-Time,3,2020-09-22,Hyderabad,EMP0048,Java,Agile,G2,Active,CC-120,160
+EMP0507,Employee 0507,Finance,Team A,Software Engineer,Full-Time,2,2025-09-10,Delhi,EMP0046,SQL,SQL,G2,Active,CC-116,160
+EMP0508,Employee 0508,Finance,Team C,Lead Engineer,Intern,1,2021-07-21,Remote,EMP0094,React,Python,G1,Active,CC-188,100
+EMP0509,Employee 0509,Support,Team D,Data Scientist,Full-Time,4,2019-07-06,Mumbai,EMP0070,Excel,Agile,G3,Active,CC-172,160
+EMP0510,Employee 0510,QA,Team E,Product Manager,Full-Time,2,2021-11-25,Hyderabad,EMP0009,Node.js,Cloud,G2,Active,CC-157,160
+EMP0511,Employee 0511,Design,Team E,Finance Analyst,Full-Time,5,2020-12-14,Noida,EMP0094,SQL,Python,G3,Active,CC-179,160
+EMP0512,Employee 0512,DevOps,Team E,HR Executive,Full-Time,4,2024-12-15,Noida,EMP0025,Node.js,DevOps,G3,Active,CC-198,160
+EMP0513,Employee 0513,HR,Team C,Senior Engineer,Full-Time,3,2024-11-16,Bengaluru,EMP0013,Node.js,SQL,G2,Active,CC-105,160
+EMP0514,Employee 0514,QA,Team A,Senior Engineer,Full-Time,1,2018-05-09,Delhi,EMP0074,Testing,DevOps,G1,Active,CC-167,160
+EMP0515,Employee 0515,Sales,Team E,Support Engineer,Full-Time,2,2024-08-14,Bengaluru,EMP0002,React,DevOps,G2,Active,CC-110,160
+EMP0516,Employee 0516,Finance,Team D,HR Executive,Full-Time,6,2025-03-02,Chennai,EMP0102,Python,Testing,G4,Active,CC-167,160
+EMP0517,Employee 0517,Engineering,Team B,Support Engineer,Contract,6,2018-10-16,Bengaluru,EMP0013,React,UI/UX,G4,Active,CC-124,160
+EMP0518,Employee 0518,Product,Team B,Product Manager,Full-Time,1,2025-05-14,Noida,EMP0096,Java,Analytics,G1,Active,CC-186,160
+EMP0519,Employee 0519,Finance,Team B,Support Engineer,Full-Time,4,2025-06-17,Noida,EMP0065,Power BI,Cloud,G3,Active,CC-168,160
+EMP0520,Employee 0520,Sales,Team C,Product Analyst,Contract,6,2021-12-14,Chennai,EMP0053,Testing,Analytics,G4,Active,CC-177,160
+EMP0521,Employee 0521,Product,Team C,Designer,Full-Time,0,2024-02-13,Chennai,EMP0058,Excel,UI/UX,G1,Active,CC-100,160
+EMP0522,Employee 0522,Engineering,Team C,Data Analyst,Full-Time,6,2024-09-06,Delhi,EMP0039,React,Agile,G4,Active,CC-140,160
+EMP0523,Employee 0523,Engineering,Team E,HR Executive,Contract,2,2025-09-26,Hyderabad,EMP0013,Python,DevOps,G2,Active,CC-145,160
+EMP0524,Employee 0524,QA,Team B,Senior Engineer,Full-Time,6,2020-12-21,Mumbai,EMP0104,AWS,SQL,G4,Active,CC-173,160
+EMP0525,Employee 0525,Support,Team D,Designer,Full-Time,2,2020-06-09,Hyderabad,EMP0063,Data Science,SQL,G2,Active,CC-176,160
+EMP0526,Employee 0526,Design,Team C,Junior Engineer,Full-Time,0,2024-06-18,Chennai,EMP0113,Testing,UI/UX,G1,Active,CC-115,160
+EMP0527,Employee 0527,Product,Team D,Support Engineer,Contract,0,2025-04-27,Delhi,EMP0040,Node.js,Python,G1,Active,CC-140,160
+EMP0528,Employee 0528,HR,Team B,Designer,Full-Time,4,2019-09-05,Delhi,EMP0087,Testing,DevOps,G3,Active,CC-196,160
+EMP0529,Employee 0529,Sales,Team D,Designer,Full-Time,5,2023-08-30,Hyderabad,EMP0017,Power BI,SQL,G3,Active,CC-160,160
+EMP0530,Employee 0530,Sales,Team D,Support Engineer,Full-Time,1,2018-07-21,Noida,EMP0100,SQL,Cloud,G1,Active,CC-161,160
+EMP0531,Employee 0531,HR,Team E,Lead Engineer,Full-Time,6,2023-06-22,Pune,EMP0032,Java,Testing,G4,Active,CC-199,160
+EMP0532,Employee 0532,Support,Team D,Data Scientist,Contract,0,2025-09-05,Noida,EMP0047,Power BI,Agile,G1,Active,CC-141,160
+EMP0533,Employee 0533,DevOps,Team C,Designer,Full-Time,4,2025-05-08,Remote,EMP0080,SQL,DevOps,G3,Active,CC-105,160
+EMP0534,Employee 0534,Product,Team A,Lead Engineer,Full-Time,0,2025-09-08,Bengaluru,EMP0095,Python,Agile,G1,Active,CC-179,160
+EMP0535,Employee 0535,QA,Team A,Finance Analyst,Full-Time,2,2021-03-24,Mumbai,EMP0058,Excel,Python,G2,Active,CC-142,160
+EMP0536,Employee 0536,Product,Team C,Support Engineer,Full-Time,4,2024-01-13,Remote,EMP0080,SQL,Python,G3,Active,CC-148,160
+EMP0537,Employee 0537,Sales,Team A,Sales Executive,Full-Time,1,2025-06-10,Mumbai,EMP0026,Data Science,Testing,G1,Active,CC-106,160
+EMP0538,Employee 0538,Finance,Team C,DevOps Engineer,Full-Time,3,2018-02-04,Bengaluru,,AWS,,G2,Active,CC-129,160
+EMP0539,Employee 0539,Support,Team E,Product Manager,Contract,7,2019-02-12,Bengaluru,,React,DevOps,G4,Active,CC-171,160
+EMP0540,Employee 0540,Engineering,Team D,Junior Engineer,Contract,2,2020-10-10,Noida,EMP0096,SQL,Python,G2,Active,CC-144,160
+EMP0541,Employee 0541,DevOps,Team E,Data Scientist,Full-Time,7,2025-01-04,Mumbai,EMP0104,Python,Testing,G4,On Leave,CC-149,160
+EMP0542,Employee 0542,Engineering,Team D,Product Manager,Full-Time,1,2021-02-21,Hyderabad,EMP0012,Testing,Agile,G1,Active,CC-153,160
+EMP0543,Employee 0543,Product,Team E,Designer,Full-Time,6,2019-09-18,Chennai,EMP0058,Node.js,Cloud,G4,Active,CC-126,160
+EMP0544,Employee 0544,QA,Team B,Designer,Full-Time,8,2024-01-27,Mumbai,EMP0089,Node.js,Cloud,G5,Active,CC-155,160
+EMP0545,Employee 0545,QA,Team E,DevOps Engineer,Contract,0,2024-05-02,Bengaluru,EMP0024,Power BI,Cloud,G1,Active,CC-193,160
+EMP0546,Employee 0546,Engineering,Team D,HR Executive,Contract,2,2021-07-29,Mumbai,EMP0057,AWS,Cloud,G2,Active,CC-199,160
+EMP0547,Employee 0547,Product,Team E,Software Engineer,Full-Time,6,2019-06-23,Mumbai,EMP0078,Data Science,Agile,G4,Active,CC-176,160
+EMP0548,Employee 0548,Product,Team D,Lead Engineer,Full-Time,3,2025-09-16,Hyderabad,EMP0065,Data Science,DevOps,G2,Active,CC-191,160
+EMP0549,Employee 0549,DevOps,Team B,Senior Engineer,Full-Time,5,2022-05-07,Pune,EMP0005,Testing,Python,G3,Active,CC-134,160
+EMP0550,Employee 0550,Support,Team A,Lead Engineer,Intern,2,2025-07-12,Hyderabad,EMP0119,Excel,DevOps,G2,Active,CC-188,100
+EMP0551,Employee 0551,DevOps,Team A,Finance Analyst,Contract,4,2023-02-18,Noida,EMP0093,Power BI,UI/UX,G3,Active,CC-178,160
+EMP0552,Employee 0552,Sales,Team A,Designer,Full-Time,4,2024-01-06,Bengaluru,EMP0058,Excel,Python,G3,Active,CC-131,160
+EMP0553,Employee 0553,HR,Team D,Product Manager,Intern,8,2022-06-09,Delhi,EMP0025,AWS,DevOps,G5,Active,CC-150,100
+EMP0554,Employee 0554,Design,Team E,HR Executive,Full-Time,5,2021-03-17,Delhi,EMP0089,Node.js,Cloud,G3,Active,CC-159,160
+EMP0555,Employee 0555,Finance,Team E,Software Engineer,Full-Time,5,2023-08-13,Hyderabad,,Testing,Analytics,G3,Active,CC-157,160
+EMP0556,Employee 0556,Engineering,Team B,Senior Engineer,Full-Time,3,2023-02-02,Remote,EMP0012,AWS,Analytics,G2,Active,CC-188,160
+EMP0557,Employee 0557,QA,Team C,Support Engineer,Full-Time,3,2019-05-22,Bengaluru,EMP0068,Testing,Cloud,G2,Active,CC-148,160
+EMP0558,Employee 0558,HR,Team E,QA Engineer,Full-Time,3,2018-06-29,Hyderabad,EMP0021,SQL,Cloud,G2,Active,CC-198,160
+EMP0559,Employee 0559,Engineering,Team D,QA Engineer,Full-Time,5,2021-06-15,Mumbai,EMP0081,SQL,SQL,G3,Active,CC-116,160
+EMP0560,Employee 0560,Product,Team D,Junior Engineer,Full-Time,3,2024-12-25,Remote,EMP0070,Python,DevOps,G2,Active,CC-130,160
+EMP0561,Employee 0561,Product,Team A,Designer,Full-Time,5,2025-05-25,Delhi,EMP0032,Node.js,Testing,G3,Active,CC-179,160
+EMP0562,Employee 0562,HR,Team C,Finance Analyst,Full-Time,10,2020-04-30,Delhi,EMP0019,Python,Testing,G6,Active,CC-142,160
+EMP0563,Employee 0563,Data & Analytics,Team C,Junior Engineer,Full-Time,7,2019-03-23,Hyderabad,EMP0059,Data Science,Analytics,G4,Active,CC-104,160
+EMP0564,Employee 0564,Data & Analytics,Team A,HR Executive,Full-Time,3,2021-05-10,Noida,EMP0108,Node.js,SQL,G2,Active,CC-137,160
+EMP0565,Employee 0565,Finance,Team E,Senior Engineer,Full-Time,8,2019-05-15,Noida,EMP0068,React,Agile,G5,Active,CC-178,160
+EMP0566,Employee 0566,Engineering,Team A,Software Engineer,Full-Time,3,2024-05-29,Remote,EMP0093,Data Science,Testing,G2,Active,CC-154,160
+EMP0567,Employee 0567,Sales,Team E,Finance Analyst,Full-Time,0,2021-07-20,Chennai,EMP0119,SQL,DevOps,G1,Active,CC-166,160
+EMP0568,Employee 0568,Finance,Team C,Product Analyst,Contract,1,2020-01-07,Pune,EMP0001,Java,Python,G1,Active,CC-159,160
+EMP0569,Employee 0569,Data & Analytics,Team D,Support Engineer,Full-Time,0,2020-04-29,Delhi,EMP0043,Power BI,Agile,G1,On Leave,CC-101,160
+EMP0570,Employee 0570,Product,Team C,Support Engineer,Full-Time,3,2021-02-27,Chennai,EMP0099,Python,SQL,G2,Active,CC-187,160
+EMP0571,Employee 0571,DevOps,Team A,Data Scientist,Full-Time,4,2022-06-11,Hyderabad,EMP0025,Power BI,Analytics,G3,Active,CC-186,160
+EMP0572,Employee 0572,Finance,Team D,Sales Executive,Full-Time,9,2023-04-28,Hyderabad,EMP0081,Excel,Analytics,G5,Active,CC-159,160
+EMP0573,Employee 0573,Support,Team C,Sales Executive,Contract,5,2018-08-18,Delhi,EMP0027,Data Science,Analytics,G3,Active,CC-145,160
+EMP0574,Employee 0574,Data & Analytics,Team D,Senior Engineer,Contract,3,2021-02-22,Hyderabad,EMP0074,Data Science,UI/UX,G2,Active,CC-123,160
+EMP0575,Employee 0575,Sales,Team A,Software Engineer,Full-Time,6,2021-06-16,Mumbai,EMP0053,Java,DevOps,G4,Active,CC-130,160
+EMP0576,Employee 0576,DevOps,Team A,Product Analyst,Full-Time,0,2021-05-24,Chennai,EMP0101,Python,Agile,G1,Active,CC-111,160
+EMP0577,Employee 0577,Finance,Team B,Product Manager,Full-Time,5,2018-04-13,Pune,EMP0044,Excel,Testing,G3,Active,CC-199,160
+EMP0578,Employee 0578,DevOps,Team B,Senior Engineer,Contract,6,2019-02-07,Pune,EMP0093,Python,DevOps,G4,Active,CC-149,160
+EMP0579,Employee 0579,HR,Team E,Software Engineer,Full-Time,0,2018-01-17,Bengaluru,EMP0043,Excel,Python,G1,Active,CC-113,160
+EMP0580,Employee 0580,HR,Team C,HR Executive,Full-Time,7,2025-05-23,Pune,EMP0042,React,Agile,G4,Active,CC-136,160
+EMP0581,Employee 0581,Design,Team C,Product Manager,Full-Time,5,2021-07-31,Hyderabad,EMP0021,AWS,SQL,G3,Active,CC-101,160
+EMP0582,Employee 0582,Sales,Team E,Product Manager,Full-Time,3,2023-10-07,Chennai,EMP0035,SQL,Testing,G2,Active,CC-173,160
+EMP0583,Employee 0583,Product,Team E,Senior Engineer,Full-Time,6,2018-10-19,Remote,EMP0007,SQL,Python,G4,Active,CC-160,160
+EMP0584,Employee 0584,Engineering,Team B,Software Engineer,Full-Time,11,2022-04-21,Remote,EMP0079,Power BI,Testing,G6,Active,CC-142,160
+EMP0585,Employee 0585,Product,Team D,Support Engineer,Full-Time,5,2025-07-10,Hyderabad,EMP0012,Excel,SQL,G3,Active,CC-158,160
+EMP0586,Employee 0586,Design,Team B,DevOps Engineer,Full-Time,5,2025-03-24,Pune,EMP0019,Data Science,Testing,G3,Active,CC-146,160
+EMP0587,Employee 0587,Support,Team C,Senior Engineer,Contract,3,2025-11-05,Remote,EMP0063,Python,SQL,G2,Active,CC-160,160
+EMP0588,Employee 0588,Data & Analytics,Team C,Data Scientist,Full-Time,1,2023-05-15,Hyderabad,EMP0066,Java,UI/UX,G1,Active,CC-191,160
+EMP0589,Employee 0589,Data & Analytics,Team E,Data Scientist,Full-Time,6,2024-03-27,Remote,EMP0052,Data Science,UI/UX,G4,Active,CC-130,160
+EMP0590,Employee 0590,Sales,Team A,Lead Engineer,Full-Time,1,2024-02-23,,EMP0027,Data Science,UI/UX,G1,Active,CC-155,160
+EMP0591,Employee 0591,Sales,Team A,HR Executive,Full-Time,4,2021-11-02,Remote,EMP0015,Data Science,DevOps,G3,Active,CC-141,160
+EMP0592,Employee 0592,HR,Team A,Software Engineer,Full-Time,3,2022-12-29,Bengaluru,EMP0088,Data Science,UI/UX,G2,Inactive,CC-141,160
+EMP0593,Employee 0593,Finance,Team B,DevOps Engineer,Full-Time,5,2025-05-28,Delhi,EMP0097,SQL,Cloud,G3,Active,CC-157,160
+EMP0594,Employee 0594,HR,Team B,Data Analyst,Full-Time,5,2022-05-17,Chennai,EMP0039,Data Science,Testing,G3,Active,CC-155,160
+EMP0595,Employee 0595,DevOps,Team D,Software Engineer,Full-Time,7,2024-07-14,Hyderabad,EMP0110,AWS,Python,G4,On Leave,CC-147,160
+EMP0596,Employee 0596,HR,Team C,Junior Engineer,Full-Time,2,2018-01-04,Bengaluru,EMP0111,AWS,Python,G2,Active,CC-130,160
+EMP0597,Employee 0597,Support,Team D,Support Engineer,Full-Time,3,2024-08-14,Noida,EMP0049,Testing,Agile,G2,Active,CC-184,160
+EMP0598,Employee 0598,QA,Team C,Product Analyst,Full-Time,1,2019-07-24,Noida,EMP0020,AWS,Cloud,G1,Active,CC-117,160
+EMP0599,Employee 0599,Engineering,Team D,Software Engineer,Full-Time,3,2025-04-09,Noida,EMP0018,Java,Cloud,G2,Active,CC-182,160
+EMP0600,Employee 0600,Support,Team D,Finance Analyst,Contract,5,2023-02-11,Hyderabad,EMP0059,Node.js,UI/UX,G3,Active,CC-170,160
+EMP0601,Employee 0601,Finance,Team A,QA Engineer,Full-Time,6,2021-12-26,Remote,EMP0109,React,Testing,G4,Active,CC-152,160
+EMP0602,Employee 0602,HR,Team D,Designer,Full-Time,1,2022-02-12,Chennai,EMP0015,Data Science,DevOps,G1,Active,CC-188,160
+EMP0603,Employee 0603,Data & Analytics,Team C,Senior Engineer,Intern,7,2023-11-27,Remote,EMP0067,Java,SQL,G4,On Leave,CC-131,100
+EMP0604,Employee 0604,Finance,Team E,DevOps Engineer,Contract,8,2025-06-11,Mumbai,EMP0079,Python,Analytics,G5,Active,CC-168,160
+EMP0605,Employee 0605,Engineering,Team C,Product Analyst,Full-Time,5,2023-02-03,Noida,EMP0046,AWS,Testing,G3,Active,CC-121,160
+EMP0606,Employee 0606,Engineering,Team E,Support Engineer,Full-Time,10,2024-09-13,Mumbai,EMP0008,Excel,Cloud,G6,Active,CC-173,160
+EMP0607,Employee 0607,Engineering,Team C,DevOps Engineer,Full-Time,2,2021-04-10,Remote,EMP0011,SQL,SQL,G2,Active,CC-135,160
+EMP0608,Employee 0608,Design,Team A,Senior Engineer,Full-Time,0,2024-11-27,Bengaluru,EMP0078,SQL,Cloud,G1,Active,CC-184,160
+EMP0609,Employee 0609,Finance,Team D,Data Scientist,Full-Time,0,2019-12-20,Hyderabad,EMP0103,Node.js,Python,G1,Active,CC-143,160
+EMP0610,Employee 0610,Data & Analytics,Team D,Senior Engineer,Contract,8,2024-09-05,Noida,EMP0099,Testing,Agile,G5,Active,CC-184,160
+EMP0611,Employee 0611,Finance,Team C,Support Engineer,Full-Time,6,2025-02-24,,EMP0083,AWS,SQL,G4,Active,CC-106,160
+EMP0612,Employee 0612,QA,Team E,Product Analyst,Full-Time,4,2022-06-22,Pune,EMP0049,Testing,DevOps,G3,Active,CC-133,160
+EMP0613,Employee 0613,QA,Team D,Product Manager,Full-Time,5,2022-11-16,Noida,EMP0087,Power BI,Python,G3,Active,CC-112,160
+EMP0614,Employee 0614,HR,Team C,DevOps Engineer,Contract,1,2021-12-20,Chennai,EMP0035,AWS,SQL,G1,Active,CC-132,160
+EMP0615,Employee 0615,Sales,Team E,QA Engineer,Full-Time,11,2023-03-04,Pune,EMP0067,Power BI,Cloud,G6,Active,CC-140,160
+EMP0616,Employee 0616,HR,Team D,Junior Engineer,Full-Time,4,2025-07-18,Bengaluru,EMP0068,Java,DevOps,G3,Active,CC-144,160
+EMP0617,Employee 0617,Product,Team E,Support Engineer,Full-Time,4,2021-03-06,Bengaluru,EMP0008,Data Science,Agile,G3,Active,CC-176,160
+EMP0618,Employee 0618,Data & Analytics,Team D,Support Engineer,Full-Time,6,2019-05-07,Hyderabad,EMP0115,Java,Cloud,G4,Active,CC-132,160
+EMP0619,Employee 0619,Design,Team C,Product Analyst,Contract,5,2025-05-29,Noida,EMP0089,Power BI,Testing,G3,Active,CC-120,160
+EMP0620,Employee 0620,Data & Analytics,Team A,Data Analyst,Full-Time,5,2018-09-13,Mumbai,EMP0105,AWS,Cloud,G3,Active,CC-156,160
+EMP0621,Employee 0621,Data & Analytics,Team D,Product Analyst,Full-Time,2,2020-04-01,Bengaluru,EMP0019,Node.js,UI/UX,G2,Active,CC-127,160
+EMP0622,Employee 0622,Sales,Team A,DevOps Engineer,Contract,5,2019-03-12,Delhi,EMP0010,Java,Testing,G3,Active,CC-199,160
+EMP0623,Employee 0623,Finance,Team A,Junior Engineer,Full-Time,10,2023-08-01,Noida,EMP0035,SQL,Analytics,G6,Active,CC-150,160
+EMP0624,Employee 0624,Sales,Team D,Junior Engineer,Full-Time,8,2023-10-13,Noida,EMP0052,Java,Agile,G5,Active,CC-100,160
+EMP0625,Employee 0625,Support,Team C,Support Engineer,Full-Time,9,2023-05-29,Chennai,EMP0088,AWS,UI/UX,G5,Active,CC-107,160
+EMP0626,Employee 0626,Data & Analytics,Team D,Data Scientist,Contract,2,2023-12-30,Mumbai,EMP0083,React,Cloud,G2,Active,CC-170,160
+EMP0627,Employee 0627,Engineering,Team A,QA Engineer,Full-Time,1,2025-05-30,Chennai,EMP0063,Java,DevOps,G1,Active,CC-194,160
+EMP0628,Employee 0628,Product,Team E,Senior Engineer,Full-Time,4,2018-05-27,Pune,EMP0063,Testing,SQL,G3,Active,CC-169,160
+EMP0629,Employee 0629,Design,Team A,Product Analyst,Contract,4,2023-12-28,Delhi,EMP0044,Python,Analytics,G3,Active,CC-192,160
+EMP0630,Employee 0630,Engineering,Team E,QA Engineer,Full-Time,7,2019-04-30,Remote,EMP0087,Node.js,Cloud,G4,Active,CC-194,160
+EMP0631,Employee 0631,Sales,Team A,Lead Engineer,Full-Time,0,2018-10-23,Remote,EMP0117,Data Science,Python,G1,Active,CC-131,160
+EMP0632,Employee 0632,QA,Team A,Junior Engineer,Full-Time,9,2019-12-07,Remote,EMP0079,SQL,SQL,G5,Active,CC-113,160
+EMP0633,Employee 0633,Data & Analytics,Team B,Product Analyst,Full-Time,4,2024-09-03,Noida,EMP0044,Testing,Analytics,G3,Active,CC-115,160
+EMP0634,Employee 0634,Sales,Team B,Product Manager,Full-Time,3,2019-07-17,Delhi,EMP0076,SQL,Analytics,G2,Inactive,CC-108,160
+EMP0635,Employee 0635,Data & Analytics,Team C,Data Analyst,Full-Time,1,2019-08-02,Hyderabad,EMP0057,React,Python,G1,Active,CC-117,160
+EMP0636,Employee 0636,Data & Analytics,Team A,HR Executive,Full-Time,0,2025-02-02,Remote,EMP0011,Python,Python,G1,Active,CC-122,160
+EMP0637,Employee 0637,Data & Analytics,Team D,Support Engineer,Full-Time,6,2025-04-23,Hyderabad,EMP0027,SQL,Testing,G4,Active,CC-166,160
+EMP0638,Employee 0638,Finance,Team A,QA Engineer,Contract,4,2020-09-06,Hyderabad,EMP0092,Excel,,G3,Active,CC-180,160
+EMP0639,Employee 0639,Design,Team A,Data Scientist,Full-Time,0,2022-09-12,Bengaluru,EMP0080,Power BI,,G1,Active,CC-159,160
+EMP0640,Employee 0640,Product,Team D,Data Analyst,Full-Time,0,2018-08-06,Remote,EMP0023,SQL,Python,G1,Active,CC-106,160
+EMP0641,Employee 0641,DevOps,Team D,Data Analyst,Full-Time,3,2020-05-08,Delhi,EMP0014,Python,Cloud,G2,Active,CC-120,160
+EMP0642,Employee 0642,Engineering,Team D,Product Analyst,Full-Time,9,2023-10-11,Chennai,EMP0054,React,Analytics,G5,Active,CC-129,160
+EMP0643,Employee 0643,Data & Analytics,Team B,Data Scientist,Full-Time,3,2020-07-21,Noida,EMP0115,React,SQL,G2,Active,CC-160,160
+EMP0644,Employee 0644,Sales,Team E,Product Analyst,Contract,0,2018-08-11,,EMP0023,Testing,Analytics,G1,Active,CC-117,160
+EMP0645,Employee 0645,Finance,Team B,Support Engineer,Full-Time,3,2020-03-06,Chennai,EMP0017,Python,Python,G2,On Leave,CC-135,160
+EMP0646,Employee 0646,QA,Team C,Software Engineer,Full-Time,3,2023-03-22,Pune,EMP0114,AWS,Cloud,G2,Active,CC-181,160
+EMP0647,Employee 0647,Sales,Team B,Sales Executive,Full-Time,0,2019-11-28,Bengaluru,EMP0053,Node.js,DevOps,G1,Active,CC-127,160
+EMP0648,Employee 0648,Sales,Team B,Product Analyst,Full-Time,4,2023-03-11,Pune,EMP0042,Testing,Agile,G3,Active,CC-175,160
+EMP0649,Employee 0649,QA,Team A,Sales Executive,Contract,3,2024-06-07,Delhi,EMP0061,Node.js,Python,G2,Active,CC-154,160
+EMP0650,Employee 0650,HR,Team A,QA Engineer,Full-Time,6,2023-05-18,Remote,EMP0064,React,SQL,G4,Active,CC-171,160
+EMP0651,Employee 0651,ENGINEERING,Team C,Support Engineer,Contract,10,2022-07-24,Pune,EMP0083,Java,Python,G6,Active,CC-161,160
+EMP0652,Employee 0652,Design,Team E,Senior Engineer,Full-Time,7,2025-11-20,Delhi,EMP0059,Excel,Cloud,G4,Active,CC-190,160
+EMP0653,Employee 0653,Support,Team A,Senior Engineer,Full-Time,3,2022-02-26,Bengaluru,EMP0050,Power BI,Python,G2,Active,CC-137,160
+EMP0654,Employee 0654,Support,Team E,HR Executive,Full-Time,1,2021-01-10,Pune,EMP0101,Java,Analytics,G1,Active,CC-194,160
+EMP0655,Employee 0655,Engineering,Team D,Product Manager,Full-Time,12,2025-07-26,Chennai,EMP0060,Data Science,Python,G7,Active,CC-146,160
+EMP0656,Employee 0656,DevOps,Team B,Senior Engineer,Full-Time,4,2025-04-08,Hyderabad,EMP0043,React,SQL,G3,Active,CC-183,160
+EMP0657,Employee 0657,Finance,Team B,Support Engineer,Contract,4,2024-07-04,Chennai,EMP0046,AWS,UI/UX,G3,Active,CC-135,160
+EMP0658,Employee 0658,Engineering,Team E,Software Engineer,Full-Time,4,2022-03-08,Bengaluru,EMP0061,Node.js,Testing,G3,Active,CC-157,160
+EMP0659,Employee 0659,Sales,Team A,Data Scientist,Contract,5,2025-07-20,Pune,EMP0115,Excel,SQL,G3,Active,CC-110,160
+EMP0660,Employee 0660,Support,Team A,Sales Executive,Full-Time,4,2020-01-03,Hyderabad,EMP0036,Java,Cloud,G3,Inactive,CC-163,160
+EMP0661,Employee 0661,QA,Team C,Finance Analyst,Full-Time,2,2020-04-16,Noida,EMP0088,Node.js,Cloud,G2,Active,CC-160,160
+EMP0662,Employee 0662,DevOps,Team B,QA Engineer,Full-Time,2,2022-12-24,Bengaluru,EMP0003,React,Analytics,G2,Active,CC-152,160
+EMP0663,Employee 0663,Sales,Team E,Data Scientist,Full-Time,4,2025-05-09,Remote,EMP0059,AWS,Cloud,G3,Active,CC-139,160
+EMP0664,Employee 0664,QA,Team C,HR Executive,Full-Time,2,2020-11-30,Delhi,EMP0019,Power BI,Testing,G2,Active,CC-158,160
+EMP0665,Employee 0665,QA,Team B,Designer,Full-Time,2,2019-10-21,Hyderabad,EMP0021,React,SQL,G2,Active,CC-105,160
+EMP0666,Employee 0666,DevOps,Team B,Designer,Full-Time,4,2019-06-03,Delhi,EMP0086,Power BI,Analytics,G3,Active,CC-118,160
+EMP0667,Employee 0667,DevOps,Team A,Product Analyst,Intern,3,2024-01-21,Delhi,EMP0052,Excel,Cloud,G2,Active,CC-158,100
+EMP0668,Employee 0668,DevOps,Team E,Senior Engineer,Intern,9,2018-01-18,Chennai,EMP0083,AWS,DevOps,G5,Active,CC-137,100
+EMP0669,Employee 0669,Sales,Team D,DevOps Engineer,Full-Time,0,2019-08-26,Chennai,EMP0089,Java,DevOps,G1,Active,CC-105,160
+EMP0670,Employee 0670,QA,Team E,DevOps Engineer,Full-Time,7,2024-03-06,Pune,EMP0058,Power BI,SQL,G4,Active,CC-141,160
+EMP0671,Employee 0671,Engineering,Team C,Designer,Full-Time,8,2025-03-11,Pune,EMP0003,Java,DevOps,G5,Active,CC-186,160
+EMP0672,Employee 0672,Data & Analytics,Team E,Product Manager,Full-Time,0,2022-06-04,Delhi,EMP0117,Power BI,UI/UX,G1,Active,CC-118,160
+EMP0673,Employee 0673,Support,Team C,Data Scientist,Full-Time,3,2022-05-01,Mumbai,EMP0058,Node.js,SQL,G2,Active,CC-127,160
+EMP0674,Employee 0674,Finance,Team D,Support Engineer,Full-Time,3,2022-08-30,Noida,EMP0018,Data Science,SQL,G2,Active,CC-118,160
+EMP0675,Employee 0675,Product,Team C,Data Analyst,Intern,0,2023-04-29,Bengaluru,EMP0120,Data Science,UI/UX,G1,Active,CC-111,100
+EMP0676,Employee 0676,Engineering,Team E,QA Engineer,Contract,2,2025-03-01,Remote,EMP0091,Data Science,Cloud,G2,Active,CC-125,160
+EMP0677,Employee 0677,QA,Team C,Finance Analyst,Full-Time,1,2022-04-13,Mumbai,EMP0064,Node.js,DevOps,G1,Active,CC-128,160
+EMP0678,Employee 0678,Engineering,Team D,HR Executive,Full-Time,9,2018-01-11,Bengaluru,EMP0084,AWS,UI/UX,G5,Active,CC-122,160
+EMP0679,Employee 0679,Finance,Team C,Sales Executive,Full-Time,7,2025-09-18,Remote,EMP0009,Data Science,Analytics,G4,Active,CC-174,160
+EMP0680,Employee 0680,Finance,Team D,Designer,Contract,8,2022-11-22,Bengaluru,EMP0048,Node.js,Python,G5,Active,CC-133,160
+EMP0681,Employee 0681,QA,Team B,Designer,Full-Time,6,2018-08-28,Chennai,EMP0021,Python,Testing,G4,Active,CC-146,160
+EMP0682,Employee 0682,SUPPORT,Team A,DevOps Engineer,Full-Time,1,2021-12-29,Pune,EMP0099,SQL,SQL,G1,Active,CC-176,160
+EMP0683,Employee 0683,QA,Team C,Product Manager,Contract,2,2021-08-14,Mumbai,EMP0088,Power BI,SQL,G2,Active,CC-168,160
+EMP0684,Employee 0684,Sales,Team C,Data Scientist,Full-Time,5,2019-08-12,Remote,EMP0053,Power BI,Cloud,G3,Active,CC-113,160
+EMP0685,Employee 0685,Product,Team E,Senior Engineer,Full-Time,0,2023-08-24,Bengaluru,EMP0054,Excel,SQL,G1,Active,CC-114,160
+EMP0686,Employee 0686,QA,Team C,Sales Executive,Full-Time,6,2018-03-13,Hyderabad,EMP0105,Excel,Analytics,G4,Active,CC-122,160
+EMP0687,Employee 0687,Design,Team B,Junior Engineer,Full-Time,3,2019-05-01,Pune,EMP0040,SQL,Agile,G2,Active,CC-116,160
+EMP0688,Employee 0688,Data & Analytics,Team A,QA Engineer,Full-Time,3,2025-09-30,Remote,EMP0097,Testing,Python,G2,Active,CC-125,160
+EMP0689,Employee 0689,Data & Analytics,Team A,Junior Engineer,Full-Time,6,2025-05-26,Mumbai,EMP0006,Java,Testing,G4,Active,CC-185,160
+EMP0690,Employee 0690,Engineering,Team B,HR Executive,Full-Time,5,2019-01-31,Pune,EMP0024,Power BI,Python,G3,Active,CC-111,160
+EMP0691,Employee 0691,QA,Team B,Finance Analyst,Contract,3,2021-02-10,Pune,EMP0065,Data Science,SQL,G2,Active,CC-112,160
+EMP0692,Employee 0692,Sales,Team C,HR Executive,Full-Time,7,2018-02-27,Hyderabad,EMP0116,Node.js,Python,G4,Active,CC-192,160
+EMP0693,Employee 0693,Data & Analytics,Team D,Sales Executive,Contract,1,2020-05-26,Chennai,EMP0090,Data Science,Cloud,G1,Active,CC-156,160
+EMP0694,Employee 0694,Data & Analytics,Team E,Senior Engineer,Intern,6,2021-12-24,Pune,EMP0053,Java,Analytics,G4,Active,CC-115,100
+EMP0695,Employee 0695,Finance,Team C,Software Engineer,Full-Time,6,2023-10-30,Delhi,EMP0011,Power BI,DevOps,G4,Active,CC-114,160
+EMP0696,Employee 0696,Support,Team D,Data Analyst,Full-Time,3,2023-02-15,Pune,EMP0071,Testing,Testing,G2,Active,CC-154,160
+EMP0697,Employee 0697,Product,Team C,Finance Analyst,Contract,5,2018-10-13,Hyderabad,EMP0002,Excel,SQL,G3,Active,CC-150,160
+EMP0698,Employee 0698,Finance,Team D,Product Manager,Full-Time,0,2025-05-21,Noida,EMP0089,Data Science,SQL,G1,Active,CC-194,160
+EMP0699,Employee 0699,QA,Team E,Software Engineer,Intern,7,2022-01-29,Noida,EMP0016,React,UI/UX,G4,Active,CC-192,100
+EMP0700,Employee 0700,Finance,Team D,Data Analyst,Full-Time,3,2024-07-11,Chennai,EMP0061,Data Science,UI/UX,G2,Active,CC-162,160
+EMP0701,Employee 0701,HR,Team C,Data Analyst,Full-Time,2,2019-08-27,Remote,EMP0064,React,Cloud,G2,Active,CC-103,160
+EMP0702,Employee 0702,Data & Analytics,Team A,Support Engineer,Contract,7,2018-08-05,Hyderabad,EMP0049,Data Science,Analytics,G4,Active,CC-119,160
+EMP0703,Employee 0703,Design,Team E,Designer,Full-Time,2,2024-12-27,Remote,EMP0102,Excel,Agile,G2,Active,CC-137,160
+EMP0704,Employee 0704,Finance,Team E,Product Analyst,Full-Time,0,2023-08-30,Delhi,EMP0098,Python,UI/UX,G1,Active,CC-115,160
+EMP0705,Employee 0705,Support,Team A,Product Analyst,Contract,0,2021-07-12,Delhi,EMP0023,Node.js,Testing,G1,Active,CC-190,160
+EMP0706,Employee 0706,QA,Team D,Product Analyst,Full-Time,6,2022-10-31,Bengaluru,EMP0073,Excel,DevOps,G4,Active,CC-160,160
+EMP0707,Employee 0707,HR,Team D,Finance Analyst,Full-Time,0,2019-10-03,Noida,EMP0079,Power BI,Testing,G1,Active,CC-141,160
+EMP0708,Employee 0708,Engineering,Team C,Junior Engineer,Full-Time,9,2024-08-15,Delhi,EMP0098,Power BI,UI/UX,G5,Active,CC-112,160
+EMP0709,Employee 0709,Support,Team B,Data Scientist,Full-Time,0,2022-01-03,Pune,EMP0031,AWS,SQL,G1,Active,CC-188,160
+EMP0710,Employee 0710,Data & Analytics,Team E,Finance Analyst,Full-Time,9,2021-06-02,Chennai,EMP0005,Excel,UI/UX,G5,Active,CC-172,160
+EMP0711,Employee 0711,HR,Team E,Sales Executive,Full-Time,5,2022-09-22,Delhi,EMP0041,Testing,UI/UX,G3,Active,CC-141,160
+EMP0712,Employee 0712,Sales,Team C,Software Engineer,Full-Time,4,2023-06-24,Remote,EMP0065,Power BI,Cloud,G3,Active,CC-178,160
+EMP0713,Employee 0713,Design,Team A,Data Scientist,Full-Time,2,2022-11-21,Pune,EMP0037,AWS,Python,G2,Active,CC-138,160
+EMP0714,Employee 0714,Sales,Team E,QA Engineer,Full-Time,5,2020-07-14,Bengaluru,EMP0076,Power BI,Testing,G3,Inactive,CC-108,160
+EMP0715,Employee 0715,Sales,Team A,HR Executive,Full-Time,4,2023-12-16,Mumbai,EMP0065,AWS,UI/UX,G3,Active,CC-184,160
+EMP0716,Employee 0716,HR,Team E,Data Scientist,Full-Time,7,2020-03-30,Remote,EMP0086,Node.js,Cloud,G4,Active,CC-102,160
+EMP0717,Employee 0717,HR,Team D,Finance Analyst,Full-Time,4,2020-02-04,Mumbai,EMP0120,Node.js,,G3,Active,CC-172,160
+EMP0718,Employee 0718,Engineering,Team B,Product Manager,Full-Time,4,2020-04-01,Mumbai,EMP0109,Testing,UI/UX,G3,Active,CC-140,160
+EMP0719,Employee 0719,Data & Analytics,Team C,DevOps Engineer,Contract,3,2020-04-13,Hyderabad,EMP0033,Data Science,Agile,G2,Active,CC-151,160
+EMP0720,Employee 0720,Product,Team C,Software Engineer,Full-Time,4,2019-09-07,Remote,EMP0063,Node.js,UI/UX,G3,Active,CC-154,160
+EMP0721,Employee 0721,Engineering,Team C,Lead Engineer,Full-Time,5,2019-10-15,Hyderabad,EMP0083,Python,DevOps,G3,Active,CC-102,160
+EMP0722,Employee 0722,Engineering,Team A,Finance Analyst,Full-Time,0,2018-12-10,Noida,EMP0115,Power BI,SQL,G1,Active,CC-150,160
+EMP0723,Employee 0723,QA,Team A,Lead Engineer,Full-Time,0,2019-04-04,Mumbai,EMP0064,Java,Agile,G1,Active,CC-176,160
+EMP0724,Employee 0724,Data & Analytics,Team D,HR Executive,Full-Time,6,2021-07-07,Pune,EMP0120,Testing,Agile,G4,Active,CC-118,160
+EMP0725,Employee 0725,Data & Analytics,Team C,Senior Engineer,Contract,5,2020-05-26,Delhi,EMP0063,Node.js,Analytics,G3,Active,CC-189,160
+EMP0726,Employee 0726,Data & Analytics,Team C,Data Scientist,Full-Time,3,2024-02-14,Hyderabad,EMP0047,Excel,Analytics,G2,Active,CC-139,160
+EMP0727,Employee 0727,Engineering,Team A,DevOps Engineer,Full-Time,4,2024-10-17,Pune,EMP0033,Node.js,UI/UX,G3,Active,CC-139,160
+EMP0728,Employee 0728,DevOps,Team D,Sales Executive,Full-Time,5,2025-09-07,Noida,EMP0002,Testing,Testing,G3,Active,CC-138,160
+EMP0729,Employee 0729,Data & Analytics,Team B,Sales Executive,Full-Time,2,2020-08-22,Remote,EMP0081,Power BI,UI/UX,G2,Active,CC-104,160
+EMP0730,Employee 0730,Design,Team D,Finance Analyst,Contract,2,2018-11-25,Noida,EMP0119,Power BI,UI/UX,G2,Inactive,CC-112,160
+EMP0731,Employee 0731,QA,Team E,Support Engineer,Full-Time,5,2020-12-04,Chennai,,Python,Python,G3,Active,CC-182,160
+EMP0732,Employee 0732,QA,Team D,DevOps Engineer,Full-Time,1,2022-12-22,Pune,EMP0081,AWS,Analytics,G1,Active,CC-173,160
+EMP0733,Employee 0733,Data & Analytics,Team B,Software Engineer,Full-Time,5,2019-10-09,Noida,EMP0102,Power BI,DevOps,G3,Active,CC-161,160
+EMP0734,Employee 0734,QA,Team C,Data Analyst,Full-Time,0,2019-12-12,Pune,EMP0011,Testing,Analytics,G1,Active,CC-123,160
+EMP0735,Employee 0735,Support,Team B,Sales Executive,Contract,7,2022-03-26,Delhi,EMP0003,Node.js,Agile,G4,Active,CC-111,160
+EMP0736,Employee 0736,Finance,Team D,Lead Engineer,Full-Time,5,2020-12-08,Noida,EMP0077,AWS,Cloud,G3,Active,CC-111,160
+EMP0737,Employee 0737,DevOps,Team D,Senior Engineer,Full-Time,5,2024-05-12,Remote,EMP0106,Excel,SQL,G3,Active,CC-128,160
+EMP0738,Employee 0738,Product,Team B,Lead Engineer,Full-Time,7,2020-12-26,Noida,EMP0110,React,Agile,G4,Active,CC-136,160
+EMP0739,Employee 0739,Product,Team C,QA Engineer,Full-Time,9,2020-01-09,Mumbai,EMP0031,Data Science,DevOps,G5,Active,CC-131,160
+EMP0740,Employee 0740,DevOps,Team D,Designer,Full-Time,7,2025-09-03,Hyderabad,EMP0112,Power BI,UI/UX,G4,Active,CC-187,160
+EMP0741,Employee 0741,Product,Team C,Support Engineer,Full-Time,0,2022-04-20,Bengaluru,EMP0013,Node.js,Python,G1,Active,CC-106,160
+EMP0742,Employee 0742,DevOps,Team E,Sales Executive,Full-Time,0,2020-08-19,Delhi,EMP0001,AWS,UI/UX,G1,Active,CC-138,160
+EMP0743,Employee 0743,Support,Team A,DevOps Engineer,Full-Time,2,2022-02-28,Hyderabad,EMP0034,SQL,DevOps,G2,Active,CC-143,160
+EMP0744,Employee 0744,Finance,Team B,Senior Engineer,Full-Time,4,2019-01-03,Mumbai,EMP0015,Power BI,Python,G3,Active,CC-116,160
+EMP0745,Employee 0745,Finance,Team C,Finance Analyst,Full-Time,6,2021-02-24,Mumbai,EMP0079,AWS,Analytics,G4,Active,CC-155,160
+EMP0746,Employee 0746,QA,Team D,Data Scientist,Full-Time,2,2023-07-06,Delhi,EMP0025,SQL,Python,G2,Active,CC-129,160
+EMP0747,Employee 0747,QA,Team D,Junior Engineer,Full-Time,5,2023-04-11,Bengaluru,EMP0115,Excel,Python,G3,Active,CC-156,160
+EMP0748,Employee 0748,DevOps,Team B,Support Engineer,Full-Time,2,2024-04-16,,EMP0045,Java,Agile,G2,Active,CC-136,160
+EMP0749,Employee 0749,QA,Team E,Finance Analyst,Full-Time,2,2019-11-21,Pune,EMP0075,Python,Cloud,G2,Active,CC-153,160
+EMP0750,Employee 0750,Data & Analytics,Team A,Lead Engineer,Full-Time,0,2023-08-03,Mumbai,EMP0088,Java,UI/UX,G1,Active,CC-147,160
+EMP0751,Employee 0751,Sales,Team A,Sales Executive,Contract,1,2019-03-11,Remote,EMP0107,Excel,DevOps,G1,Active,CC-180,160
+EMP0752,Employee 0752,Design,Team E,Designer,Full-Time,0,2025-05-19,Remote,EMP0042,Data Science,Cloud,G1,Inactive,CC-127,160
+EMP0753,Employee 0753,Engineering,Team A,HR Executive,Full-Time,1,2025-03-21,Noida,EMP0012,Testing,Testing,G1,Active,CC-122,160
+EMP0754,Employee 0754,Product,Team B,HR Executive,Full-Time,7,2022-06-22,Noida,EMP0100,Testing,Testing,G4,Active,CC-182,160
+EMP0755,Employee 0755,QA,Team C,Software Engineer,Full-Time,1,2021-05-07,Hyderabad,EMP0046,Java,Analytics,G1,Active,CC-165,160
+EMP0756,Employee 0756,Product,Team E,Product Analyst,Contract,12,2022-12-30,Noida,EMP0012,Testing,Analytics,G7,Active,CC-178,160
+EMP0757,Employee 0757,QA,Team C,QA Engineer,Full-Time,5,2025-01-27,Remote,EMP0087,React,Cloud,G3,Active,CC-163,160
+EMP0758,Employee 0758,HR,Team D,DevOps Engineer,Full-Time,5,2025-04-05,Bengaluru,EMP0117,Excel,Testing,G3,Active,CC-119,160
+EMP0759,Employee 0759,QA,Team C,DevOps Engineer,Contract,1,2021-05-15,Delhi,EMP0071,Java,Python,G1,Active,CC-165,160
+EMP0760,Employee 0760,Data & Analytics,Team E,Product Manager,Full-Time,6,2022-10-07,Mumbai,EMP0046,AWS,SQL,G4,Active,CC-198,160
+EMP0761,Employee 0761,HR,Team B,Junior Engineer,Full-Time,2,2019-04-12,Noida,EMP0006,Java,UI/UX,G2,Active,CC-190,160
+EMP0762,Employee 0762,Design,Team D,Data Scientist,Full-Time,4,2024-08-02,Mumbai,EMP0044,SQL,Agile,G3,Active,CC-123,160
+EMP0763,Employee 0763,Data & Analytics,Team D,Support Engineer,Full-Time,12,2024-10-10,Delhi,EMP0001,Testing,SQL,G7,Active,CC-101,160
+EMP0764,Employee 0764,QA,Team E,DevOps Engineer,Full-Time,4,2023-05-09,Remote,EMP0039,Data Science,Analytics,G3,Active,CC-188,160
+EMP0765,Employee 0765,Support,Team B,HR Executive,Full-Time,7,2021-05-24,Bengaluru,EMP0105,Python,Agile,G4,Active,CC-103,160
+EMP0766,Employee 0766,Product,Team E,Product Analyst,Full-Time,2,2025-04-10,Pune,EMP0012,AWS,DevOps,G2,Active,CC-118,160
+EMP0767,Employee 0767,Finance,Team D,QA Engineer,Full-Time,4,2018-03-31,Remote,EMP0061,Python,DevOps,G3,Active,CC-174,160
+EMP0768,Employee 0768,Product,Team A,Lead Engineer,Full-Time,9,2021-04-22,Chennai,,Java,UI/UX,G5,Active,CC-153,160
+EMP0769,Employee 0769,Finance,Team C,Support Engineer,Full-Time,2,2024-06-28,Delhi,EMP0063,Testing,DevOps,G2,Active,CC-165,160
+EMP0770,Employee 0770,Sales,Team D,Support Engineer,Contract,9,2024-11-09,Pune,EMP0092,Python,Python,G5,Active,CC-154,160
+EMP0771,Employee 0771,Sales,Team D,Data Scientist,Full-Time,6,2024-03-16,Remote,EMP0015,Excel,Analytics,G4,Active,CC-157,160
+EMP0772,Employee 0772,Support,Team C,Junior Engineer,Full-Time,2,2019-10-23,Remote,EMP0030,Node.js,Agile,G2,Active,CC-175,160
+EMP0773,Employee 0773,DevOps,Team D,Sales Executive,Contract,6,2024-10-02,Hyderabad,EMP0114,AWS,UI/UX,G4,Active,CC-153,160
+EMP0774,Employee 0774,DevOps,Team E,HR Executive,Full-Time,7,2023-04-19,Pune,EMP0037,Java,DevOps,G4,Active,CC-116,160
+EMP0775,Employee 0775,QA,Team D,Lead Engineer,Full-Time,6,2019-10-03,Remote,EMP0039,React,Agile,G4,Active,CC-171,160
+EMP0776,Employee 0776,Engineering,Team B,Junior Engineer,Contract,0,2022-01-09,Hyderabad,EMP0106,Node.js,Python,G1,Active,CC-108,160
+EMP0777,Employee 0777,DevOps,Team B,QA Engineer,Full-Time,2,2019-04-12,Remote,EMP0034,Power BI,Analytics,G2,Active,CC-198,160
+EMP0778,Employee 0778,Engineering,Team E,HR Executive,Full-Time,3,2024-03-31,Bengaluru,EMP0091,Python,DevOps,G2,Active,CC-158,160
+EMP0779,Employee 0779,Data & Analytics,Team A,Software Engineer,Full-Time,4,2024-11-05,Delhi,EMP0065,Java,Cloud,G3,Active,CC-180,160
+EMP0780,Employee 0780,Data & Analytics,Team C,Finance Analyst,Contract,6,2020-04-21,Remote,EMP0098,Node.js,DevOps,G4,Active,CC-193,160
+EMP0781,Employee 0781,Data & Analytics,Team A,Senior Engineer,Full-Time,5,2025-04-04,Pune,EMP0057,Testing,Python,G3,Active,CC-131,160
+EMP0782,Employee 0782,Finance,Team C,Data Scientist,Full-Time,0,2021-03-20,Noida,EMP0047,React,Cloud,G1,Active,CC-196,160
+EMP0783,Employee 0783,HR,Team D,QA Engineer,Full-Time,5,2020-07-23,Remote,EMP0110,Node.js,Analytics,G3,Active,CC-103,160
+EMP0784,Employee 0784,Finance,Team A,Senior Engineer,Full-Time,6,2018-02-10,Bengaluru,EMP0044,Power BI,UI/UX,G4,Active,CC-198,160
+EMP0785,Employee 0785,QA,Team B,QA Engineer,Full-Time,6,2018-09-09,Delhi,EMP0081,Node.js,Testing,G4,Active,CC-153,160
+EMP0786,Employee 0786,Support,Team C,Sales Executive,Full-Time,7,2025-08-20,Chennai,EMP0002,AWS,Cloud,G4,Active,CC-189,160
+EMP0787,Employee 0787,Support,Team E,Product Analyst,Full-Time,7,2025-03-22,Remote,EMP0090,Power BI,UI/UX,G4,Active,CC-199,160
+EMP0788,Employee 0788,Product,Team D,Sales Executive,Full-Time,5,2021-05-20,Hyderabad,EMP0067,Node.js,Testing,G3,Active,CC-127,160
+EMP0789,Employee 0789,Data & Analytics,Team B,Product Manager,Full-Time,4,2024-03-10,Delhi,EMP0004,Node.js,Testing,G3,Active,CC-130,160
+EMP0790,Employee 0790,Design,Team A,Support Engineer,Intern,0,2022-09-28,Chennai,EMP0034,Node.js,Analytics,G1,Active,CC-115,100
+EMP0791,Employee 0791,Engineering,Team E,HR Executive,Contract,5,2025-04-20,Delhi,EMP0059,Power BI,Agile,G3,Active,CC-195,160
+EMP0792,Employee 0792,Sales,Team B,Designer,Full-Time,5,2025-01-15,Chennai,EMP0039,AWS,Cloud,G3,Active,CC-191,160
+EMP0793,Employee 0793,Support,Team B,Product Manager,Full-Time,5,2020-10-11,Chennai,EMP0059,Java,Cloud,G3,Active,CC-191,160
+EMP0794,Employee 0794,Support,Team B,Finance Analyst,Full-Time,0,2022-08-15,Remote,EMP0028,Excel,SQL,G1,Active,CC-147,160
+EMP0795,Employee 0795,HR,Team C,QA Engineer,Full-Time,1,2024-08-06,Remote,EMP0082,Testing,DevOps,G1,Active,CC-188,160
+EMP0796,Employee 0796,FINANCE,Team B,Support Engineer,Contract,7,2022-09-04,Remote,EMP0092,Excel,Cloud,G4,Active,CC-190,160
+EMP0797,Employee 0797,HR,Team D,Finance Analyst,Full-Time,4,2023-12-08,Delhi,EMP0096,SQL,Analytics,G3,Active,CC-115,160
+EMP0798,Employee 0798,Sales,Team C,Finance Analyst,Full-Time,6,2022-08-01,Delhi,EMP0067,SQL,SQL,G4,Active,CC-147,160
+EMP0799,Employee 0799,Design,Team B,Data Scientist,Full-Time,4,2021-05-27,Hyderabad,EMP0101,Data Science,UI/UX,G3,Active,CC-106,160
+EMP0800,Employee 0800,Design,Team D,Sales Executive,Full-Time,4,2021-03-07,Delhi,EMP0016,Node.js,Analytics,G3,Active,CC-108,160
+EMP0801,Employee 0801,Engineering,Team C,QA Engineer,Full-Time,7,2023-05-25,Noida,EMP0061,Data Science,Cloud,G4,Active,CC-197,160
+EMP0802,Employee 0802,QA,Team D,Product Manager,Full-Time,2,2025-02-19,Hyderabad,EMP0111,Power BI,SQL,G2,Active,CC-179,160
+EMP0803,Employee 0803,Sales,Team E,QA Engineer,Full-Time,4,2022-05-06,Delhi,EMP0086,Excel,Testing,G3,Active,CC-182,160
+EMP0804,Employee 0804,Data & Analytics,Team C,Finance Analyst,Full-Time,3,2019-11-10,Bengaluru,EMP0083,Node.js,SQL,G2,Active,CC-124,160
+EMP0805,Employee 0805,Sales,Team E,Product Manager,Full-Time,3,2024-06-20,Pune,,Excel,Python,G2,Inactive,CC-115,160
+EMP0806,Employee 0806,HR,Team E,Senior Engineer,Full-Time,3,2018-03-19,Remote,EMP0011,Node.js,Analytics,G2,Active,CC-151,160
+EMP0807,Employee 0807,Sales,Team D,Junior Engineer,Contract,5,2023-07-07,Hyderabad,EMP0054,Python,Analytics,G3,Active,CC-148,160
+EMP0808,Employee 0808,Design,Team C,Software Engineer,Intern,3,2019-04-15,Hyderabad,EMP0024,AWS,SQL,G2,Active,CC-119,100
+EMP0809,Employee 0809,Design,Team C,QA Engineer,Full-Time,8,2025-08-11,Hyderabad,EMP0004,Python,Testing,G5,Active,CC-149,160
+EMP0810,Employee 0810,Data & Analytics,Team D,Data Scientist,Full-Time,1,2019-08-07,Bengaluru,EMP0007,React,Agile,G1,Active,CC-196,160
+EMP0811,Employee 0811,Sales,Team D,Designer,Full-Time,3,2020-08-26,Bengaluru,EMP0035,Python,Analytics,G2,Active,CC-159,160
+EMP0812,Employee 0812,HR,Team B,QA Engineer,Full-Time,3,2018-09-26,Delhi,EMP0035,Node.js,SQL,G2,Active,CC-131,160
+EMP0813,Employee 0813,HR,Team A,DevOps Engineer,Full-Time,8,2019-05-30,Pune,EMP0101,SQL,Analytics,G5,Active,CC-169,160
+EMP0814,Employee 0814,QA,Team E,HR Executive,Full-Time,5,2020-10-01,Remote,EMP0006,Python,DevOps,G3,Active,CC-179,160
+EMP0815,Employee 0815,Design,Team D,DevOps Engineer,Full-Time,7,2019-11-17,Mumbai,EMP0077,AWS,UI/UX,G4,Active,CC-144,160
+EMP0816,Employee 0816,Product,Team E,Designer,Full-Time,0,2023-09-22,Bengaluru,EMP0039,Java,UI/UX,G1,Active,CC-189,160
+EMP0817,Employee 0817,Data & Analytics,Team D,Finance Analyst,Full-Time,5,2019-07-27,Pune,EMP0079,Node.js,Analytics,G3,On Leave,CC-187,160
+EMP0818,Employee 0818,DevOps,Team C,DevOps Engineer,Intern,7,2020-12-06,Pune,EMP0085,Power BI,Analytics,G4,Active,CC-126,100
+EMP0819,Employee 0819,Finance,Team A,Designer,Full-Time,4,2021-09-07,Remote,EMP0001,Python,Cloud,G3,Active,CC-152,160
+EMP0820,Employee 0820,HR,Team E,Sales Executive,Full-Time,7,2025-10-23,Bengaluru,EMP0101,Java,Python,G4,Active,CC-185,160
+EMP0821,Employee 0821,Finance,Team E,DevOps Engineer,Full-Time,2,2019-05-21,Chennai,EMP0050,SQL,Python,G2,Active,CC-115,160
+EMP0822,Employee 0822,Finance,Team A,Data Scientist,Full-Time,8,2020-03-01,Mumbai,EMP0088,Power BI,Agile,G5,Active,CC-111,160
+EMP0823,Employee 0823,SALES,Team D,DevOps Engineer,Full-Time,11,2021-05-26,Chennai,EMP0005,AWS,DevOps,G6,Active,CC-190,160
+EMP0824,Employee 0824,Sales,Team D,Lead Engineer,Full-Time,3,2018-01-30,Bengaluru,EMP0112,AWS,DevOps,G2,Active,CC-121,160
+EMP0825,Employee 0825,HR,Team E,Lead Engineer,Full-Time,3,2025-05-26,Hyderabad,EMP0009,Data Science,Cloud,G2,Active,CC-195,160
+EMP0826,Employee 0826,Data & Analytics,Team E,Senior Engineer,Contract,8,2020-11-29,Mumbai,EMP0025,Python,Testing,G5,Active,CC-187,160
+EMP0827,Employee 0827,HR,Team A,Sales Executive,Full-Time,9,2023-02-03,Chennai,EMP0056,Testing,Testing,G5,Active,CC-115,160
+EMP0828,Employee 0828,HR,Team B,Product Analyst,Full-Time,2,2023-07-23,,EMP0036,Testing,DevOps,G2,Active,CC-140,160
+EMP0829,Employee 0829,Engineering,Team A,QA Engineer,Full-Time,3,2020-03-08,Pune,EMP0089,Testing,SQL,G2,Active,CC-131,160
+EMP0830,Employee 0830,Product,Team A,Senior Engineer,Full-Time,3,2021-09-10,Delhi,EMP0062,Testing,Python,G2,Active,CC-175,160
+EMP0831,Employee 0831,DevOps,Team C,Finance Analyst,Full-Time,0,2020-10-22,Delhi,EMP0106,Power BI,Agile,G1,Active,CC-109,160
+EMP0832,Employee 0832,Sales,Team E,Designer,Full-Time,1,2022-12-02,Bengaluru,EMP0011,Python,Python,G1,Active,CC-148,160
+EMP0833,Employee 0833,DevOps,Team D,Sales Executive,Full-Time,1,2025-10-11,Delhi,EMP0039,Data Science,UI/UX,G1,Active,CC-108,160
+EMP0834,Employee 0834,Data & Analytics,Team D,DevOps Engineer,Full-Time,2,2018-08-17,Noida,EMP0013,Data Science,UI/UX,G2,Active,CC-129,160
+EMP0835,Employee 0835,Sales,Team D,HR Executive,Full-Time,4,2025-05-26,Noida,EMP0113,Data Science,SQL,G3,Active,CC-143,160
+EMP0836,Employee 0836,Engineering,Team A,Product Analyst,Full-Time,5,2023-10-20,Delhi,EMP0077,Java,Agile,G3,Active,CC-173,160
+EMP0837,Employee 0837,QA,Team E,DevOps Engineer,Full-Time,9,2023-09-16,Remote,EMP0024,React,Cloud,G5,Active,CC-105,160
+EMP0838,Employee 0838,Engineering,Team C,Senior Engineer,Full-Time,1,2021-06-30,Mumbai,EMP0075,Node.js,Cloud,G1,Active,CC-118,160
+EMP0839,Employee 0839,Finance,Team A,Data Analyst,Full-Time,7,2024-10-07,Hyderabad,EMP0008,React,Python,G4,Active,CC-154,160
+EMP0840,Employee 0840,DevOps,Team A,Lead Engineer,Full-Time,3,2020-03-31,Chennai,,Excel,DevOps,G2,Active,CC-176,160
+EMP0841,Employee 0841,DevOps,Team C,Finance Analyst,Full-Time,4,2024-06-27,Noida,EMP0043,SQL,SQL,G3,Active,CC-158,160
+EMP0842,Employee 0842,Engineering,Team B,Product Analyst,Contract,6,2020-06-17,Remote,EMP0080,React,Agile,G4,Active,CC-161,160
+EMP0843,Employee 0843,DevOps,Team A,HR Executive,Full-Time,1,2022-03-20,Chennai,EMP0002,Java,Analytics,G1,Active,CC-103,160
+EMP0844,Employee 0844,HR,Team E,Software Engineer,Full-Time,5,2019-08-07,Chennai,EMP0006,Python,Agile,G3,Active,CC-125,160
+EMP0845,Employee 0845,Design,Team C,Senior Engineer,Contract,4,2020-06-15,Pune,EMP0023,React,Python,G3,Active,CC-122,160
+EMP0846,Employee 0846,Design,Team D,Sales Executive,Full-Time,5,2019-02-19,Bengaluru,EMP0044,React,Testing,G3,Active,CC-158,160
+EMP0847,Employee 0847,Product,Team E,Data Scientist,Full-Time,5,2022-03-06,Noida,EMP0113,Java,SQL,G3,Inactive,CC-118,160
+EMP0848,Employee 0848,QA,Team C,HR Executive,Full-Time,11,2020-02-16,Chennai,EMP0077,Testing,Agile,G6,Active,CC-105,160
+EMP0849,Employee 0849,Sales,Team B,Designer,Contract,2,2020-02-14,Chennai,EMP0032,Python,Testing,G2,Active,CC-116,160
+EMP0850,Employee 0850,HR,Team D,Designer,Full-Time,2,2023-06-26,Bengaluru,EMP0022,Node.js,UI/UX,G2,Active,CC-196,160
