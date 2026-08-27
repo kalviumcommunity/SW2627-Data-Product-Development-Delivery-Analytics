@@ -1,0 +1,18 @@
+CLEANING BLUEPRINT — DO THIS AFTER RAW DATA PROFILING
+
+1. Ingest the four CSVs with pandas.
+2. Profile shape, dtypes, missingness, duplicates, unique categories and invalid ranges.
+3. Standardize column names and categorical text.
+4. Parse all date columns into one standard date format.
+5. Convert numeric fields using coercion; extract numbers from strings such as "8 hrs".
+6. Handle missing values using a documented rule per column (do not blindly fill everything).
+7. Detect and remove/flag duplicate records using business keys.
+8. Validate numeric ranges:
+   - hours >= 0
+   - billing_rate >= 0
+   - allocation_percentage within a documented acceptable range
+9. Validate foreign keys across employee/project/client master data.
+10. Keep a cleaning log: issue, rows affected, action, reason.
+11. Export clean versions separately.
+12. Merge only after source-level cleaning and join validation.
+13. Create analytical/derived fields only after the clean dataset is validated.

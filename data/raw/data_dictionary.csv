@@ -1,0 +1,34 @@
+file,column,type,meaning,project_use
+employee_master_raw.csv,employee_id,string,Employee identifier,"Employee, department, location, designation filters"
+employee_master_raw.csv,department,category,Business department,Department filter/grouping
+employee_master_raw.csv,team,category,Team assignment,Team filter/comparison
+employee_master_raw.csv,designation,category,Job designation,Role filter
+employee_master_raw.csv,experience_years,numeric,Years of experience,Experience segmentation
+employee_master_raw.csv,location,category,Work location,Location filter
+employee_master_raw.csv,employment_status,category,Current employment state,Status filter
+employee_master_raw.csv,skill_primary,category,Primary skill,Skill-based filtering
+timesheets_raw.csv,work_date,date,Date of work entry,Date/month/week/quarter filters
+timesheets_raw.csv,project_id,string,Project key,Project filtering and joins
+timesheets_raw.csv,task_category,category,Type of work performed,Work-type filtering
+timesheets_raw.csv,hours_logged,numeric/messy,Total hours logged,Utilization calculations
+timesheets_raw.csv,billable_hours,numeric,Billable hours,Billable utilization
+timesheets_raw.csv,non_billable_hours,numeric,Non-billable hours,Non-billable load
+timesheets_raw.csv,admin_hours,numeric,Administrative time,Inefficiency/root-cause analysis
+timesheets_raw.csv,training_hours,numeric,Training time,Non-project activity
+timesheets_raw.csv,internal_hours,numeric,Internal work time,Non-billable analysis
+timesheets_raw.csv,overtime_hours,numeric,Overtime hours,Workload/risk analysis
+timesheets_raw.csv,work_location,category,Remote/office/hybrid,Work-location filter
+timesheets_raw.csv,timesheet_status,category,Submission/approval state,Status filter
+allocations_raw.csv,allocation_percentage,numeric/messy,Planned allocation percentage,Allocation filter
+allocations_raw.csv,allocated_hours,numeric,Planned allocated hours,Allocation-vs-actual
+allocations_raw.csv,staffing_status,category,Allocated/under/overallocated,Staffing filter
+allocations_raw.csv,expected_utilization,numeric,Expected utilization percentage,Variance/risk analysis
+allocations_raw.csv,project_role,category,Employee role on project,Role/project filtering
+billing_raw.csv,client_id,string,Client identifier,Client filtering and joins
+billing_raw.csv,billable_hours,numeric,Billed hours,Billing/utilization comparison
+billing_raw.csv,billing_rate,numeric/messy,Hourly billing rate,Revenue analysis
+billing_raw.csv,billed_amount,numeric,Billed revenue,Revenue KPI
+billing_raw.csv,invoice_status,category,Invoice state,Invoice filtering
+billing_raw.csv,payment_status,category,Payment state,Payment filtering
+billing_raw.csv,currency,category,Billing currency,Currency filter
+billing_raw.csv,writeoff_hours,numeric,Written-off hours,Revenue leakage analysis
