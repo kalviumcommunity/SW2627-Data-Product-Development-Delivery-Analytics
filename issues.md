@@ -514,7 +514,7 @@ No major issues encountered. Insight export module created and tested.
 - **Issue:** #45
 - **Assignee:** arbinbiswal
 - **Date:** 2026-09-03
-- **Status:** Completed (PR #101 pending)
+- **Status:** Completed (PR #101 merged)
 
 ### Issues Faced
 

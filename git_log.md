@@ -882,7 +882,10 @@
 
 - **Branch Name:** `2.51-feature/streamlit-shell`
 - **Issue:** #45
-- **PR:** #101 (pending review)
+- **PR:** #101 (merged)
+- **Assignee:** arbinbiswal
+- **Approver:** prabdeep2005
+- **Merge Date:** 2026-09-03
 
 - **Commits:**
   - feat(2.51): add streamlit app structure and navigation
