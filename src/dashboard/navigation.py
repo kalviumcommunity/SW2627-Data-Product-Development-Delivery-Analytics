@@ -5,6 +5,7 @@ from __future__ import annotations
 import streamlit as st
 
 from .themer import NAV_ITEMS, get_active_page_key
+from .data_handler import load_uploaded_file
 
 
 def render_sidebar() -> str:
@@ -62,14 +63,23 @@ def render_sidebar() -> str:
             unsafe_allow_html=True,
         )
 
-        # ── File uploader (LU 2.52 placeholder) ───────────────────────
-        st.file_uploader(
+        # ── File uploader (LU 2.52) ────────────────────────────────────
+        uploaded_file = st.file_uploader(
             "Upload dataset",
             type=["csv", "json"],
             key="dataset_uploader",
-            help="CSV or JSON - added in LU 2.52",
-            disabled=True,
+            help="CSV or JSON file",
+            label_visibility="collapsed",
         )
+
+        if uploaded_file is not None:
+            df = load_uploaded_file(uploaded_file)
+            if df is not None:
+                st.session_state["uploaded_df"] = df
+                st.session_state["file_name"] = uploaded_file.name
+                st.success(f"Loaded {uploaded_file.name}")
+            else:
+                st.error("Could not parse file")
 
         # ── Reset button (LU 2.53 placeholder) ────────────────────────
         if st.button("\u21ba  Reset", use_container_width=True, disabled=True):
