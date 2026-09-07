@@ -5,7 +5,7 @@ from __future__ import annotations
 import streamlit as st
 
 from .themer import NAV_ITEMS, get_active_page_key
-from .data_handler import load_uploaded_file
+from .data_handler import load_uploaded_file, reset_session_state
 
 
 def render_sidebar() -> str:
@@ -81,9 +81,10 @@ def render_sidebar() -> str:
             else:
                 st.error("Could not parse file")
 
-        # ── Reset button (LU 2.53 placeholder) ────────────────────────
-        if st.button("\u21ba  Reset", use_container_width=True, disabled=True):
-            pass
+        # ── Reset button (LU 2.53) ──────────────────────────────────────
+        if st.button("\u21ba  Reset", use_container_width=True, key="reset_btn"):
+            reset_session_state()
+            st.rerun()
 
         st.markdown("<hr>")
 
