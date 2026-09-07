@@ -19,6 +19,8 @@ from src.dashboard import (
     render_placeholder,
     initialise_session_state,
     get_dataset_summary,
+    calculate_kpis,
+    get_chart_data,
 )
 
 
@@ -76,24 +78,24 @@ def render_dataset_info() -> None:
     if df is None:
         return
 
-    with render_section_card_open("Uploaded Dataset", fname):
-        summary = get_dataset_summary(df)
+    render_section_card_open("Uploaded Dataset", fname)
+    summary = get_dataset_summary(df)
 
-        c1, c2, c3, c4 = st.columns(4)
-        c1.metric("Rows", f"{summary['rows']:,}")
-        c2.metric("Columns", summary["columns"])
-        c3.metric("Null %", f"{summary['null_pct']}%")
-        c4.metric("Memory", f"{summary['memory_mb']} MB")
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Rows", f"{summary['rows']:,}")
+    c2.metric("Columns", summary["columns"])
+    c3.metric("Null %", f"{summary['null_pct']}%")
+    c4.metric("Memory", f"{summary['memory_mb']} MB")
 
-        st.markdown("**Column Types**")
-        st.json({str(k): int(v) for k, v in summary["dtypes"].items()})
+    st.markdown("**Column Types**")
+    st.json({str(k): int(v) for k, v in summary["dtypes"].items()})
 
-        st.markdown("**First 10 Rows**")
-        st.dataframe(df.head(10), use_container_width=True)
+    st.markdown("**First 10 Rows**")
+    st.dataframe(df.head(10), use_container_width=True)
 
-        st.markdown("**Basic Statistics**")
-        st.dataframe(df.describe(include="all"), use_container_width=True)
-        close_section_card()
+    st.markdown("**Basic Statistics**")
+    st.dataframe(df.describe(include="all"), use_container_width=True)
+    close_section_card()
 
 
 def render_overview() -> None:
@@ -106,20 +108,33 @@ def render_overview() -> None:
     # ── Dataset info (if uploaded) ─────────────────────────────────────
     render_dataset_info()
 
-    # ── KPI cards row ──────────────────────────────────────────────────
+    # ── KPI cards row (dynamic or placeholder) ─────────────────────────
+    df = st.session_state.get("uploaded_df")
     kpi_cols = st.columns(6)
 
-    kpis = [
-        ("Total Employees",   "842",  "\U0001f465", "+3.2%",  None),
-        ("Total Working Hours","6,736 hrs","\U0001f551", None,  None),
-        ("Committed Hours",   "5,412 hrs","\U0001f512", None,  None),
-        ("Available Capacity","1,324 hrs","\u26a1",     None,  None),
-        ("Avg Utilization",   "80.3%", "\U0001f4c8",  None,  None),
-        ("Employees at Risk", "47",    "\u26a0\ufe0f", None,  "accent_red"),
-    ]
+    if df is not None:
+        kpi_data = calculate_kpis(df)
+        kpis = kpi_data["kpis"]
+    else:
+        # Placeholder KPIs when no data uploaded
+        kpis = [
+            ("Total Records", "--", "\U0001f4ca", None, None),
+            ("Columns", "--", "\U0001f4c8", None, None),
+            ("Total Employees", "--", "\U0001f465", None, None),
+            ("Total Hours", "--", "\U0001f551", None, None),
+            ("Billable Hours", "--", "\U0001f512", None, None),
+            ("Utilization Rate", "--", "\U0001f4c8", None, None),
+        ]
 
-    for col, (label, value, icon, delta, icon_color) in zip(kpi_cols, kpis):
-        render_kpi_card(col, label, value, icon, delta=delta, icon_color=icon_color)
+    for col, kpi in zip(kpi_cols, kpis):
+        render_kpi_card(
+            col,
+            kpi["label"],
+            kpi["value"],
+            kpi["icon"],
+            delta=kpi.get("delta"),
+            icon_color=kpi.get("icon_color"),
+        )
 
     st.markdown("<div style='height:14px;'></div>", unsafe_allow_html=True)
 
@@ -127,16 +142,64 @@ def render_overview() -> None:
     chart_left, chart_right = st.columns([2, 1])
 
     with chart_left:
-        render_section_card_open(
-            "Workforce Capacity Overview",
-            "Distribution of 6,738 total working hours",
-        )
-        render_placeholder("Capacity bar chart — LU 2.55", height=200)
+        render_section_card_open("Data Distribution", "Breakdown of uploaded dataset")
+
+        if df is not None:
+            charts = get_chart_data(df)
+
+            if "department_dist" in charts:
+                import plotly.express as px
+                fig = px.bar(
+                    x=charts["department_dist"].values,
+                    y=charts["department_dist"].index,
+                    orientation="h",
+                    labels={"x": "Count", "y": "Department"},
+                    color_discrete_sequence=["#06B6D4"],
+                )
+                fig.update_layout(
+                    template="plotly_dark",
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    plot_bgcolor="rgba(0,0,0,0)",
+                    height=280,
+                    margin=dict(l=0, r=0, t=10, b=0),
+                )
+                st.plotly_chart(fig, use_container_width=True)
+            elif "hours_by_category" in charts:
+                import plotly.express as px
+                fig = px.pie(
+                    values=charts["hours_by_category"].values,
+                    names=charts["hours_by_category"].index,
+                    color_discrete_sequence=["#06B6D4", "#3B82F6", "#8B5CF6", "#F59E0B", "#EF4444"],
+                )
+                fig.update_layout(
+                    template="plotly_dark",
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    height=280,
+                    margin=dict(l=0, r=0, t=10, b=0),
+                )
+                st.plotly_chart(fig, use_container_width=True)
+            else:
+                render_placeholder("No categorical data for chart", height=280)
+        else:
+            render_placeholder("Upload a dataset to see charts", height=280)
+
         close_section_card()
 
     with chart_right:
-        render_section_card_open("Needs Attention")
-        render_placeholder("Alerts list — LU 2.55", height=200)
+        render_section_card_open("Quick Stats")
+
+        if df is not None:
+            st.metric("Total Rows", f"{df.shape[0]:,}")
+            st.metric("Total Columns", df.shape[1])
+
+            null_pct = round(df.isnull().sum().sum() / (df.shape[0] * df.shape[1]) * 100, 2)
+            st.metric("Null %", f"{null_pct}%")
+
+            mem = round(df.memory_usage(deep=True).sum() / (1024 * 1024), 2)
+            st.metric("Memory", f"{mem} MB")
+        else:
+            render_placeholder("Upload data to see stats", height=200)
+
         close_section_card()
 
     st.markdown("<div style='height:14px;'></div>", unsafe_allow_html=True)
@@ -145,29 +208,113 @@ def render_overview() -> None:
     trend_left, dist_right = st.columns([2, 1])
 
     with trend_left:
-        render_section_card_open(
-            "Utilization Trend",
-            "Daily averages vs 85% Target",
-        )
-        render_placeholder("Line chart — LU 2.55", height=280)
+        render_section_card_open("Utilization by Department", "Billable vs total hours")
+
+        if df is not None and "utilization_by_dept" in charts:
+            import plotly.express as px
+            util_data = charts["utilization_by_dept"]
+            fig = px.bar(
+                x=util_data.index,
+                y=util_data.values,
+                labels={"x": "Department", "y": "Utilization %"},
+                color_discrete_sequence=["#3B82F6"],
+            )
+            fig.update_layout(
+                template="plotly_dark",
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                height=280,
+                margin=dict(l=0, r=0, t=10, b=0),
+            )
+            fig.add_hline(y=70, line_dash="dash", line_color="#10B981", annotation_text="70% target")
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            render_placeholder("Upload timesheet data to see utilization", height=280)
+
         close_section_card()
 
     with dist_right:
-        render_section_card_open("Capacity Distribution")
-        render_placeholder("Pie / donut chart — LU 2.55", height=130)
+        render_section_card_open("Experience Distribution")
 
-        render_section_card_open("Allocation Breakdown")
-        render_placeholder("Donut chart — LU 2.55", height=130)
+        if df is not None and "experience_dist" in charts:
+            import plotly.express as px
+            exp_data = charts["experience_dist"]
+            fig = px.pie(
+                values=exp_data.values,
+                names=[f"{x} yrs" for x in exp_data.index],
+                color_discrete_sequence=["#06B6D4", "#3B82F6", "#8B5CF6", "#F59E0B", "#10B981"],
+            )
+            fig.update_layout(
+                template="plotly_dark",
+                paper_bgcolor="rgba(0,0,0,0)",
+                height=200,
+                margin=dict(l=0, r=0, t=10, b=0),
+            )
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            render_placeholder("Upload employee data to see experience", height=200)
+
         close_section_card()
 
 
 def render_workforce() -> None:
-    """Render the Workforce page (placeholder for LU 2.52+)."""
+    """Render the Workforce page with employee table."""
     render_page_header(
         "Workforce",
         "View employee capacity, workload and utilization.",
     )
-    render_placeholder("Employee table with search and filters — LU 2.52", height=400)
+
+    df = st.session_state.get("uploaded_df")
+    if df is None:
+        render_placeholder("Upload a dataset to view workforce data", height=400)
+        return
+
+    # Search and filter row
+    col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
+
+    with col1:
+        search = st.text_input("Search employees...", key="workforce_search")
+
+    with col2:
+        if "department" in df.columns:
+            depts = ["All"] + sorted(df["department"].dropna().unique().tolist())
+            dept_filter = st.selectbox("Department", depts, key="workforce_dept")
+        else:
+            dept_filter = "All"
+
+    with col3:
+        if "employment_status" in df.columns:
+            statuses = ["All"] + sorted(df["employment_status"].dropna().unique().tolist())
+            status_filter = st.selectbox("Status", statuses, key="workforce_status")
+        else:
+            status_filter = "All"
+
+    with col4:
+        if "team" in df.columns:
+            teams = ["All"] + sorted(df["team"].dropna().unique().tolist())
+            team_filter = st.selectbox("Team", teams, key="workforce_team")
+        else:
+            team_filter = "All"
+
+    # Apply filters
+    filtered = df.copy()
+
+    if search and "employee_name" in df.columns:
+        filtered = filtered[filtered["employee_name"].str.contains(search, case=False, na=False)]
+
+    if dept_filter != "All" and "department" in df.columns:
+        filtered = filtered[filtered["department"] == dept_filter]
+
+    if status_filter != "All" and "employment_status" in df.columns:
+        filtered = filtered[filtered["employment_status"] == status_filter]
+
+    if team_filter != "All" and "team" in df.columns:
+        filtered = filtered[filtered["team"] == team_filter]
+
+    st.markdown(f"**Showing {len(filtered)} of {len(df)} records**")
+
+    # Show table
+    st.dataframe(filtered, use_container_width=True, height=400)
 
 
 def render_work_planning() -> None:
