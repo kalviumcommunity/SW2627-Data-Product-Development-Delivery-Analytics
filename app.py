@@ -17,6 +17,8 @@ from src.dashboard import (
     render_section_card_open,
     close_section_card,
     render_placeholder,
+    initialise_session_state,
+    get_dataset_summary,
 )
 
 
@@ -39,11 +41,7 @@ inject_global_css()
 # ---------------------------------------------------------------------------
 # Initialise session state
 # ---------------------------------------------------------------------------
-if "active_page" not in st.session_state:
-    st.session_state["active_page"] = "overview"
-
-if "period" not in st.session_state:
-    st.session_state["period"] = "This Month"
+initialise_session_state()
 
 
 # ---------------------------------------------------------------------------
@@ -71,12 +69,42 @@ render_top_header(page_label)
 # Page renderers
 # ===========================================================================
 
+def render_dataset_info() -> None:
+    """Show dataset info panel when a file has been uploaded."""
+    df = st.session_state.get("uploaded_df")
+    fname = st.session_state.get("file_name")
+    if df is None:
+        return
+
+    with render_section_card_open("Uploaded Dataset", fname):
+        summary = get_dataset_summary(df)
+
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Rows", f"{summary['rows']:,}")
+        c2.metric("Columns", summary["columns"])
+        c3.metric("Null %", f"{summary['null_pct']}%")
+        c4.metric("Memory", f"{summary['memory_mb']} MB")
+
+        st.markdown("**Column Types**")
+        st.json({str(k): int(v) for k, v in summary["dtypes"].items()})
+
+        st.markdown("**First 10 Rows**")
+        st.dataframe(df.head(10), use_container_width=True)
+
+        st.markdown("**Basic Statistics**")
+        st.dataframe(df.describe(include="all"), use_container_width=True)
+        close_section_card()
+
+
 def render_overview() -> None:
     """Render the Overview dashboard with KPI cards and chart placeholders."""
     render_page_header(
         "Workforce Overview",
         "Understand workforce capacity, planned workload and utilization across the organization.",
     )
+
+    # ── Dataset info (if uploaded) ─────────────────────────────────────
+    render_dataset_info()
 
     # ── KPI cards row ──────────────────────────────────────────────────
     kpi_cols = st.columns(6)
