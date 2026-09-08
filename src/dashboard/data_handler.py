@@ -377,6 +377,59 @@ def calculate_capacity_metrics(
     return result
 
 
+def generate_insights(metrics: pd.DataFrame, assignments: list[dict] | None = None) -> pd.DataFrame:
+    """Generate explainable workforce alerts from capacity and assignment data."""
+    alerts: list[dict] = []
+    if not metrics.empty:
+        for row in metrics.itertuples(index=False):
+            if row.capacity_load_pct > 100:
+                alerts.append({
+                    "severity": "Critical",
+                    "type": "Overloaded",
+                    "subject": row.employee_name,
+                    "evidence": f"Allocated {row.allocated_hours:.1f}h against {row.capacity_hours_monthly:.1f}h capacity ({row.capacity_load_pct:.1f}%).",
+                    "recommendation": "Review allocations and move work to available capacity.",
+                })
+            elif row.utilization_pct < 70 and row.hours_logged > 0:
+                alerts.append({
+                    "severity": "Warning",
+                    "type": "Under-utilized",
+                    "subject": row.employee_name,
+                    "evidence": f"Billable utilization is {row.utilization_pct:.1f}%, below the 70% target.",
+                    "recommendation": "Review upcoming work and identify billable assignments.",
+                })
+            if row.capacity_load_pct < 50 and row.capacity_hours_monthly > 0:
+                alerts.append({
+                    "severity": "Info",
+                    "type": "Unused capacity",
+                    "subject": row.employee_name,
+                    "evidence": f"Only {row.capacity_load_pct:.1f}% of monthly capacity is allocated.",
+                    "recommendation": "Consider this employee for available project work.",
+                })
+
+    if assignments:
+        grouped: dict[tuple[str, str], list[dict]] = {}
+        for assignment in assignments:
+            grouped.setdefault((assignment["employee_id"], assignment["work_date"]), []).append(assignment)
+        for (employee_id, work_date), items in grouped.items():
+            ordered = sorted(items, key=lambda item: item["start_time"])
+            for previous, current in zip(ordered, ordered[1:]):
+                from datetime import datetime, timedelta
+
+                previous_start = datetime.fromisoformat(f"{work_date}T{previous['start_time']}")
+                previous_end = previous_start + timedelta(hours=previous["duration_hours"])
+                current_start = datetime.fromisoformat(f"{work_date}T{current['start_time']}")
+                if current_start < previous_end:
+                    alerts.append({
+                        "severity": "Warning",
+                        "type": "Assignment conflict",
+                        "subject": employee_id,
+                        "evidence": f"'{previous['title']}' overlaps '{current['title']}' on {work_date}.",
+                        "recommendation": "Adjust one assignment or confirm the overlap is intentional.",
+                    })
+    return pd.DataFrame(alerts, columns=["severity", "type", "subject", "evidence", "recommendation"])
+
+
 # ---------------------------------------------------------------------------
 # Session state management
 # ---------------------------------------------------------------------------

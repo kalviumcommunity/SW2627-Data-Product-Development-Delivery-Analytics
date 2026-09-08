@@ -24,6 +24,7 @@ from src.dashboard import (
     get_chart_data,
     filter_dataset,
     calculate_capacity_metrics,
+    generate_insights,
 )
 from src.dashboard.api_client import create_assignment, delete_assignment, get_assignments, get_employees, update_assignment
 from src.dashboard.auth import render_login
@@ -581,12 +582,41 @@ def render_team_analytics() -> None:
 
 
 def render_insights() -> None:
-    """Render the Insights / Alerts page (placeholder for future LU)."""
+    """Render explainable rule-based workforce insights and alerts."""
     render_page_header(
         "Insights & Alerts",
         "System-generated intelligence indicating workforce conditions requiring attention.",
     )
-    render_placeholder("Overload alerts, unused capacity, meeting trends — future LU", height=400)
+    files = st.session_state.get("uploaded_files", {})
+    metrics = calculate_capacity_metrics(
+        files,
+        st.session_state.get("period", "This Month"),
+        st.session_state.get("custom_start_date"),
+        st.session_state.get("custom_end_date"),
+    )
+    assignments = []
+    try:
+        assignments = get_assignments(
+            st.session_state["access_token"],
+            st.session_state.get("custom_start_date").isoformat()
+            if st.session_state.get("period") == "Custom" and st.session_state.get("custom_start_date") else None,
+            st.session_state.get("custom_end_date").isoformat()
+            if st.session_state.get("period") == "Custom" and st.session_state.get("custom_end_date") else None,
+        )
+    except Exception:
+        pass
+    alerts = generate_insights(metrics, assignments)
+    if alerts.empty:
+        render_placeholder("No alerts for the selected period", height=220)
+        return
+
+    severity = st.selectbox("Severity", ["All", "Critical", "Warning", "Info"], key="insights_severity")
+    visible = alerts if severity == "All" else alerts[alerts["severity"] == severity]
+    counts = st.columns(3)
+    counts[0].metric("Critical", int((alerts["severity"] == "Critical").sum()))
+    counts[1].metric("Warnings", int((alerts["severity"] == "Warning").sum()))
+    counts[2].metric("Informational", int((alerts["severity"] == "Info").sum()))
+    st.dataframe(visible, use_container_width=True, hide_index=True)
 
 
 def render_reports() -> None:
