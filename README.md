@@ -34,6 +34,16 @@ The API health check is available at `http://127.0.0.1:8000/health`.
 The application database is created at `data/app.db` on API startup. It can be
 opened with DB Browser for SQLite after stopping the local application.
 
+To inspect it from the terminal without opening the binary file in an editor:
+
+```bash
+python scripts/inspect_database.py
+```
+
+In DB Browser for SQLite, choose **Open Database**, select `data/app.db`, and
+use the **Browse Data** tab to inspect tables such as `employees`,
+`assignments`, `timesheets`, and `refresh_runs`.
+
 ## Data refresh
 
 Run a refresh manually with:

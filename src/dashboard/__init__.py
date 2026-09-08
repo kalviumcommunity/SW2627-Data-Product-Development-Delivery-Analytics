@@ -14,6 +14,7 @@ from .layout import (
 from .data_handler import (
     load_uploaded_file,
     load_database_files,
+    enrich_with_employee_dimensions,
     get_dataset_summary,
     calculate_kpis,
     get_chart_data,
@@ -38,6 +39,7 @@ __all__ = [
     "render_placeholder",
     "load_uploaded_file",
     "load_database_files",
+    "enrich_with_employee_dimensions",
     "get_dataset_summary",
     "calculate_kpis",
     "get_chart_data",

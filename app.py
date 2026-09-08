@@ -25,6 +25,7 @@ from src.dashboard import (
     filter_dataset,
     calculate_capacity_metrics,
     generate_insights,
+    enrich_with_employee_dimensions,
 )
 from src.dashboard.api_client import create_assignment, delete_assignment, get_assignments, get_employees, update_assignment
 from src.dashboard.auth import render_login
@@ -100,14 +101,32 @@ def render_dataset_info() -> None:
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Rows", f"{summary['rows']:,}")
     c2.metric("Columns", summary["columns"])
-    c3.metric("Null %", f"{summary['null_pct']}%")
-    c4.metric("Memory", f"{summary['memory_mb']} MB")
+    c3.metric(
+        "Null %",
+        f"{summary['null_pct']}%",
+        help="Percentage of cells without a value. Useful for spotting incomplete source data.",
+    )
+    c4.metric(
+        "Memory",
+        f"{summary['memory_mb']} MB",
+        help="Approximate in-memory size of the filtered DataFrame, useful for monitoring large uploads.",
+    )
 
-    st.markdown("**First 10 Rows**")
-    st.dataframe(df.head(10), use_container_width=True)
+    preview_rows = st.number_input(
+        "Rows to preview",
+        min_value=1,
+        max_value=max(1, len(df)),
+        value=min(10, max(1, len(df))),
+        step=10,
+        key="dataset_preview_rows",
+        help="Choose how many rows to display. This changes the preview only, not the dataset.",
+    )
+    st.markdown(f"**Data Preview ({int(preview_rows):,} of {len(df):,} rows)**")
+    st.dataframe(df.head(int(preview_rows)), use_container_width=True)
 
-    st.markdown("**Basic Statistics**")
-    st.dataframe(df.describe(include="all"), use_container_width=True)
+    with st.expander("Basic Statistics", expanded=False):
+        st.caption("Descriptive statistics help identify distributions, ranges, and data-quality issues before interpreting workforce metrics.")
+        st.dataframe(df.describe(include="all"), use_container_width=True)
     close_section_card()
 
 
@@ -119,6 +138,7 @@ def render_overview() -> None:
     )
 
     raw_df = st.session_state.get("uploaded_df")
+    files = st.session_state.get("uploaded_files", {})
     df = (
         filter_dataset(
             raw_df,
@@ -129,6 +149,7 @@ def render_overview() -> None:
         )
         if raw_df is not None else None
     )
+    analysis_df = enrich_with_employee_dimensions(df, files) if df is not None else None
 
     # ── Dataset info (if uploaded) ─────────────────────────────────────
     render_dataset_info()
@@ -169,7 +190,7 @@ def render_overview() -> None:
         render_section_card_open("Data Distribution", "Breakdown of uploaded dataset")
 
         if df is not None:
-            charts = get_chart_data(df)
+            charts = get_chart_data(analysis_df)
 
             if "department_dist" in charts:
                 import plotly.express as px
@@ -187,6 +208,7 @@ def render_overview() -> None:
                     height=280,
                     margin=dict(l=0, r=0, t=10, b=0),
                 )
+                fig.update_traces(hovertemplate="%{label}<br>%{value:.1f} hours<extra></extra>")
                 st.plotly_chart(fig, use_container_width=True)
             elif "hours_by_category" in charts:
                 import plotly.express as px
@@ -274,6 +296,7 @@ def render_overview() -> None:
                 height=200,
                 margin=dict(l=0, r=0, t=10, b=0),
             )
+            fig.update_traces(hovertemplate="%{label}<br>%{value} employees<extra></extra>")
             st.plotly_chart(fig, use_container_width=True)
         else:
             render_placeholder("Upload employee data to see experience", height=200)
@@ -358,6 +381,14 @@ def render_work_planning() -> None:
 
     token = st.session_state["access_token"]
     current_user = st.session_state.get("current_user", {})
+    if notice := st.session_state.pop("planning_notice", None):
+        st.success(notice)
+
+    def format_duration(hours: float) -> str:
+        value = float(hours)
+        number = f"{value:g}"
+        return f"{number} hour" if value == 1 else f"{number} hours"
+
     try:
         employees = get_employees(token)
         assignments = get_assignments(
@@ -373,7 +404,7 @@ def render_work_planning() -> None:
 
     employee_options = {employee["employee_name"]: employee["employee_id"] for employee in employees}
     with st.expander("+ Assign work", expanded=True):
-        with st.form("planning_form", clear_on_submit=True):
+        with st.form("planning_form", clear_on_submit=True, enter_to_submit=False):
             form_cols = st.columns([2, 1, 1, 1, 1])
             with form_cols[0]:
                 title = st.text_input("Work title", placeholder="e.g. Client discovery")
@@ -398,6 +429,7 @@ def render_work_planning() -> None:
                 })
                 for warning in created.get("warnings", []):
                     st.warning(warning)
+                st.session_state["planning_notice"] = "Assignment created successfully."
                 st.rerun()
             else:
                 st.warning("Add a work title and load at least one employee before saving.")
@@ -418,7 +450,7 @@ def render_work_planning() -> None:
             day_items = [item for item in assignments if item["employee_id"] == employee_id and item["work_date"] == day.isoformat()]
             if day_items:
                 content = "<br>".join(
-                    f"<span class='calendar-item'><b>{item['title']}</b><br>{item['duration_hours']}h</span>"
+                    f"<span class='calendar-item'><b>{item['title']}</b><br>{format_duration(item['duration_hours'])}</span>"
                     for item in day_items
                 )
                 row[index + 1].markdown(content, unsafe_allow_html=True)
@@ -433,7 +465,7 @@ def render_work_planning() -> None:
         }
         selected_id = st.selectbox("Assignment to edit", list(assignment_labels), format_func=assignment_labels.get)
         selected = next(item for item in assignments if item["id"] == selected_id)
-        with st.form("edit_assignment_form"):
+        with st.form("edit_assignment_form", enter_to_submit=False):
             edit_title = st.text_input("Title", value=selected["title"])
             edit_employee = st.selectbox(
                 "Assignee",
@@ -454,6 +486,7 @@ def render_work_planning() -> None:
                 })
                 for warning in updated.get("warnings", []):
                     st.warning(warning)
+                st.session_state["planning_notice"] = "Assignment updated successfully."
                 st.rerun()
 
         for item in assignments:
@@ -461,6 +494,7 @@ def render_work_planning() -> None:
             edit_col.write(f"{item['work_date']} {item['start_time']} | {item['title']} | {item['employee_name']}")
             if delete_col.button("Delete", key=f"delete_assignment_{item['id']}"):
                 delete_assignment(token, item["id"])
+                st.session_state["planning_notice"] = "Assignment deleted successfully."
                 st.rerun()
 
 
@@ -505,6 +539,7 @@ def render_capacity() -> None:
         status_counts = metrics["capacity_status"].value_counts().rename_axis("status").reset_index(name="employees")
         fig = px.pie(status_counts, names="status", values="employees", color="status", color_discrete_map={"Overloaded": "#EF4444", "On target": "#10B981", "Available": "#F59E0B"})
         fig.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", height=320)
+        fig.update_traces(hovertemplate="%{label}<br>%{value} employees<extra></extra>")
         st.plotly_chart(fig, use_container_width=True)
 
     display_columns = ["employee_id", "employee_name", "department", "team", "capacity_hours_monthly", "allocated_hours", "hours_logged", "billable_hours", "capacity_load_pct", "utilization_pct", "capacity_variance_hours", "capacity_status"]

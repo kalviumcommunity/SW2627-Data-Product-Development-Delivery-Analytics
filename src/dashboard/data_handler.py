@@ -110,6 +110,32 @@ def load_database_files() -> dict[str, pd.DataFrame]:
             }
     except Exception:
         return {}
+
+
+def enrich_with_employee_dimensions(df: pd.DataFrame, files: dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """Add department/team/employee attributes to transactional datasets."""
+    if "employee_id" not in df.columns:
+        return df
+    employee_df = next(
+        (frame for frame in files.values() if {"employee_id", "department", "team"} <= set(frame.columns)),
+        None,
+    )
+    if employee_df is None or {"department", "team"} <= set(df.columns):
+        return df
+
+    dimensions = [column for column in ("employee_id", "department", "team", "employee_name", "experience_years") if column in employee_df.columns]
+    dimensions_df = employee_df[dimensions].drop_duplicates("employee_id")
+    enriched = df.merge(dimensions_df, on="employee_id", how="left", suffixes=("", "_employee"))
+    for column in dimensions:
+        alternate = f"{column}_employee"
+        if alternate in enriched.columns:
+            if column in df.columns:
+                enriched[column] = enriched[column].fillna(enriched[alternate])
+            else:
+                enriched = enriched.rename(columns={alternate: column})
+    return enriched.drop(columns=[f"{column}_employee" for column in dimensions if f"{column}_employee" in enriched.columns])
+
+
 def filter_dataset(
     df: pd.DataFrame,
     period: str = "This Month",

@@ -127,7 +127,7 @@ def render_sidebar() -> str:
                 try:
                     users = list_users(token)
                     st.caption(f"{len(users)} user(s)")
-                    with st.form("create_user_form", clear_on_submit=True):
+                    with st.form("create_user_form", clear_on_submit=True, enter_to_submit=False):
                         new_name = st.text_input("Full name")
                         new_email = st.text_input("Email")
                         new_password = st.text_input("Temporary password", type="password")
