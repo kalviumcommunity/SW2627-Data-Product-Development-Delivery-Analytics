@@ -5,6 +5,8 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
+from src.database import connection
+
 
 # ---------------------------------------------------------------------------
 # File loading
@@ -90,6 +92,24 @@ def _numeric_col(df: pd.DataFrame, col: str) -> pd.Series | None:
     ).fillna(0)
 
 
+def load_database_files() -> dict[str, pd.DataFrame]:
+    """Load refreshed analytics source tables for dashboard use."""
+    table_files = {
+        "employee_source": "employee_master_raw.csv",
+        "timesheets": "timesheets_raw.csv",
+        "allocations": "allocations_raw.csv",
+        "billing": "billing_raw.csv",
+    }
+    try:
+        with connection() as conn:
+            available = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type = 'table'")}
+            return {
+                filename: pd.read_sql_query(f"SELECT * FROM {table}", conn)
+                for table, filename in table_files.items()
+                if table in available
+            }
+    except Exception:
+        return {}
 def filter_dataset(
     df: pd.DataFrame,
     period: str = "This Month",

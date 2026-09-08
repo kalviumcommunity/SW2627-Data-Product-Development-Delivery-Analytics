@@ -69,8 +69,9 @@ def render_top_header(active_page_label: str) -> str:
 
     with cols[5]:
         with st.popover("\U0001f464"):
-            st.markdown("**Prabdeep Singh**")
-            st.caption("Operations Lead")
+            current_user = st.session_state.get("current_user", {})
+            st.markdown(f"**{current_user.get('full_name', 'User')}**")
+            st.caption(current_user.get("role", "viewer").title())
 
     return period
 

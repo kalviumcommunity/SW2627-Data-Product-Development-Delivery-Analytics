@@ -54,3 +54,27 @@ def update_assignment(token: str, assignment_id: int, payload: dict) -> dict:
 def delete_assignment(token: str, assignment_id: int) -> None:
     response = _request("DELETE", f"/assignments/{assignment_id}", token)
     response.raise_for_status()
+
+
+def list_users(token: str) -> list[dict]:
+    response = _request("GET", "/users", token)
+    response.raise_for_status()
+    return response.json()
+
+
+def create_user(token: str, payload: dict) -> dict:
+    response = _request("POST", "/users", token, json=payload)
+    response.raise_for_status()
+    return response.json()
+
+
+def update_user_role(token: str, user_id: int, role: str) -> dict:
+    response = _request("PATCH", f"/users/{user_id}/role", token, json={"role": role})
+    response.raise_for_status()
+    return response.json()
+
+
+def update_user_status(token: str, user_id: int, active: bool) -> dict:
+    response = _request("PATCH", f"/users/{user_id}/status", token, params={"active": str(active).lower()})
+    response.raise_for_status()
+    return response.json()

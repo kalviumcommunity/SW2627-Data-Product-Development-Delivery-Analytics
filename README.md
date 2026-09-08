@@ -52,6 +52,12 @@ daily at 02:00 using `venv\Scripts\python.exe scripts\refresh_data.py` from
 the project directory. The API also exposes Admin-only `POST /refresh` and
 authenticated `GET /refresh/status` endpoints.
 
+Run the automated checks from the project root with:
+
+```bash
+pytest -q
+```
+
 ---
 
 *Detailed documentation will be added upon project completion.*

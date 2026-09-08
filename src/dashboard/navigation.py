@@ -5,8 +5,9 @@ from __future__ import annotations
 import streamlit as st
 
 from .themer import NAV_ITEMS, get_active_page_key
-from .data_handler import load_uploaded_file, reset_session_state
+from .data_handler import load_database_files, load_uploaded_file, reset_session_state
 from .auth import logout
+from .api_client import create_user, list_users, update_user_role, update_user_status
 
 
 def render_sidebar() -> str:
@@ -89,6 +90,12 @@ def render_sidebar() -> str:
                     st.session_state["selected_file"] = next(iter(loaded_files))
 
         files = st.session_state.get("uploaded_files", {})
+        if not files:
+            database_files = load_database_files()
+            if database_files:
+                files = database_files
+                st.session_state["uploaded_files"] = database_files
+                st.session_state["selected_file"] = next(iter(database_files))
         if files:
             selected_file = st.selectbox(
                 "Active dataset",
@@ -113,6 +120,38 @@ def render_sidebar() -> str:
         if st.button("Sign out", use_container_width=True, key="sign_out_btn"):
             logout()
             st.rerun()
+
+        if current_user.get("role") == "admin":
+            with st.expander("Admin", expanded=False):
+                token = st.session_state.get("access_token")
+                try:
+                    users = list_users(token)
+                    st.caption(f"{len(users)} user(s)")
+                    with st.form("create_user_form", clear_on_submit=True):
+                        new_name = st.text_input("Full name")
+                        new_email = st.text_input("Email")
+                        new_password = st.text_input("Temporary password", type="password")
+                        new_role = st.selectbox("Role", ["viewer", "manager", "admin"])
+                        if st.form_submit_button("Create user"):
+                            create_user(token, {"full_name": new_name, "email": new_email, "password": new_password, "role": new_role})
+                            st.success("User created")
+                            st.rerun()
+                    for user in users:
+                        st.markdown(f"**{user['full_name']}**  \n{user['email']}")
+                        role_col, status_col = st.columns(2)
+                        role = role_col.selectbox("Role", ["viewer", "manager", "admin"], index=["viewer", "manager", "admin"].index(user["role"]), key=f"role_{user['id']}")
+                        if role != user["role"] and role_col.button("Save role", key=f"save_role_{user['id']}"):
+                            update_user_role(token, user["id"], role)
+                            st.rerun()
+                        label = "Deactivate" if user["is_active"] else "Activate"
+                        is_current_user = user["id"] == current_user.get("id")
+                        if is_current_user and user["is_active"]:
+                            status_col.caption("Current user")
+                        elif status_col.button(label, key=f"toggle_user_{user['id']}"):
+                            update_user_status(token, user["id"], not user["is_active"])
+                            st.rerun()
+                except Exception as exc:
+                    st.error(f"Could not load users: {exc}")
         st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
         st.markdown(
             "<div class='user-card'>"
