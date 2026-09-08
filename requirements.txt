@@ -1,6 +1,7 @@
 altair==6.2.2
 fastapi==0.116.1
 httpx==0.28.1
+PyJWT==2.10.1
 anyio==4.14.2
 asttokens==3.0.2
 async-lru==2.3.0
