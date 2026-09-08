@@ -511,12 +511,73 @@ def render_capacity() -> None:
 
 
 def render_team_analytics() -> None:
-    """Render the Team Analytics page (placeholder for future LU)."""
+    """Render department, team, employee, and project comparisons."""
     render_page_header(
         "Team Analytics",
-        "Deep dive into capacity and utilization metrics.",
+        "Compare workload, capacity, and utilization across organizational levels.",
     )
-    render_placeholder("Team breakdown, overload alerts, bandwidth — future LU", height=400)
+    files = st.session_state.get("uploaded_files", {})
+    metrics = calculate_capacity_metrics(
+        files,
+        st.session_state.get("period", "This Month"),
+        st.session_state.get("custom_start_date"),
+        st.session_state.get("custom_end_date"),
+    )
+    if metrics.empty:
+        render_placeholder("Upload employee, allocation, and timesheet datasets to see team analytics", height=300)
+        return
+
+    filter_cols = st.columns(3)
+    with filter_cols[0]:
+        departments = ["All"] + sorted(metrics["department"].dropna().unique().tolist())
+        department = st.selectbox("Department", departments, key="team_analytics_department")
+    scoped = metrics if department == "All" else metrics[metrics["department"] == department]
+    with filter_cols[1]:
+        teams = ["All"] + sorted(scoped["team"].dropna().unique().tolist())
+        team = st.selectbox("Team", teams, key="team_analytics_team")
+    scoped = scoped if team == "All" else scoped[scoped["team"] == team]
+    with filter_cols[2]:
+        employees = ["All"] + sorted(scoped["employee_name"].dropna().unique().tolist())
+        employee = st.selectbox("Employee", employees, key="team_analytics_employee")
+    scoped = scoped if employee == "All" else scoped[scoped["employee_name"] == employee]
+
+    kpis = st.columns(4)
+    capacity = scoped["capacity_hours_monthly"].sum()
+    allocated = scoped["allocated_hours"].sum()
+    logged = scoped["hours_logged"].sum()
+    billable = scoped["billable_hours"].sum()
+    kpis[0].metric("People", f"{len(scoped):,}")
+    kpis[1].metric("Capacity Load", f"{allocated / capacity * 100 if capacity else 0:.1f}%")
+    kpis[2].metric("Utilization", f"{billable / logged * 100 if logged else 0:.1f}%")
+    kpis[3].metric("Available Hours", f"{(capacity - allocated):,.0f}")
+
+    import plotly.express as px
+    left, right = st.columns(2)
+    with left:
+        grouped = scoped.groupby("team", dropna=False)[["capacity_hours_monthly", "allocated_hours", "billable_hours", "hours_logged"]].sum().reset_index()
+        grouped["capacity_load_pct"] = (grouped["allocated_hours"] / grouped["capacity_hours_monthly"].replace(0, pd.NA) * 100).fillna(0).round(1)
+        fig = px.bar(grouped, x="team", y="capacity_load_pct", color="capacity_load_pct", color_continuous_scale="Blues", labels={"capacity_load_pct": "Capacity Load %"})
+        fig.add_hline(y=100, line_dash="dash", line_color="#EF4444")
+        fig.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=320)
+        st.plotly_chart(fig, use_container_width=True)
+    with right:
+        grouped["utilization_pct"] = (grouped["billable_hours"] / grouped["hours_logged"].replace(0, pd.NA) * 100).fillna(0).round(1)
+        fig = px.bar(grouped, x="team", y="utilization_pct", color="utilization_pct", color_continuous_scale="Teal", labels={"utilization_pct": "Billable Utilization %"})
+        fig.add_hline(y=70, line_dash="dash", line_color="#10B981")
+        fig.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=320)
+        st.plotly_chart(fig, use_container_width=True)
+
+    st.markdown("### Employee drill-down")
+    employee_columns = ["employee_id", "employee_name", "department", "team", "capacity_hours_monthly", "allocated_hours", "hours_logged", "billable_hours", "capacity_load_pct", "utilization_pct", "capacity_status"]
+    st.dataframe(scoped[employee_columns].sort_values("capacity_load_pct", ascending=False), use_container_width=True, hide_index=True)
+
+    allocation = next((frame for frame in files.values() if {"project_id", "employee_id", "allocated_hours"} <= set(frame.columns)), None)
+    if allocation is not None:
+        allocation = filter_dataset(allocation, st.session_state.get("period", "This Month"), "", st.session_state.get("custom_start_date"), st.session_state.get("custom_end_date"))
+        allocation = allocation[allocation["employee_id"].isin(scoped["employee_id"])]
+        project_summary = allocation.assign(allocated_hours=pd.to_numeric(allocation["allocated_hours"], errors="coerce").fillna(0)).groupby("project_id", as_index=False)["allocated_hours"].sum().sort_values("allocated_hours", ascending=False)
+        st.markdown("### Project allocation")
+        st.dataframe(project_summary, use_container_width=True, hide_index=True)
 
 
 def render_insights() -> None:
