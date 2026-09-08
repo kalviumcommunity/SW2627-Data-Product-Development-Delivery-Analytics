@@ -13,9 +13,14 @@ from .layout import (
 )
 from .data_handler import (
     load_uploaded_file,
+    load_database_files,
+    enrich_with_employee_dimensions,
     get_dataset_summary,
     calculate_kpis,
     get_chart_data,
+    calculate_capacity_metrics,
+    generate_insights,
+    filter_dataset,
     initialise_session_state,
     reset_session_state,
 )
@@ -33,9 +38,14 @@ __all__ = [
     "close_section_card",
     "render_placeholder",
     "load_uploaded_file",
+    "load_database_files",
+    "enrich_with_employee_dimensions",
     "get_dataset_summary",
     "calculate_kpis",
     "get_chart_data",
+    "calculate_capacity_metrics",
+    "generate_insights",
+    "filter_dataset",
     "initialise_session_state",
     "reset_session_state",
 ]

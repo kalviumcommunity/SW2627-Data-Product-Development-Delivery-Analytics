@@ -9,15 +9,15 @@ import streamlit as st
 # Design tokens — matches Figma / reference UI
 # ---------------------------------------------------------------------------
 TOKENS = {
-    "bg_app": "#0B1020",
-    "bg_sidebar": "#0F1729",
-    "bg_card": "#161D33",
-    "bg_card_hover": "#1B2340",
-    "border": "#2A3450",
-    "border_strong": "#3A4565",
+    "bg_app": "#0B0B0B",
+    "bg_sidebar": "#111111",
+    "bg_card": "#171717",
+    "bg_card_hover": "#202020",
+    "border": "#303030",
+    "border_strong": "#4A4A4A",
     "text_primary": "#FFFFFF",
-    "text_secondary": "#94A3B8",
-    "text_muted": "#64748B",
+    "text_secondary": "#A3A3A3",
+    "text_muted": "#737373",
     "accent_blue": "#3B82F6",
     "accent_indigo": "#6366F1",
     "accent_cyan": "#06B6D4",
@@ -85,6 +85,20 @@ def inject_global_css() -> None:
     }}
     section[data-testid="stSidebar"] .stRadio > div {{
         gap: 4px;
+    }}
+    [data-baseweb="select"] > div,
+    [data-baseweb="input"] > div,
+    [data-testid="stTextInput"] input,
+    [data-testid="stNumberInput"] input,
+    [data-testid="stDateInput"] input,
+    [data-testid="stTimeInput"] input {{
+        background: #161616 !important;
+        border-color: {t['border']} !important;
+        color: {t['text_primary']} !important;
+    }}
+    button[kind="secondary"],
+    button[kind="primary"] {{
+        border-color: {t['border']} !important;
     }}
 
     /* ── KPI Card ──────────────────────────────────────────────────── */
@@ -226,6 +240,24 @@ def inject_global_css() -> None:
         border: 1px dashed {t['border']};
         border-radius: 8px;
         font-size: 12px;
+    }}
+
+    /* ── Weekly planning calendar ───────────────────────────────────── */
+    .calendar-item {{
+        display: block;
+        min-height: 54px;
+        padding: 8px;
+        border-left: 3px solid {t['accent_cyan']};
+        border-radius: 6px;
+        background: rgba(6,182,212,0.14);
+        color: {t['text_primary']};
+        font-size: 11px;
+    }}
+    .calendar-empty {{
+        min-height: 54px;
+        border: 1px solid {t['border']};
+        border-radius: 6px;
+        background: rgba(255,255,255,0.015);
     }}
     </style>
     """

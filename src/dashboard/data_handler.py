@@ -5,6 +5,8 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
+from src.database import connection
+
 
 # ---------------------------------------------------------------------------
 # File loading
@@ -79,6 +81,109 @@ def _safe_col(df: pd.DataFrame, col: str) -> pd.Series | None:
     return df[col] if col in df.columns else None
 
 
+def _numeric_col(df: pd.DataFrame, col: str) -> pd.Series | None:
+    """Return a numeric version of a column, tolerating formatted strings."""
+    series = _safe_col(df, col)
+    if series is None:
+        return None
+    return pd.to_numeric(
+        series.astype("string").str.replace(",", "", regex=False).str.extract(r"([-+]?\d*\.?\d+)", expand=False),
+        errors="coerce",
+    ).fillna(0)
+
+
+def load_database_files() -> dict[str, pd.DataFrame]:
+    """Load refreshed analytics source tables for dashboard use."""
+    table_files = {
+        "employee_source": "employee_master_raw.csv",
+        "timesheets": "timesheets_raw.csv",
+        "allocations": "allocations_raw.csv",
+        "billing": "billing_raw.csv",
+    }
+    try:
+        with connection() as conn:
+            available = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type = 'table'")}
+            return {
+                filename: pd.read_sql_query(f"SELECT * FROM {table}", conn)
+                for table, filename in table_files.items()
+                if table in available
+            }
+    except Exception:
+        return {}
+
+
+def enrich_with_employee_dimensions(df: pd.DataFrame, files: dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """Add department/team/employee attributes to transactional datasets."""
+    if "employee_id" not in df.columns:
+        return df
+    employee_df = next(
+        (frame for frame in files.values() if {"employee_id", "department", "team"} <= set(frame.columns)),
+        None,
+    )
+    if employee_df is None or {"department", "team"} <= set(df.columns):
+        return df
+
+    dimensions = [column for column in ("employee_id", "department", "team", "employee_name", "experience_years") if column in employee_df.columns]
+    dimensions_df = employee_df[dimensions].drop_duplicates("employee_id")
+    enriched = df.merge(dimensions_df, on="employee_id", how="left", suffixes=("", "_employee"))
+    for column in dimensions:
+        alternate = f"{column}_employee"
+        if alternate in enriched.columns:
+            if column in df.columns:
+                enriched[column] = enriched[column].fillna(enriched[alternate])
+            else:
+                enriched = enriched.rename(columns={alternate: column})
+    return enriched.drop(columns=[f"{column}_employee" for column in dimensions if f"{column}_employee" in enriched.columns])
+
+
+def filter_dataset(
+    df: pd.DataFrame,
+    period: str = "This Month",
+    search: str = "",
+    start_date=None,
+    end_date=None,
+) -> pd.DataFrame:
+    """Filter a dataset by the selected period and a case-insensitive search."""
+    filtered = df.copy()
+
+    if search.strip():
+        query = search.strip().casefold()
+        text_values = filtered.astype("string").fillna("")
+        matches = text_values.apply(
+            lambda column: column.str.casefold().str.contains(query, regex=False, na=False)
+        ).any(axis=1)
+        filtered = filtered.loc[matches]
+
+    date_column = next(
+        (name for name in ("work_date", "date", "timesheet_date", "entry_date", "allocation_start_date", "billing_date") if name in filtered.columns),
+        None,
+    )
+    if date_column is None:
+        return filtered
+
+    parsed_dates = pd.to_datetime(filtered[date_column], errors="coerce")
+    if parsed_dates.notna().sum() == 0:
+        return filtered
+
+    if period == "Custom" and start_date and end_date:
+        start = pd.Timestamp(start_date)
+        end = pd.Timestamp(end_date) + pd.Timedelta(days=1)
+        return filtered.loc[parsed_dates.between(start, end, inclusive="left").fillna(False)]
+
+    if period not in {"This Week", "This Month", "This Quarter"}:
+        return filtered
+
+    anchor = parsed_dates.max().normalize()
+    if period == "This Week":
+        start = anchor - pd.Timedelta(days=anchor.weekday())
+        mask = parsed_dates.between(start, anchor + pd.Timedelta(days=1), inclusive="left")
+    elif period == "This Month":
+        mask = parsed_dates.dt.to_period("M") == anchor.to_period("M")
+    else:
+        mask = parsed_dates.dt.to_period("Q") == anchor.to_period("Q")
+    return filtered.loc[mask.fillna(False)]
+
+
 def calculate_kpis(df: pd.DataFrame) -> dict:
     """Calculate KPIs dynamically from the uploaded DataFrame.
 
@@ -135,8 +240,8 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
         })
 
     # ── Timesheet-specific KPIs ────────────────────────────────────────
-    hours_col = _safe_col(df, "hours_logged")
-    billable_col = _safe_col(df, "billable_hours")
+    hours_col = _numeric_col(df, "hours_logged")
+    billable_col = _numeric_col(df, "billable_hours")
 
     if hours_col is not None:
         total_hours = hours_col.sum()
@@ -171,7 +276,7 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
             })
 
     # ── Allocation-specific KPIs ───────────────────────────────────────
-    alloc_hours_col = _safe_col(df, "allocated_hours")
+    alloc_hours_col = _numeric_col(df, "allocated_hours")
     if alloc_hours_col is not None:
         total_alloc = alloc_hours_col.sum()
         kpis.append({
@@ -183,7 +288,7 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
         })
 
     # ── Capacity KPI ───────────────────────────────────────────────────
-    capacity_col = _safe_col(df, "capacity_hours_monthly")
+    capacity_col = _numeric_col(df, "capacity_hours_monthly")
     if capacity_col is not None:
         total_capacity = capacity_col.sum()
         kpis.append({
@@ -247,17 +352,19 @@ def get_chart_data(df: pd.DataFrame) -> dict:
 
     # ── Hours by category (timesheet) ─────────────────────────────────
     cat_col = _safe_col(df, "task_category")
-    hours_col = _safe_col(df, "hours_logged")
+    hours_col = _numeric_col(df, "hours_logged")
     if cat_col is not None and hours_col is not None:
-        charts["hours_by_category"] = df.groupby(cat_col)[hours_col].sum().sort_values(ascending=False).head(8)
+        category_hours = pd.DataFrame({"category": cat_col, "hours": hours_col})
+        charts["hours_by_category"] = category_hours.groupby("category")["hours"].sum().sort_values(ascending=False).head(8)
 
     # ── Utilization by department ──────────────────────────────────────
     dept_col2 = _safe_col(df, "department")
-    billable_col = _safe_col(df, "billable_hours")
-    hours_col2 = _safe_col(df, "hours_logged")
+    billable_col = _numeric_col(df, "billable_hours")
+    hours_col2 = _numeric_col(df, "hours_logged")
     if dept_col2 is not None and billable_col is not None and hours_col2 is not None:
-        dept_util = df.groupby(dept_col2).agg({billable_col: "sum", hours_col2: "sum"})
-        dept_util["utilization"] = (dept_util[billable_col] / dept_util[hours_col2] * 100).round(1)
+        department_hours = pd.DataFrame({"department": dept_col2, "billable": billable_col, "hours": hours_col2})
+        dept_util = department_hours.groupby("department").sum(numeric_only=True)
+        dept_util["utilization"] = (dept_util["billable"] / dept_util["hours"].replace(0, pd.NA) * 100).fillna(0).round(1)
         charts["utilization_by_dept"] = dept_util["utilization"].sort_values(ascending=False)
 
     # ── Experience distribution ────────────────────────────────────────
@@ -267,11 +374,106 @@ def get_chart_data(df: pd.DataFrame) -> dict:
 
     # ── Top projects by hours ──────────────────────────────────────────
     proj_col = _safe_col(df, "project_id")
-    hours_col3 = _safe_col(df, "hours_logged")
+    hours_col3 = _numeric_col(df, "hours_logged")
     if proj_col is not None and hours_col3 is not None:
-        charts["top_projects"] = df.groupby(proj_col)[hours_col3].sum().sort_values(ascending=False).head(8)
+        project_hours = pd.DataFrame({"project": proj_col, "hours": hours_col3})
+        charts["top_projects"] = project_hours.groupby("project")["hours"].sum().sort_values(ascending=False).head(8)
 
     return charts
+
+
+def calculate_capacity_metrics(
+    files: dict[str, pd.DataFrame],
+    period: str = "This Month",
+    start_date=None,
+    end_date=None,
+) -> pd.DataFrame:
+    """Combine uploaded employee, allocation, and timesheet data for capacity views."""
+    employee_df = next(
+        (frame for frame in files.values() if {"employee_id", "capacity_hours_monthly"} <= set(frame.columns)),
+        None,
+    )
+    if employee_df is None:
+        return pd.DataFrame()
+
+    result = employee_df.copy()
+    numeric = ["capacity_hours_monthly"]
+    for column in numeric:
+        result[column] = pd.to_numeric(result[column], errors="coerce").fillna(0)
+
+    def aggregate(columns: set[str], value: str, output: str) -> None:
+        source = next((frame for frame in files.values() if columns <= set(frame.columns)), None)
+        if source is None:
+            result[output] = 0.0
+            return
+        filtered = filter_dataset(source, period, "", start_date, end_date)
+        values = pd.to_numeric(filtered[value], errors="coerce").fillna(0)
+        grouped = pd.DataFrame({"employee_id": filtered["employee_id"], output: values}).groupby("employee_id")[output].sum()
+        result[output] = result["employee_id"].map(grouped).fillna(0)
+
+    aggregate({"employee_id", "allocated_hours", "allocation_start_date"}, "allocated_hours", "allocated_hours")
+    aggregate({"employee_id", "hours_logged", "work_date"}, "hours_logged", "hours_logged")
+    aggregate({"employee_id", "billable_hours", "work_date"}, "billable_hours", "billable_hours")
+    result["capacity_load_pct"] = (result["allocated_hours"] / result["capacity_hours_monthly"].replace(0, pd.NA) * 100).fillna(0).round(1)
+    result["utilization_pct"] = (result["billable_hours"] / result["hours_logged"].replace(0, pd.NA) * 100).fillna(0).round(1)
+    result["capacity_variance_hours"] = (result["capacity_hours_monthly"] - result["allocated_hours"]).round(1)
+    result["capacity_status"] = result["capacity_load_pct"].map(
+        lambda value: "Overloaded" if value > 100 else "On target" if value >= 70 else "Available"
+    )
+    return result
+
+
+def generate_insights(metrics: pd.DataFrame, assignments: list[dict] | None = None) -> pd.DataFrame:
+    """Generate explainable workforce alerts from capacity and assignment data."""
+    alerts: list[dict] = []
+    if not metrics.empty:
+        for row in metrics.itertuples(index=False):
+            if row.capacity_load_pct > 100:
+                alerts.append({
+                    "severity": "Critical",
+                    "type": "Overloaded",
+                    "subject": row.employee_name,
+                    "evidence": f"Allocated {row.allocated_hours:.1f}h against {row.capacity_hours_monthly:.1f}h capacity ({row.capacity_load_pct:.1f}%).",
+                    "recommendation": "Review allocations and move work to available capacity.",
+                })
+            elif row.utilization_pct < 70 and row.hours_logged > 0:
+                alerts.append({
+                    "severity": "Warning",
+                    "type": "Under-utilized",
+                    "subject": row.employee_name,
+                    "evidence": f"Billable utilization is {row.utilization_pct:.1f}%, below the 70% target.",
+                    "recommendation": "Review upcoming work and identify billable assignments.",
+                })
+            if row.capacity_load_pct < 50 and row.capacity_hours_monthly > 0:
+                alerts.append({
+                    "severity": "Info",
+                    "type": "Unused capacity",
+                    "subject": row.employee_name,
+                    "evidence": f"Only {row.capacity_load_pct:.1f}% of monthly capacity is allocated.",
+                    "recommendation": "Consider this employee for available project work.",
+                })
+
+    if assignments:
+        grouped: dict[tuple[str, str], list[dict]] = {}
+        for assignment in assignments:
+            grouped.setdefault((assignment["employee_id"], assignment["work_date"]), []).append(assignment)
+        for (employee_id, work_date), items in grouped.items():
+            ordered = sorted(items, key=lambda item: item["start_time"])
+            for previous, current in zip(ordered, ordered[1:]):
+                from datetime import datetime, timedelta
+
+                previous_start = datetime.fromisoformat(f"{work_date}T{previous['start_time']}")
+                previous_end = previous_start + timedelta(hours=previous["duration_hours"])
+                current_start = datetime.fromisoformat(f"{work_date}T{current['start_time']}")
+                if current_start < previous_end:
+                    alerts.append({
+                        "severity": "Warning",
+                        "type": "Assignment conflict",
+                        "subject": employee_id,
+                        "evidence": f"'{previous['title']}' overlaps '{current['title']}' on {work_date}.",
+                        "recommendation": "Adjust one assignment or confirm the overlap is intentional.",
+                    })
+    return pd.DataFrame(alerts, columns=["severity", "type", "subject", "evidence", "recommendation"])
 
 
 # ---------------------------------------------------------------------------
@@ -284,6 +486,10 @@ def initialise_session_state() -> None:
         "period": "This Month",
         "uploaded_df": None,
         "file_name": None,
+        "uploaded_files": {},
+        "selected_file": None,
+        "planning_items": [],
+        "uploader_version": 0,
     }
     for key, val in defaults.items():
         if key not in st.session_state:
@@ -296,7 +502,21 @@ def reset_session_state() -> None:
     st.session_state["period"] = "This Month"
     st.session_state["uploaded_df"] = None
     st.session_state["file_name"] = None
-    if "nav_radio" in st.session_state:
-        del st.session_state["nav_radio"]
-    if "period_selector" in st.session_state:
-        del st.session_state["period_selector"]
+    st.session_state["uploaded_files"] = {}
+    st.session_state["selected_file"] = None
+    st.session_state["planning_items"] = []
+    st.session_state["uploader_version"] = st.session_state.get("uploader_version", 0) + 1
+    for key in (
+        "nav_radio",
+        "period_selector",
+        "global_search",
+        "workforce_search",
+        "workforce_dept",
+        "workforce_status",
+        "workforce_team",
+        "custom_start_date",
+        "custom_end_date",
+        "custom_date_range",
+    ):
+        if key in st.session_state:
+            del st.session_state[key]

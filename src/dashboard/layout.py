@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from datetime import date
+
 import streamlit as st
 
 from .themer import TOKENS
@@ -24,7 +26,7 @@ def render_top_header(active_page_label: str) -> str:
     with cols[0]:
         st.markdown(
             "<div class='brand-title'>Workforce Planner</div>"
-            "<div class='brand-sub'>v1.0 - Sprint 1</div>",
+            "<div class='brand-sub'>Utilization Analytics</div>",
             unsafe_allow_html=True,
         )
 
@@ -38,6 +40,16 @@ def render_top_header(active_page_label: str) -> str:
             key="period_selector",
         )
         st.session_state["period"] = period
+        if period == "Custom":
+            default_start = st.session_state.get("custom_start_date", date.today().replace(day=1))
+            default_end = st.session_state.get("custom_end_date", date.today())
+            selected_range = st.date_input(
+                "Custom date range",
+                value=(default_start, default_end),
+                key="custom_date_range",
+            )
+            if isinstance(selected_range, tuple) and len(selected_range) == 2:
+                st.session_state["custom_start_date"], st.session_state["custom_end_date"] = selected_range
 
     with cols[2]:
         st.markdown(
@@ -47,13 +59,19 @@ def render_top_header(active_page_label: str) -> str:
         st.markdown("</div>", unsafe_allow_html=True)
 
     with cols[3]:
-        st.button("\U0001f50d", key="hdr_search", help="Search (LU 2.53)")
+        with st.popover("\U0001f50d"):
+            st.text_input("Search the dashboard", key="global_search", placeholder="Search employees, teams...")
 
     with cols[4]:
-        st.button("\U0001f514", key="hdr_bell", help="Notifications")
+        with st.popover("\U0001f514"):
+            st.markdown("**Notifications**")
+            st.caption("No new workforce alerts.")
 
     with cols[5]:
-        st.button("\U0001f464", key="hdr_user", help="Profile")
+        with st.popover("\U0001f464"):
+            current_user = st.session_state.get("current_user", {})
+            st.markdown(f"**{current_user.get('full_name', 'User')}**")
+            st.caption(current_user.get("role", "viewer").title())
 
     return period
 
