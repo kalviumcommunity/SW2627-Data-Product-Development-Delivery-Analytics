@@ -24,7 +24,7 @@ def render_top_header(active_page_label: str) -> str:
     with cols[0]:
         st.markdown(
             "<div class='brand-title'>Workforce Planner</div>"
-            "<div class='brand-sub'>v1.0 - Sprint 1</div>",
+            "<div class='brand-sub'>Utilization Analytics</div>",
             unsafe_allow_html=True,
         )
 
@@ -47,13 +47,18 @@ def render_top_header(active_page_label: str) -> str:
         st.markdown("</div>", unsafe_allow_html=True)
 
     with cols[3]:
-        st.button("\U0001f50d", key="hdr_search", help="Search (LU 2.53)")
+        with st.popover("\U0001f50d"):
+            st.text_input("Search the dashboard", key="global_search", placeholder="Search employees, teams...")
 
     with cols[4]:
-        st.button("\U0001f514", key="hdr_bell", help="Notifications")
+        with st.popover("\U0001f514"):
+            st.markdown("**Notifications**")
+            st.caption("No new workforce alerts.")
 
     with cols[5]:
-        st.button("\U0001f464", key="hdr_user", help="Profile")
+        with st.popover("\U0001f464"):
+            st.markdown("**Prabdeep Singh**")
+            st.caption("Operations Lead")
 
     return period
 

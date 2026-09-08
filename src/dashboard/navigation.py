@@ -64,42 +64,48 @@ def render_sidebar() -> str:
         )
 
         # ── File uploader (LU 2.52) ────────────────────────────────────
-        uploaded_file = st.file_uploader(
+        uploaded_files = st.file_uploader(
             "Upload dataset",
             type=["csv", "json"],
-            key="dataset_uploader",
-            help="CSV or JSON file",
+            accept_multiple_files=True,
+            key=f"dataset_uploader_{st.session_state.get('uploader_version', 0)}",
+            help="Select one or more CSV or JSON files",
             label_visibility="collapsed",
         )
 
-        if uploaded_file is not None:
-            df = load_uploaded_file(uploaded_file)
-            if df is not None:
-                st.session_state["uploaded_df"] = df
-                st.session_state["file_name"] = uploaded_file.name
-                st.success(f"Loaded {uploaded_file.name}")
-            else:
-                st.error("Could not parse file")
+        if uploaded_files:
+            loaded_files = {}
+            for uploaded_file in uploaded_files:
+                df = load_uploaded_file(uploaded_file)
+                if df is not None:
+                    loaded_files[uploaded_file.name] = df
+                else:
+                    st.error(f"Could not parse {uploaded_file.name}")
+
+            if loaded_files:
+                st.session_state["uploaded_files"] = loaded_files
+                if st.session_state.get("selected_file") not in loaded_files:
+                    st.session_state["selected_file"] = next(iter(loaded_files))
+
+        files = st.session_state.get("uploaded_files", {})
+        if files:
+            selected_file = st.selectbox(
+                "Active dataset",
+                options=list(files),
+                index=list(files).index(st.session_state.get("selected_file"))
+                if st.session_state.get("selected_file") in files else 0,
+                key="active_dataset_selector",
+                label_visibility="collapsed",
+            )
+            st.session_state["selected_file"] = selected_file
+            st.session_state["uploaded_df"] = files[selected_file]
+            st.session_state["file_name"] = selected_file
+            st.success(f"Loaded {len(files)} dataset(s)")
 
         # ── Reset button (LU 2.53) ──────────────────────────────────────
         if st.button("\u21ba  Reset", use_container_width=True, key="reset_btn"):
             reset_session_state()
             st.rerun()
-
-        st.markdown("<hr>")
-
-        # ── Workspace selector ─────────────────────────────────────────
-        st.markdown(
-            "<div style='font-size:11px; color:#94A3B8; margin-bottom:4px;'>"
-            "Workspace</div>",
-            unsafe_allow_html=True,
-        )
-        st.selectbox(
-            "Workspace",
-            options=["Default Workspace"],
-            label_visibility="collapsed",
-            key="workspace_selector",
-        )
 
         # ── User profile ───────────────────────────────────────────────
         st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)

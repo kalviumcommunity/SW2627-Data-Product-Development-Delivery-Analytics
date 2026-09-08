@@ -21,6 +21,7 @@ from src.dashboard import (
     get_dataset_summary,
     calculate_kpis,
     get_chart_data,
+    filter_dataset,
 )
 
 
@@ -73,10 +74,15 @@ render_top_header(page_label)
 
 def render_dataset_info() -> None:
     """Show dataset info panel when a file has been uploaded."""
-    df = st.session_state.get("uploaded_df")
+    raw_df = st.session_state.get("uploaded_df")
     fname = st.session_state.get("file_name")
-    if df is None:
+    if raw_df is None:
         return
+    df = filter_dataset(
+        raw_df,
+        st.session_state.get("period", "This Month"),
+        st.session_state.get("global_search", ""),
+    )
 
     render_section_card_open("Uploaded Dataset", fname)
     summary = get_dataset_summary(df)
@@ -86,9 +92,6 @@ def render_dataset_info() -> None:
     c2.metric("Columns", summary["columns"])
     c3.metric("Null %", f"{summary['null_pct']}%")
     c4.metric("Memory", f"{summary['memory_mb']} MB")
-
-    st.markdown("**Column Types**")
-    st.json({str(k): int(v) for k, v in summary["dtypes"].items()})
 
     st.markdown("**First 10 Rows**")
     st.dataframe(df.head(10), use_container_width=True)
@@ -105,11 +108,20 @@ def render_overview() -> None:
         "Understand workforce capacity, planned workload and utilization across the organization.",
     )
 
+    raw_df = st.session_state.get("uploaded_df")
+    df = (
+        filter_dataset(
+            raw_df,
+            st.session_state.get("period", "This Month"),
+            st.session_state.get("global_search", ""),
+        )
+        if raw_df is not None else None
+    )
+
     # ── Dataset info (if uploaded) ─────────────────────────────────────
     render_dataset_info()
 
     # ── KPI cards row (dynamic or placeholder) ─────────────────────────
-    df = st.session_state.get("uploaded_df")
     kpi_cols = st.columns(6)
 
     if df is not None:
@@ -118,12 +130,12 @@ def render_overview() -> None:
     else:
         # Placeholder KPIs when no data uploaded
         kpis = [
-            ("Total Records", "--", "\U0001f4ca", None, None),
-            ("Columns", "--", "\U0001f4c8", None, None),
-            ("Total Employees", "--", "\U0001f465", None, None),
-            ("Total Hours", "--", "\U0001f551", None, None),
-            ("Billable Hours", "--", "\U0001f512", None, None),
-            ("Utilization Rate", "--", "\U0001f4c8", None, None),
+            {"label": "Total Records", "value": "--", "icon": "\U0001f4ca", "delta": None, "icon_color": None},
+            {"label": "Columns", "value": "--", "icon": "\U0001f4c8", "delta": None, "icon_color": None},
+            {"label": "Total Employees", "value": "--", "icon": "\U0001f465", "delta": None, "icon_color": None},
+            {"label": "Total Hours", "value": "--", "icon": "\U0001f551", "delta": None, "icon_color": None},
+            {"label": "Billable Hours", "value": "--", "icon": "\U0001f512", "delta": None, "icon_color": None},
+            {"label": "Utilization Rate", "value": "--", "icon": "\U0001f4c8", "delta": None, "icon_color": None},
         ]
 
     for col, kpi in zip(kpi_cols, kpis):
@@ -264,8 +276,8 @@ def render_workforce() -> None:
         "View employee capacity, workload and utilization.",
     )
 
-    df = st.session_state.get("uploaded_df")
-    if df is None:
+    raw_df = st.session_state.get("uploaded_df")
+    if raw_df is None:
         render_placeholder("Upload a dataset to view workforce data", height=400)
         return
 
@@ -273,7 +285,10 @@ def render_workforce() -> None:
     col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
 
     with col1:
-        search = st.text_input("Search employees...", key="workforce_search")
+        local_search = st.text_input("Search employees...", key="workforce_search")
+
+    search = local_search or st.session_state.get("global_search", "")
+    df = filter_dataset(raw_df, st.session_state.get("period", "This Month"), search)
 
     with col2:
         if "department" in df.columns:
@@ -296,11 +311,8 @@ def render_workforce() -> None:
         else:
             team_filter = "All"
 
-    # Apply filters
+    # Apply workforce-specific filters after the shared search and period filters.
     filtered = df.copy()
-
-    if search and "employee_name" in df.columns:
-        filtered = filtered[filtered["employee_name"].str.contains(search, case=False, na=False)]
 
     if dept_filter != "All" and "department" in df.columns:
         filtered = filtered[filtered["department"] == dept_filter]
@@ -318,12 +330,63 @@ def render_workforce() -> None:
 
 
 def render_work_planning() -> None:
-    """Render the Work Planning page (placeholder for future LU)."""
+    """Render a lightweight weekly calendar for assigning work."""
+    from datetime import date, time, timedelta
+
     render_page_header(
         "Work Planning",
-        "Plan employee work and understand remaining capacity.",
+        "Assign work to people across a clear weekly schedule.",
     )
-    render_placeholder("Weekly calendar view with team assignments — future LU", height=400)
+
+    planning_items = st.session_state.setdefault("planning_items", [])
+    with st.expander("+ Assign work", expanded=True):
+        with st.form("planning_form", clear_on_submit=True):
+            form_cols = st.columns([2, 1, 1, 1, 1])
+            with form_cols[0]:
+                title = st.text_input("Work title", placeholder="e.g. Client discovery")
+            with form_cols[1]:
+                assignee = st.text_input("Assignee", placeholder="Employee name")
+            with form_cols[2]:
+                work_date = st.date_input("Date", value=date.today())
+            with form_cols[3]:
+                start_time = st.time_input("Starts", value=time(9, 0))
+            with form_cols[4]:
+                duration = st.number_input("Hours", min_value=0.5, max_value=12.0, value=1.0, step=0.5)
+            submitted = st.form_submit_button("Add to calendar", type="primary")
+
+        if submitted:
+            if title.strip() and assignee.strip():
+                planning_items.append({
+                    "title": title.strip(),
+                    "assignee": assignee.strip(),
+                    "date": work_date,
+                    "start": start_time,
+                    "duration": duration,
+                })
+                st.rerun()
+            st.warning("Add a work title and assignee before saving.")
+
+    week_start = date.today() - timedelta(days=date.today().weekday())
+    week = [week_start + timedelta(days=i) for i in range(7)]
+    employees = sorted({item["assignee"] for item in planning_items}) or ["Unassigned"]
+    calendar_cols = st.columns([1.4] + [1] * 7)
+    calendar_cols[0].markdown("**Team**")
+    for col, day in zip(calendar_cols[1:], week):
+        col.markdown(f"**{day.strftime('%a')}**<br><small>{day.strftime('%d %b')}</small>", unsafe_allow_html=True)
+
+    for employee in employees:
+        row = st.columns([1.4] + [1] * 7)
+        row[0].markdown(f"**{employee}**")
+        for index, day in enumerate(week):
+            day_items = [item for item in planning_items if item["assignee"] == employee and item["date"] == day]
+            if day_items:
+                content = "<br>".join(
+                    f"<span class='calendar-item'><b>{item['title']}</b><br>{item['duration']}h</span>"
+                    for item in day_items
+                )
+                row[index + 1].markdown(content, unsafe_allow_html=True)
+            else:
+                row[index + 1].markdown("<div class='calendar-empty'>&nbsp;</div>", unsafe_allow_html=True)
 
 
 def render_capacity() -> None:

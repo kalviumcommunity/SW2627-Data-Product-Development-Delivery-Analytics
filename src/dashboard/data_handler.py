@@ -79,6 +79,54 @@ def _safe_col(df: pd.DataFrame, col: str) -> pd.Series | None:
     return df[col] if col in df.columns else None
 
 
+def _numeric_col(df: pd.DataFrame, col: str) -> pd.Series | None:
+    """Return a numeric version of a column, tolerating formatted strings."""
+    series = _safe_col(df, col)
+    if series is None:
+        return None
+    return pd.to_numeric(
+        series.astype("string").str.replace(",", "", regex=False).str.extract(r"([-+]?\d*\.?\d+)", expand=False),
+        errors="coerce",
+    ).fillna(0)
+
+
+def filter_dataset(df: pd.DataFrame, period: str = "This Month", search: str = "") -> pd.DataFrame:
+    """Filter a dataset by the selected period and a case-insensitive search."""
+    filtered = df.copy()
+
+    if search.strip():
+        query = search.strip().casefold()
+        text_values = filtered.astype("string").fillna("")
+        matches = text_values.apply(
+            lambda column: column.str.casefold().str.contains(query, regex=False, na=False)
+        ).any(axis=1)
+        filtered = filtered.loc[matches]
+
+    if period not in {"This Week", "This Month", "This Quarter"}:
+        return filtered
+
+    date_column = next(
+        (name for name in ("work_date", "date", "timesheet_date", "entry_date") if name in filtered.columns),
+        None,
+    )
+    if date_column is None:
+        return filtered
+
+    parsed_dates = pd.to_datetime(filtered[date_column], errors="coerce")
+    if parsed_dates.notna().sum() == 0:
+        return filtered
+
+    anchor = parsed_dates.max().normalize()
+    if period == "This Week":
+        start = anchor - pd.Timedelta(days=anchor.weekday())
+        mask = parsed_dates.between(start, anchor + pd.Timedelta(days=1), inclusive="left")
+    elif period == "This Month":
+        mask = parsed_dates.dt.to_period("M") == anchor.to_period("M")
+    else:
+        mask = parsed_dates.dt.to_period("Q") == anchor.to_period("Q")
+    return filtered.loc[mask.fillna(False)]
+
+
 def calculate_kpis(df: pd.DataFrame) -> dict:
     """Calculate KPIs dynamically from the uploaded DataFrame.
 
@@ -135,8 +183,8 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
         })
 
     # ── Timesheet-specific KPIs ────────────────────────────────────────
-    hours_col = _safe_col(df, "hours_logged")
-    billable_col = _safe_col(df, "billable_hours")
+    hours_col = _numeric_col(df, "hours_logged")
+    billable_col = _numeric_col(df, "billable_hours")
 
     if hours_col is not None:
         total_hours = hours_col.sum()
@@ -171,7 +219,7 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
             })
 
     # ── Allocation-specific KPIs ───────────────────────────────────────
-    alloc_hours_col = _safe_col(df, "allocated_hours")
+    alloc_hours_col = _numeric_col(df, "allocated_hours")
     if alloc_hours_col is not None:
         total_alloc = alloc_hours_col.sum()
         kpis.append({
@@ -183,7 +231,7 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
         })
 
     # ── Capacity KPI ───────────────────────────────────────────────────
-    capacity_col = _safe_col(df, "capacity_hours_monthly")
+    capacity_col = _numeric_col(df, "capacity_hours_monthly")
     if capacity_col is not None:
         total_capacity = capacity_col.sum()
         kpis.append({
@@ -247,17 +295,19 @@ def get_chart_data(df: pd.DataFrame) -> dict:
 
     # ── Hours by category (timesheet) ─────────────────────────────────
     cat_col = _safe_col(df, "task_category")
-    hours_col = _safe_col(df, "hours_logged")
+    hours_col = _numeric_col(df, "hours_logged")
     if cat_col is not None and hours_col is not None:
-        charts["hours_by_category"] = df.groupby(cat_col)[hours_col].sum().sort_values(ascending=False).head(8)
+        category_hours = pd.DataFrame({"category": cat_col, "hours": hours_col})
+        charts["hours_by_category"] = category_hours.groupby("category")["hours"].sum().sort_values(ascending=False).head(8)
 
     # ── Utilization by department ──────────────────────────────────────
     dept_col2 = _safe_col(df, "department")
-    billable_col = _safe_col(df, "billable_hours")
-    hours_col2 = _safe_col(df, "hours_logged")
+    billable_col = _numeric_col(df, "billable_hours")
+    hours_col2 = _numeric_col(df, "hours_logged")
     if dept_col2 is not None and billable_col is not None and hours_col2 is not None:
-        dept_util = df.groupby(dept_col2).agg({billable_col: "sum", hours_col2: "sum"})
-        dept_util["utilization"] = (dept_util[billable_col] / dept_util[hours_col2] * 100).round(1)
+        department_hours = pd.DataFrame({"department": dept_col2, "billable": billable_col, "hours": hours_col2})
+        dept_util = department_hours.groupby("department").sum(numeric_only=True)
+        dept_util["utilization"] = (dept_util["billable"] / dept_util["hours"].replace(0, pd.NA) * 100).fillna(0).round(1)
         charts["utilization_by_dept"] = dept_util["utilization"].sort_values(ascending=False)
 
     # ── Experience distribution ────────────────────────────────────────
@@ -267,9 +317,10 @@ def get_chart_data(df: pd.DataFrame) -> dict:
 
     # ── Top projects by hours ──────────────────────────────────────────
     proj_col = _safe_col(df, "project_id")
-    hours_col3 = _safe_col(df, "hours_logged")
+    hours_col3 = _numeric_col(df, "hours_logged")
     if proj_col is not None and hours_col3 is not None:
-        charts["top_projects"] = df.groupby(proj_col)[hours_col3].sum().sort_values(ascending=False).head(8)
+        project_hours = pd.DataFrame({"project": proj_col, "hours": hours_col3})
+        charts["top_projects"] = project_hours.groupby("project")["hours"].sum().sort_values(ascending=False).head(8)
 
     return charts
 
@@ -284,6 +335,10 @@ def initialise_session_state() -> None:
         "period": "This Month",
         "uploaded_df": None,
         "file_name": None,
+        "uploaded_files": {},
+        "selected_file": None,
+        "planning_items": [],
+        "uploader_version": 0,
     }
     for key, val in defaults.items():
         if key not in st.session_state:
@@ -296,7 +351,18 @@ def reset_session_state() -> None:
     st.session_state["period"] = "This Month"
     st.session_state["uploaded_df"] = None
     st.session_state["file_name"] = None
-    if "nav_radio" in st.session_state:
-        del st.session_state["nav_radio"]
-    if "period_selector" in st.session_state:
-        del st.session_state["period_selector"]
+    st.session_state["uploaded_files"] = {}
+    st.session_state["selected_file"] = None
+    st.session_state["planning_items"] = []
+    st.session_state["uploader_version"] = st.session_state.get("uploader_version", 0) + 1
+    for key in (
+        "nav_radio",
+        "period_selector",
+        "global_search",
+        "workforce_search",
+        "workforce_dept",
+        "workforce_status",
+        "workforce_team",
+    ):
+        if key in st.session_state:
+            del st.session_state[key]

@@ -16,6 +16,7 @@ from .data_handler import (
     get_dataset_summary,
     calculate_kpis,
     get_chart_data,
+    filter_dataset,
     initialise_session_state,
     reset_session_state,
 )
@@ -36,6 +37,7 @@ __all__ = [
     "get_dataset_summary",
     "calculate_kpis",
     "get_chart_data",
+    "filter_dataset",
     "initialise_session_state",
     "reset_session_state",
 ]
