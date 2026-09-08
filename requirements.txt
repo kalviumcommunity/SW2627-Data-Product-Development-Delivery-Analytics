@@ -1,4 +1,6 @@
 altair==6.2.2
+fastapi==0.116.1
+httpx==0.28.1
 anyio==4.14.2
 asttokens==3.0.2
 async-lru==2.3.0
@@ -87,7 +89,7 @@ six==1.17.0
 soupsieve==2.9.2
 SQLAlchemy==2.0.52
 stack-data==0.6.3
-starlette==1.6.0
+starlette==0.47.3
 streamlit==1.62.0
 terminado==0.18.1
 threadpoolctl==3.6.0

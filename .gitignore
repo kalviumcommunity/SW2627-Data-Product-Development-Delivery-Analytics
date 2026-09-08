@@ -55,6 +55,9 @@ wheels/
 # Logs
 *.log
 
+# Local application databases
+data/*.db
+
 # IDE files
 .vscode/
 .idea/
