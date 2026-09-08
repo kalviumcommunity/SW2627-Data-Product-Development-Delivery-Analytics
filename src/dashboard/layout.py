@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from datetime import date
+
 import streamlit as st
 
 from .themer import TOKENS
@@ -38,6 +40,16 @@ def render_top_header(active_page_label: str) -> str:
             key="period_selector",
         )
         st.session_state["period"] = period
+        if period == "Custom":
+            default_start = st.session_state.get("custom_start_date", date.today().replace(day=1))
+            default_end = st.session_state.get("custom_end_date", date.today())
+            selected_range = st.date_input(
+                "Custom date range",
+                value=(default_start, default_end),
+                key="custom_date_range",
+            )
+            if isinstance(selected_range, tuple) and len(selected_range) == 2:
+                st.session_state["custom_start_date"], st.session_state["custom_end_date"] = selected_range
 
     with cols[2]:
         st.markdown(

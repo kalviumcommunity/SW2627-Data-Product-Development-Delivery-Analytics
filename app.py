@@ -87,6 +87,8 @@ def render_dataset_info() -> None:
         raw_df,
         st.session_state.get("period", "This Month"),
         st.session_state.get("global_search", ""),
+        st.session_state.get("custom_start_date"),
+        st.session_state.get("custom_end_date"),
     )
 
     render_section_card_open("Uploaded Dataset", fname)
@@ -119,6 +121,8 @@ def render_overview() -> None:
             raw_df,
             st.session_state.get("period", "This Month"),
             st.session_state.get("global_search", ""),
+            st.session_state.get("custom_start_date"),
+            st.session_state.get("custom_end_date"),
         )
         if raw_df is not None else None
     )
@@ -293,7 +297,13 @@ def render_workforce() -> None:
         local_search = st.text_input("Search employees...", key="workforce_search")
 
     search = local_search or st.session_state.get("global_search", "")
-    df = filter_dataset(raw_df, st.session_state.get("period", "This Month"), search)
+    df = filter_dataset(
+        raw_df,
+        st.session_state.get("period", "This Month"),
+        search,
+        st.session_state.get("custom_start_date"),
+        st.session_state.get("custom_end_date"),
+    )
 
     with col2:
         if "department" in df.columns:
@@ -347,7 +357,13 @@ def render_work_planning() -> None:
     current_user = st.session_state.get("current_user", {})
     try:
         employees = get_employees(token)
-        assignments = get_assignments(token)
+        assignments = get_assignments(
+            token,
+            st.session_state.get("custom_start_date").isoformat()
+            if st.session_state.get("period") == "Custom" and st.session_state.get("custom_start_date") else None,
+            st.session_state.get("custom_end_date").isoformat()
+            if st.session_state.get("period") == "Custom" and st.session_state.get("custom_end_date") else None,
+        )
     except Exception as exc:
         st.error(f"Could not load Work Planning data: {exc}")
         return

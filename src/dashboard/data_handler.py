@@ -90,7 +90,13 @@ def _numeric_col(df: pd.DataFrame, col: str) -> pd.Series | None:
     ).fillna(0)
 
 
-def filter_dataset(df: pd.DataFrame, period: str = "This Month", search: str = "") -> pd.DataFrame:
+def filter_dataset(
+    df: pd.DataFrame,
+    period: str = "This Month",
+    search: str = "",
+    start_date=None,
+    end_date=None,
+) -> pd.DataFrame:
     """Filter a dataset by the selected period and a case-insensitive search."""
     filtered = df.copy()
 
@@ -102,9 +108,6 @@ def filter_dataset(df: pd.DataFrame, period: str = "This Month", search: str = "
         ).any(axis=1)
         filtered = filtered.loc[matches]
 
-    if period not in {"This Week", "This Month", "This Quarter"}:
-        return filtered
-
     date_column = next(
         (name for name in ("work_date", "date", "timesheet_date", "entry_date") if name in filtered.columns),
         None,
@@ -114,6 +117,14 @@ def filter_dataset(df: pd.DataFrame, period: str = "This Month", search: str = "
 
     parsed_dates = pd.to_datetime(filtered[date_column], errors="coerce")
     if parsed_dates.notna().sum() == 0:
+        return filtered
+
+    if period == "Custom" and start_date and end_date:
+        start = pd.Timestamp(start_date)
+        end = pd.Timestamp(end_date) + pd.Timedelta(days=1)
+        return filtered.loc[parsed_dates.between(start, end, inclusive="left").fillna(False)]
+
+    if period not in {"This Week", "This Month", "This Quarter"}:
         return filtered
 
     anchor = parsed_dates.max().normalize()
@@ -363,6 +374,9 @@ def reset_session_state() -> None:
         "workforce_dept",
         "workforce_status",
         "workforce_team",
+        "custom_start_date",
+        "custom_end_date",
+        "custom_date_range",
     ):
         if key in st.session_state:
             del st.session_state[key]
