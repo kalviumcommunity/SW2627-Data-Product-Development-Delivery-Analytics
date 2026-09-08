@@ -620,12 +620,65 @@ def render_insights() -> None:
 
 
 def render_reports() -> None:
-    """Render the Reports page (placeholder for future LU)."""
+    """Render filtered data and summary report exports."""
+    from io import BytesIO
+
     render_page_header(
-        "Report Generator",
-        "Configure and export workforce analytics data.",
+        "Reports & Exports",
+        "Configure, preview, and download filtered workforce analytics reports.",
     )
-    render_placeholder("Report type selection, filters, export — future LU", height=400)
+    files = st.session_state.get("uploaded_files", {})
+    if not files:
+        render_placeholder("Upload datasets to generate reports", height=300)
+        return
+
+    report_type = st.selectbox("Report", ["Filtered source data", "Capacity summary", "Insights and alerts"], key="report_type")
+    export_format = st.selectbox("Format", ["CSV", "JSON", "Excel"], key="report_format")
+    metrics = calculate_capacity_metrics(
+        files,
+        st.session_state.get("period", "This Month"),
+        st.session_state.get("custom_start_date"),
+        st.session_state.get("custom_end_date"),
+    )
+    if report_type == "Filtered source data":
+        source_name = st.selectbox("Source dataset", list(files), key="report_source")
+        report_df = filter_dataset(
+            files[source_name],
+            st.session_state.get("period", "This Month"),
+            st.session_state.get("global_search", ""),
+            st.session_state.get("custom_start_date"),
+            st.session_state.get("custom_end_date"),
+        )
+    elif report_type == "Capacity summary":
+        report_df = metrics
+    else:
+        report_df = generate_insights(metrics)
+
+    st.caption(f"{len(report_df):,} rows will be exported using the current global filters.")
+    st.dataframe(report_df.head(25), use_container_width=True, hide_index=True)
+    if export_format == "CSV":
+        data = report_df.to_csv(index=False).encode("utf-8")
+        mime = "text/csv"
+        extension = "csv"
+    elif export_format == "JSON":
+        data = report_df.to_json(orient="records", date_format="iso", indent=2).encode("utf-8")
+        mime = "application/json"
+        extension = "json"
+    else:
+        buffer = BytesIO()
+        with pd.ExcelWriter(buffer, engine="openpyxl") as writer:
+            report_df.to_excel(writer, index=False, sheet_name="Report")
+        data = buffer.getvalue()
+        mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        extension = "xlsx"
+    st.download_button(
+        "Download report",
+        data=data,
+        file_name=f"workforce_{report_type.lower().replace(' ', '_')}.{extension}",
+        mime=mime,
+        type="primary",
+        use_container_width=True,
+    )
 
 
 # ---------------------------------------------------------------------------
