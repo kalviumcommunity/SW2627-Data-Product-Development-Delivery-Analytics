@@ -11,6 +11,7 @@ from src.config import ADMIN_EMAIL, ADMIN_NAME, ADMIN_PASSWORD
 from src.auth.security import hash_password
 from src.database import connection, initialise_database
 from src.api.auth_routes import admin_router, router as auth_router
+from src.api.planning_routes import router as planning_router
 
 
 @asynccontextmanager
@@ -28,6 +29,7 @@ app = FastAPI(
 )
 app.include_router(auth_router)
 app.include_router(admin_router)
+app.include_router(planning_router)
 
 
 def seed_admin() -> None:

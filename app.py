@@ -23,6 +23,8 @@ from src.dashboard import (
     get_chart_data,
     filter_dataset,
 )
+from src.dashboard.api_client import create_assignment, delete_assignment, get_assignments, get_employees, update_assignment
+from src.dashboard.auth import render_login
 
 
 # ---------------------------------------------------------------------------
@@ -50,6 +52,9 @@ initialise_session_state()
 # ---------------------------------------------------------------------------
 # Sidebar navigation
 # ---------------------------------------------------------------------------
+if not render_login():
+    st.stop()
+
 active_key = render_sidebar()
 
 
@@ -330,7 +335,7 @@ def render_workforce() -> None:
 
 
 def render_work_planning() -> None:
-    """Render a lightweight weekly calendar for assigning work."""
+    """Render the database-backed weekly assignment planner."""
     from datetime import date, time, timedelta
 
     render_page_header(
@@ -338,14 +343,23 @@ def render_work_planning() -> None:
         "Assign work to people across a clear weekly schedule.",
     )
 
-    planning_items = st.session_state.setdefault("planning_items", [])
+    token = st.session_state["access_token"]
+    current_user = st.session_state.get("current_user", {})
+    try:
+        employees = get_employees(token)
+        assignments = get_assignments(token)
+    except Exception as exc:
+        st.error(f"Could not load Work Planning data: {exc}")
+        return
+
+    employee_options = {employee["employee_name"]: employee["employee_id"] for employee in employees}
     with st.expander("+ Assign work", expanded=True):
         with st.form("planning_form", clear_on_submit=True):
             form_cols = st.columns([2, 1, 1, 1, 1])
             with form_cols[0]:
                 title = st.text_input("Work title", placeholder="e.g. Client discovery")
             with form_cols[1]:
-                assignee = st.text_input("Assignee", placeholder="Employee name")
+                assignee_name = st.selectbox("Assignee", list(employee_options) or ["No employees loaded"])
             with form_cols[2]:
                 work_date = st.date_input("Date", value=date.today())
             with form_cols[3]:
@@ -355,38 +369,80 @@ def render_work_planning() -> None:
             submitted = st.form_submit_button("Add to calendar", type="primary")
 
         if submitted:
-            if title.strip() and assignee.strip():
-                planning_items.append({
+            if title.strip() and employee_options:
+                created = create_assignment(token, {
                     "title": title.strip(),
-                    "assignee": assignee.strip(),
-                    "date": work_date,
-                    "start": start_time,
-                    "duration": duration,
+                    "employee_id": employee_options[assignee_name],
+                    "work_date": work_date.isoformat(),
+                    "start_time": start_time.isoformat(),
+                    "duration_hours": duration,
                 })
+                for warning in created.get("warnings", []):
+                    st.warning(warning)
                 st.rerun()
-            st.warning("Add a work title and assignee before saving.")
+            else:
+                st.warning("Add a work title and load at least one employee before saving.")
 
     week_start = date.today() - timedelta(days=date.today().weekday())
     week = [week_start + timedelta(days=i) for i in range(7)]
-    employees = sorted({item["assignee"] for item in planning_items}) or ["Unassigned"]
+    employee_names = {employee["employee_id"]: employee["employee_name"] for employee in employees}
+    employee_rows = sorted({item["employee_id"] for item in assignments}) or ["Unassigned"]
     calendar_cols = st.columns([1.4] + [1] * 7)
     calendar_cols[0].markdown("**Team**")
     for col, day in zip(calendar_cols[1:], week):
         col.markdown(f"**{day.strftime('%a')}**<br><small>{day.strftime('%d %b')}</small>", unsafe_allow_html=True)
 
-    for employee in employees:
+    for employee_id in employee_rows:
         row = st.columns([1.4] + [1] * 7)
-        row[0].markdown(f"**{employee}**")
+        row[0].markdown(f"**{employee_names.get(employee_id, employee_id)}**")
         for index, day in enumerate(week):
-            day_items = [item for item in planning_items if item["assignee"] == employee and item["date"] == day]
+            day_items = [item for item in assignments if item["employee_id"] == employee_id and item["work_date"] == day.isoformat()]
             if day_items:
                 content = "<br>".join(
-                    f"<span class='calendar-item'><b>{item['title']}</b><br>{item['duration']}h</span>"
+                    f"<span class='calendar-item'><b>{item['title']}</b><br>{item['duration_hours']}h</span>"
                     for item in day_items
                 )
                 row[index + 1].markdown(content, unsafe_allow_html=True)
             else:
                 row[index + 1].markdown("<div class='calendar-empty'>&nbsp;</div>", unsafe_allow_html=True)
+
+    if assignments and current_user.get("role") in {"admin", "manager"}:
+        st.markdown("### Manage assignments")
+        assignment_labels = {
+            item["id"]: f"{item['work_date']} {item['start_time']} | {item['title']} | {item['employee_name']}"
+            for item in assignments
+        }
+        selected_id = st.selectbox("Assignment to edit", list(assignment_labels), format_func=assignment_labels.get)
+        selected = next(item for item in assignments if item["id"] == selected_id)
+        with st.form("edit_assignment_form"):
+            edit_title = st.text_input("Title", value=selected["title"])
+            edit_employee = st.selectbox(
+                "Assignee",
+                list(employee_options),
+                index=list(employee_options.values()).index(selected["employee_id"])
+                if selected["employee_id"] in employee_options.values() else 0,
+            )
+            edit_date = st.date_input("Date", value=date.fromisoformat(selected["work_date"]))
+            edit_start = st.time_input("Starts", value=time.fromisoformat(selected["start_time"]))
+            edit_duration = st.number_input("Hours", min_value=0.5, max_value=24.0, value=float(selected["duration_hours"]), step=0.5)
+            if st.form_submit_button("Save changes", type="primary"):
+                updated = update_assignment(token, selected_id, {
+                    "title": edit_title.strip(),
+                    "employee_id": employee_options[edit_employee],
+                    "work_date": edit_date.isoformat(),
+                    "start_time": edit_start.isoformat(),
+                    "duration_hours": edit_duration,
+                })
+                for warning in updated.get("warnings", []):
+                    st.warning(warning)
+                st.rerun()
+
+        for item in assignments:
+            edit_col, delete_col = st.columns([5, 1])
+            edit_col.write(f"{item['work_date']} {item['start_time']} | {item['title']} | {item['employee_name']}")
+            if delete_col.button("Delete", key=f"delete_assignment_{item['id']}"):
+                delete_assignment(token, item["id"])
+                st.rerun()
 
 
 def render_capacity() -> None:

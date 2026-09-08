@@ -6,6 +6,7 @@ import streamlit as st
 
 from .themer import NAV_ITEMS, get_active_page_key
 from .data_handler import load_uploaded_file, reset_session_state
+from .auth import logout
 
 
 def render_sidebar() -> str:
@@ -108,13 +109,17 @@ def render_sidebar() -> str:
             st.rerun()
 
         # ── User profile ───────────────────────────────────────────────
+        current_user = st.session_state.get("current_user", {})
+        if st.button("Sign out", use_container_width=True, key="sign_out_btn"):
+            logout()
+            st.rerun()
         st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
         st.markdown(
             "<div class='user-card'>"
-            "<div class='avatar'>PS</div>"
+            "<div class='avatar'>" + current_user.get("full_name", "User")[:2].upper() + "</div>"
             "<div>"
-            "<div class='user-name'>Prabdeep Singh</div>"
-            "<div class='user-role'>Operations Lead</div>"
+            "<div class='user-name'>" + current_user.get("full_name", "User") + "</div>"
+            "<div class='user-role'>" + current_user.get("role", "viewer").title() + "</div>"
             "</div>"
             "</div>",
             unsafe_allow_html=True,
