@@ -6,6 +6,7 @@ Run with:  streamlit run app.py
 from __future__ import annotations
 
 import streamlit as st
+import pandas as pd
 
 from src.dashboard import (
     inject_global_css,
@@ -22,6 +23,7 @@ from src.dashboard import (
     calculate_kpis,
     get_chart_data,
     filter_dataset,
+    calculate_capacity_metrics,
 )
 from src.dashboard.api_client import create_assignment, delete_assignment, get_assignments, get_employees, update_assignment
 from src.dashboard.auth import render_login
@@ -462,12 +464,50 @@ def render_work_planning() -> None:
 
 
 def render_capacity() -> None:
-    """Render the Capacity & Utilization page (placeholder for future LU)."""
+    """Render capacity load, utilization, and availability analytics."""
     render_page_header(
-        "Capacity Analytics",
-        "Review organization-wide utilization and resource availability for current planning period.",
+        "Capacity & Utilization",
+        "Review capacity load, billable utilization, and available workforce bandwidth.",
     )
-    render_placeholder("Capacity KPIs, trends, and distribution — future LU", height=400)
+    files = st.session_state.get("uploaded_files", {})
+    metrics = calculate_capacity_metrics(
+        files,
+        st.session_state.get("period", "This Month"),
+        st.session_state.get("custom_start_date"),
+        st.session_state.get("custom_end_date"),
+    )
+    if metrics.empty:
+        render_placeholder("Upload employee, allocation, and timesheet datasets to see capacity analytics", height=300)
+        return
+
+    total_capacity = metrics["capacity_hours_monthly"].sum()
+    total_allocated = metrics["allocated_hours"].sum()
+    total_logged = metrics["hours_logged"].sum()
+    total_billable = metrics["billable_hours"].sum()
+    kpis = st.columns(5)
+    kpis[0].metric("Employees", f"{len(metrics):,}")
+    kpis[1].metric("Monthly Capacity", f"{total_capacity:,.0f} hrs")
+    kpis[2].metric("Allocated", f"{total_allocated:,.0f} hrs")
+    kpis[3].metric("Capacity Load", f"{(total_allocated / total_capacity * 100) if total_capacity else 0:.1f}%")
+    kpis[4].metric("Billable Utilization", f"{(total_billable / total_logged * 100) if total_logged else 0:.1f}%")
+
+    import plotly.express as px
+    left, right = st.columns(2)
+    with left:
+        grouped = metrics.groupby("department", dropna=False)[["capacity_hours_monthly", "allocated_hours"]].sum().reset_index()
+        grouped["capacity_load_pct"] = (grouped["allocated_hours"] / grouped["capacity_hours_monthly"].replace(0, pd.NA) * 100).fillna(0).round(1)
+        fig = px.bar(grouped, x="department", y="capacity_load_pct", color="capacity_load_pct", color_continuous_scale="Blues", labels={"capacity_load_pct": "Capacity Load %"})
+        fig.add_hline(y=100, line_dash="dash", line_color="#EF4444")
+        fig.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=320)
+        st.plotly_chart(fig, use_container_width=True)
+    with right:
+        status_counts = metrics["capacity_status"].value_counts().rename_axis("status").reset_index(name="employees")
+        fig = px.pie(status_counts, names="status", values="employees", color="status", color_discrete_map={"Overloaded": "#EF4444", "On target": "#10B981", "Available": "#F59E0B"})
+        fig.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", height=320)
+        st.plotly_chart(fig, use_container_width=True)
+
+    display_columns = ["employee_id", "employee_name", "department", "team", "capacity_hours_monthly", "allocated_hours", "hours_logged", "billable_hours", "capacity_load_pct", "utilization_pct", "capacity_variance_hours", "capacity_status"]
+    st.dataframe(metrics[display_columns].sort_values("capacity_load_pct", ascending=False), use_container_width=True, hide_index=True)
 
 
 def render_team_analytics() -> None:

@@ -109,7 +109,7 @@ def filter_dataset(
         filtered = filtered.loc[matches]
 
     date_column = next(
-        (name for name in ("work_date", "date", "timesheet_date", "entry_date") if name in filtered.columns),
+        (name for name in ("work_date", "date", "timesheet_date", "entry_date", "allocation_start_date", "billing_date") if name in filtered.columns),
         None,
     )
     if date_column is None:
@@ -334,6 +334,47 @@ def get_chart_data(df: pd.DataFrame) -> dict:
         charts["top_projects"] = project_hours.groupby("project")["hours"].sum().sort_values(ascending=False).head(8)
 
     return charts
+
+
+def calculate_capacity_metrics(
+    files: dict[str, pd.DataFrame],
+    period: str = "This Month",
+    start_date=None,
+    end_date=None,
+) -> pd.DataFrame:
+    """Combine uploaded employee, allocation, and timesheet data for capacity views."""
+    employee_df = next(
+        (frame for frame in files.values() if {"employee_id", "capacity_hours_monthly"} <= set(frame.columns)),
+        None,
+    )
+    if employee_df is None:
+        return pd.DataFrame()
+
+    result = employee_df.copy()
+    numeric = ["capacity_hours_monthly"]
+    for column in numeric:
+        result[column] = pd.to_numeric(result[column], errors="coerce").fillna(0)
+
+    def aggregate(columns: set[str], value: str, output: str) -> None:
+        source = next((frame for frame in files.values() if columns <= set(frame.columns)), None)
+        if source is None:
+            result[output] = 0.0
+            return
+        filtered = filter_dataset(source, period, "", start_date, end_date)
+        values = pd.to_numeric(filtered[value], errors="coerce").fillna(0)
+        grouped = pd.DataFrame({"employee_id": filtered["employee_id"], output: values}).groupby("employee_id")[output].sum()
+        result[output] = result["employee_id"].map(grouped).fillna(0)
+
+    aggregate({"employee_id", "allocated_hours", "allocation_start_date"}, "allocated_hours", "allocated_hours")
+    aggregate({"employee_id", "hours_logged", "work_date"}, "hours_logged", "hours_logged")
+    aggregate({"employee_id", "billable_hours", "work_date"}, "billable_hours", "billable_hours")
+    result["capacity_load_pct"] = (result["allocated_hours"] / result["capacity_hours_monthly"].replace(0, pd.NA) * 100).fillna(0).round(1)
+    result["utilization_pct"] = (result["billable_hours"] / result["hours_logged"].replace(0, pd.NA) * 100).fillna(0).round(1)
+    result["capacity_variance_hours"] = (result["capacity_hours_monthly"] - result["allocated_hours"]).round(1)
+    result["capacity_status"] = result["capacity_load_pct"].map(
+        lambda value: "Overloaded" if value > 100 else "On target" if value >= 70 else "Available"
+    )
+    return result
 
 
 # ---------------------------------------------------------------------------
