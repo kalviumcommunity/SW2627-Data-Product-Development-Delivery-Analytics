@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.config import PROJECT_ROOT
+from src.config import RAW_DATA_PATH
 from src.database import connection, initialise_database
 
 
@@ -29,7 +29,7 @@ def _record_run(status: str, run_id: int, rows_loaded: int = 0, error_message: s
 
 def refresh_data(raw_path: str | Path | None = None) -> dict:
     """Refresh source tables and employee lookup records from raw CSV files."""
-    source_dir = Path(raw_path) if raw_path else PROJECT_ROOT / "data" / "raw"
+    source_dir = Path(raw_path) if raw_path else RAW_DATA_PATH
     initialise_database()
     with connection() as conn:
         run_id = conn.execute("INSERT INTO refresh_runs (status) VALUES ('running')").lastrowid
