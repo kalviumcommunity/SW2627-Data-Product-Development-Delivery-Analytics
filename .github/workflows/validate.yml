@@ -1,0 +1,33 @@
+name: Data Validation
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pandas
+
+      - name: Validate employee master
+        run: python scripts/validate_data.py data/raw/employee_master_raw.csv
+
+      - name: Validate timesheets
+        run: python scripts/validate_data.py data/raw/timesheets_raw.csv
+
+      - name: Validate allocations
+        run: python scripts/validate_data.py data/raw/allocations_raw.csv
+
+      - name: Validate billing
+        run: python scripts/validate_data.py data/raw/billing_raw.csv
