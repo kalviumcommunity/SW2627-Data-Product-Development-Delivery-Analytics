@@ -1,0 +1,64 @@
+department,team,headcount
+DATA & ANALYTICS,Team C,1
+DATA & ANALYTICS,Team D,1
+DATA & ANALYTICS,Team E,1
+DESIGN,Team B,1
+Data & Analytics,Team A,17
+Data & Analytics,Team B,16
+Data & Analytics,Team C,15
+Data & Analytics,Team D,26
+Data & Analytics,Team E,18
+Design,Team A,17
+Design,Team B,6
+Design,Team C,11
+Design,Team D,18
+Design,Team E,19
+DevOps,Team A,13
+DevOps,Team B,19
+DevOps,Team C,17
+DevOps,Team D,19
+DevOps,Team E,23
+ENGINEERING,Team C,1
+Engineering,Team A,15
+Engineering,Team B,13
+Engineering,Team C,14
+Engineering,Team D,15
+Engineering,Team E,13
+FINANCE,Team B,1
+Finance,Team A,18
+Finance,Team B,17
+Finance,Team C,21
+Finance,Team D,21
+Finance,Team E,15
+HR,Team A,12
+HR,Team B,15
+HR,Team C,20
+HR,Team D,18
+HR,Team E,19
+PRODUCT,Team C,1
+PRODUCT,Team D,1
+Product,Team A,19
+Product,Team B,10
+Product,Team C,13
+Product,Team D,20
+Product,Team E,20
+QA,Team A,13
+QA,Team B,20
+QA,Team C,27
+QA,Team D,16
+QA,Team E,21
+SALES,Team D,1
+SALES,Team E,1
+SUPPORT,Team A,1
+SUPPORT,Team B,1
+SUPPORT,Team D,1
+Sales,Team A,22
+Sales,Team B,12
+Sales,Team C,15
+Sales,Team D,19
+Sales,Team E,19
+Support,Team A,15
+Support,Team B,13
+Support,Team C,15
+Support,Team D,12
+Support,Team E,16

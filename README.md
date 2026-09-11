@@ -62,6 +62,11 @@ daily at 02:00 using `venv\Scripts\python.exe scripts\refresh_data.py` from
 the project directory. The API also exposes Admin-only `POST /refresh` and
 authenticated `GET /refresh/status` endpoints.
 
+The weekly GitHub Actions pipeline also regenerates the CSV outputs in
+`data/processed/`. Those outputs are committed to the repository through an
+automated pull request, not pushed directly to protected `main`. Review and
+merge the pull request to publish a refresh.
+
 Run the automated checks from the project root with:
 
 ```bash

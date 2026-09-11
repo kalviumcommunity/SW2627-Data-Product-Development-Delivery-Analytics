@@ -88,7 +88,7 @@ def aggregate(frames: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
     results = {}
 
     ts = frames["timesheets"]
-    dept_utilization = (
+    category_utilization = (
         ts.groupby("task_category")
         .agg(
             total_hours=("hours_logged", "sum"),
@@ -97,11 +97,11 @@ def aggregate(frames: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
         )
         .reset_index()
     )
-    dept_utilization["utilization_rate"] = (
-        dept_utilization["total_billable"] / dept_utilization["total_hours"] * 100
+    category_utilization["utilization_rate"] = (
+        category_utilization["total_billable"] / category_utilization["total_hours"] * 100
     ).round(2)
-    logger.info("Utilization by task_category: %d rows", len(dept_utilization))
-    results["utilization_by_category"] = dept_utilization
+    logger.info("Utilization by task_category: %d rows", len(category_utilization))
+    results["utilization_by_category"] = category_utilization
 
     bill = frames["billing"]
     billing_summary = (

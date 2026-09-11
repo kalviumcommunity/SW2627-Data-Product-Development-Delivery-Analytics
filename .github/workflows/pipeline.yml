@@ -5,6 +5,11 @@ on:
     - cron: "0 6 * * 1"  # Every Monday at 6:00 AM UTC
   workflow_dispatch:       # Allow manual trigger for testing
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   run-pipeline:
     runs-on: ubuntu-latest
@@ -22,13 +27,19 @@ jobs:
       - name: Run pipeline
         run: python scripts/automated_pipeline.py --input data/raw --output data/processed
 
-      - name: Commit output
-        run: |
-          git config user.name "Pipeline Bot"
-          git config user.email "bot@example.com"
-          git add data/processed/
-          git diff --cached --quiet || git commit -m "pipeline: automated data refresh"
-          git push
+      - name: Create output pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: pipeline-autorefresh
+          base: main
+          delete-branch: true
+          commit-message: "pipeline: automated data refresh"
+          title: "pipeline: automated data refresh"
+          body: |
+            Automated refresh of processed data files.
+
+            Please review the generated output before merging.
 
   notify:
     needs: run-pipeline
