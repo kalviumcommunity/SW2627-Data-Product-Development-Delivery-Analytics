@@ -79,6 +79,14 @@ page wiring, and GitHub workflow safeguards. The pipeline failure notification
 is intentionally skipped on successful runs and creates a labeled issue only
 when the pipeline job fails.
 
+## Security
+
+Local authentication values belong in the ignored `.env` file. Before any
+shared or production deployment, use a newly generated JWT secret and a unique
+admin password, set `APP_ENV=production`, and set `APP_DEBUG=false`. Production
+startup rejects missing or development-grade authentication values. See
+`SECURITY.md` for the deployment checklist.
+
 ---
 
 *Detailed documentation will be added upon project completion.*
