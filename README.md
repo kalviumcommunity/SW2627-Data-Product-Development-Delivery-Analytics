@@ -73,6 +73,12 @@ Run the automated checks from the project root with:
 pytest -q
 ```
 
+The test suite covers pipeline aggregation, processed-data exports, refresh
+failure recording, database schema constraints, admin API actions, dashboard
+page wiring, and GitHub workflow safeguards. The pipeline failure notification
+is intentionally skipped on successful runs and creates a labeled issue only
+when the pipeline job fails.
+
 ---
 
 *Detailed documentation will be added upon project completion.*
