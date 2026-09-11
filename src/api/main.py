@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from src.config import APP_DEBUG, APP_ENV
+from src.config import APP_DEBUG, APP_ENV, validate_security_config
 from src.config import ADMIN_EMAIL, ADMIN_NAME, ADMIN_PASSWORD
 from src.auth.security import hash_password
 from src.database import connection, initialise_database
@@ -17,6 +17,7 @@ from src.api.refresh_routes import router as refresh_router
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
+    validate_security_config()
     initialise_database()
     seed_admin()
     yield
