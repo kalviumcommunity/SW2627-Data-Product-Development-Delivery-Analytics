@@ -59,6 +59,15 @@ initialise_session_state()
 if not render_login():
     st.stop()
 
+# Load the initial datasets before drawing navigation so the authenticated UI
+# appears as one page instead of showing the sidebar while data is loading.
+if not st.session_state.get("uploaded_files"):
+    with st.spinner("Loading dashboard data..."):
+        database_files = load_database_files()
+    if database_files:
+        st.session_state["uploaded_files"] = database_files
+        st.session_state["selected_file"] = next(iter(database_files))
+
 active_key = render_sidebar()
 
 

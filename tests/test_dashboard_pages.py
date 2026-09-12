@@ -29,3 +29,9 @@ def test_dashboard_contains_empty_states_and_report_download():
     assert "render_placeholder" in source
     assert "st.download_button" in source
     assert "Upload datasets to generate reports" in source
+
+
+def test_login_form_supports_enter_submission():
+    auth_source = (APP_PATH.parent / "src" / "dashboard" / "auth.py").read_text(encoding="utf-8")
+
+    assert 'st.form("login_form", enter_to_submit=True)' in auth_source
