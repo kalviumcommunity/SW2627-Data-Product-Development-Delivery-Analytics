@@ -92,6 +92,7 @@ def _numeric_col(df: pd.DataFrame, col: str) -> pd.Series | None:
     ).fillna(0)
 
 
+@st.cache_data(show_spinner=False, ttl=60)
 def load_database_files() -> dict[str, pd.DataFrame]:
     """Load refreshed analytics source tables for dashboard use."""
     table_files = {
@@ -498,6 +499,7 @@ def initialise_session_state() -> None:
 
 def reset_session_state() -> None:
     """Reset all dashboard session state to defaults (for Reset button)."""
+    load_database_files.clear()
     st.session_state["active_page"] = "overview"
     st.session_state["period"] = "This Month"
     st.session_state["uploaded_df"] = None
