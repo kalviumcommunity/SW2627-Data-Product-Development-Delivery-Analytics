@@ -20,7 +20,6 @@ from src.analytics.root_cause import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "timesheets_raw.csv": "Timesheets",
     "allocations_raw.csv": "Allocations",
@@ -35,7 +34,6 @@ def main():
     print("ROOT CAUSE INVESTIGATION WORKFLOW")
     print("=" * 60)
     
-    # Load all datasets
     datasets = {}
     for filename, label in RAW_DATASETS.items():
         file_path = data_dir / filename
@@ -47,7 +45,6 @@ def main():
         print("[ERROR] Timesheets dataset not found")
         return
     
-    # Create derived columns for KPIs
     print("\n" + "=" * 60)
     print("CREATING DERIVED COLUMNS")
     print("=" * 60)
@@ -69,7 +66,6 @@ def main():
     print("ROOT CAUSE ANALYSIS")
     print("=" * 60)
     
-    # Investigate low utilization
     print("\n--- Low Utilization Investigation ---")
     low_util = investigate_low_utilization(timesheets)
     print(f"Low utilization count: {low_util.get('low_utilization_count', 0)}")
@@ -77,13 +73,11 @@ def main():
     if 'affected_employees' in low_util:
         print(f"Affected employees: {len(low_util['affected_employees'])}")
     
-    # Identify bottlenecks
     print("\n--- Bottleneck Identification ---")
     bottlenecks = identify_bottlenecks(timesheets)
     for key, value in bottlenecks.items():
         print(f"  {key}: {value}")
     
-    # Compare allocated vs actual
     if allocations is not None:
         print("\n--- Allocated vs Actual Comparison ---")
         alloc_vs_actual = compare_allocated_vs_actual(allocations)
@@ -95,7 +89,6 @@ def main():
             print(f"  Over allocated: {overall['over_allocated_count']}")
             print(f"  Under allocated: {overall['under_allocated_count']}")
     
-    # Generate root cause report
     print("\n--- Root Cause Report ---")
     report = generate_root_cause_report(timesheets)
     summary = get_root_cause_summary(report)

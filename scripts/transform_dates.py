@@ -16,7 +16,6 @@ from src.cleaning.date_transforms import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "employee_master_raw.csv": "Employee Master",
     "timesheets_raw.csv": "Timesheets",
@@ -45,10 +44,8 @@ def main():
         try:
             df = load_csv(str(file_path))
             
-            # Parse dates
             df_parsed = parse_dates(df)
             
-            # Get date summary
             summary = get_date_summary(df_parsed)
             
             print(f"  Total rows: {len(df)}")

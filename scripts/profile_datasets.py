@@ -18,7 +18,6 @@ from src.profiling.profile_dataset import (
 )
 
 
-# Define the raw datasets to profile
 RAW_DATASETS = {
     "employee_master_raw.csv": "Employee Master",
     "timesheets_raw.csv": "Timesheets",
@@ -53,21 +52,17 @@ def profile_all_datasets(data_dir: str) -> None:
         try:
             df = load_csv(str(file_path))
             
-            # Basic profile
             profile = profile_dataframe(df, label)
             print(f"  Shape: {profile['shape']}")
             print(f"  Memory: {profile['memory_mb']} MB")
             
-            # Missing patterns
             missing = detect_missing_patterns(df)
             print(f"  Total missing: {missing['total_missing']} ({missing['missing_percentage']}%)")
             print(f"  Columns with missing: {len(missing['columns_with_missing'])}")
             
-            # Duplicates
             duplicates = detect_duplicates(df)
             print(f"  Duplicate rows: {duplicates['total_duplicates']} ({duplicates['duplicate_percentage']}%)")
             
-            # Column details
             print(f"\n  Column Details:")
             for col_info in profile["column_info"]:
                 null_str = f"nulls={col_info['null_count']}" if col_info['null_count'] > 0 else ""

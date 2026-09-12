@@ -30,7 +30,6 @@ def generate_executive_summary(df: pd.DataFrame, metric_col: str, group_col: str
     std_dev = float(metric_data.std())
     count = int(metric_data.count())
     
-    # Determine trend direction
     trend = "STABLE"
     if count > 1:
         first_half = metric_data.iloc[:len(metric_data)//2].mean()
@@ -40,10 +39,8 @@ def generate_executive_summary(df: pd.DataFrame, metric_col: str, group_col: str
         elif second_half < first_half * 0.95:
             trend = "DECLINING"
     
-    # Determine status
     status = "EXCEEDING" if average >= 65 else "WARNING" if average >= 60 else "CRITICAL"
     
-    # Build summary
     summary = {
         'metric': metric_col,
         'total': total,
@@ -96,7 +93,6 @@ def generate_stakeholder_report(df: pd.DataFrame, metric_col: str, group_col: st
     average = float(metric_data.mean())
     count = int(metric_data.count())
     
-    # Group analysis if group_col provided
     group_analysis = {}
     if group_col and group_col in df.columns:
         grouped = df.groupby(group_col).size().to_frame('count')
@@ -112,7 +108,6 @@ def generate_stakeholder_report(df: pd.DataFrame, metric_col: str, group_col: st
             for k, row in grouped.iterrows()
         }
     
-    # Determine key insights
     insights = []
     if average >= 70:
         insights.append("Performance is strong; maintain current strategies")
@@ -123,7 +118,6 @@ def generate_stakeholder_report(df: pd.DataFrame, metric_col: str, group_col: st
     else:
         insights.append("Performance requires immediate intervention")
     
-    # Chart recommendations
     chart_recs = []
     if include_chart_recs:
         if group_col and group_col in df.columns:
@@ -203,7 +197,6 @@ def validate_report_data(df: pd.DataFrame, required_columns: List[str], min_rows
     null_count = df[required_columns].isnull().sum().sum() if all(col in df.columns for col in required_columns) else 0
     row_count = len(df)
     
-    # Calculate data quality score
     quality_deductions = 0
     if missing:
         quality_deductions += len(missing) * 15

@@ -23,7 +23,6 @@ from src.viz.plotly_charts import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "employee_master_raw.csv": "Employees",
     "timesheets_raw.csv": "Timesheets",
@@ -38,7 +37,6 @@ def main():
     print("INTERACTIVE PLOTLY CHART DESIGN")
     print("=" * 60)
     
-    # Load datasets
     print("\n--- Loading Data ---")
     datasets = {}
     for filename, label in RAW_DATASETS.items():
@@ -48,7 +46,6 @@ def main():
             datasets[label] = df
             print(f"Loaded {label}: {len(df)} rows")
     
-    # Bar chart
     print("\n" + "=" * 60)
     print("CHART CONFIGURATIONS")
     print("=" * 60)
@@ -64,7 +61,6 @@ def main():
         print(f"  Title: {bar['title']}")
         print(f"  Categories: {len(bar['x'])}")
     
-    # Pie chart
     if 'Employees' in datasets:
         print("\n--- Pie Chart: Department Distribution ---")
         pie = create_pie_chart(dept_counts, 'department', 'count', 'Department Distribution')
@@ -72,7 +68,6 @@ def main():
         print(f"  Title: {pie['title']}")
         print(f"  Slices: {len(pie['labels'])}")
     
-    # Histogram
     if 'Timesheets' in datasets:
         ts = datasets['Timesheets']
         print("\n--- Histogram: Hours Logged Distribution ---")
@@ -81,14 +76,12 @@ def main():
         print(f"  Title: {hist['title']}")
         print(f"  Data points: {len(hist['x'])}")
     
-    # Box plot
     if 'Timesheets' in datasets:
         print("\n--- Box Plot: Billable Hours by Task Category ---")
         box = create_box_plot(ts, 'billable_hours', 'task_category', 'Billable Hours by Task')
         print(f"  Type: {box['type']}")
         print(f"  Title: {box['title']}")
     
-    # Scatter chart
     if 'Timesheets' in datasets:
         print("\n--- Scatter: Hours vs Billable Hours ---")
         scatter = create_scatter_chart(ts, 'hours_logged', 'billable_hours', 'Hours vs Billable')
@@ -96,7 +89,6 @@ def main():
         print(f"  Title: {scatter['title']}")
         print(f"  Data points: {len(scatter['x'])}")
     
-    # Grouped bar chart
     if 'Timesheets' in datasets:
         print("\n--- Grouped Bar: Task Hours by Category ---")
         task_hours = ts.groupby(['task_category', 'work_location'])['hours_logged'].sum().reset_index()
@@ -105,7 +97,6 @@ def main():
         print(f"  Title: {grouped['title']}")
         print(f"  Groups: {len(grouped['traces'])}")
     
-    # Chart recommendations
     print("\n" + "=" * 60)
     print("CHART RECOMMENDATIONS")
     print("=" * 60)

@@ -8,9 +8,6 @@ import streamlit as st
 from src.database import connection
 
 
-# ---------------------------------------------------------------------------
-# File loading
-# ---------------------------------------------------------------------------
 @st.cache_data(show_spinner=False)
 def _read_csv(uploaded_file) -> pd.DataFrame:
     """Read CSV from UploadedFile object (cached)."""
@@ -47,9 +44,6 @@ def load_uploaded_file(uploaded_file) -> pd.DataFrame | None:
         return None
 
 
-# ---------------------------------------------------------------------------
-# Dataset summary
-# ---------------------------------------------------------------------------
 def get_dataset_summary(df: pd.DataFrame) -> dict:
     """Return a summary dict for the given DataFrame.
 
@@ -73,9 +67,6 @@ def get_dataset_summary(df: pd.DataFrame) -> dict:
     }
 
 
-# ---------------------------------------------------------------------------
-# Dynamic KPI calculation
-# ---------------------------------------------------------------------------
 def _safe_col(df: pd.DataFrame, col: str) -> pd.Series | None:
     """Return a column as Series if it exists, else None."""
     return df[col] if col in df.columns else None
@@ -199,7 +190,6 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
     """
     kpis = []
 
-    # ── Generic KPIs (always shown) ────────────────────────────────────
     kpis.append({
         "label": "Total Records",
         "value": f"{df.shape[0]:,}",
@@ -216,7 +206,6 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
         "icon_color": None,
     })
 
-    # ── Employee-specific KPIs ─────────────────────────────────────────
     emp_col = _safe_col(df, "employee_id")
     if emp_col is not None:
         unique_employees = emp_col.nunique()
@@ -228,7 +217,6 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
             "icon_color": None,
         })
 
-    # Department count
     dept_col = _safe_col(df, "department")
     if dept_col is not None:
         dept_count = dept_col.nunique()
@@ -240,7 +228,6 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
             "icon_color": None,
         })
 
-    # ── Timesheet-specific KPIs ────────────────────────────────────────
     hours_col = _numeric_col(df, "hours_logged")
     billable_col = _numeric_col(df, "billable_hours")
 
@@ -264,7 +251,6 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
             "icon_color": None,
         })
 
-        # Utilization rate
         if hours_col is not None:
             util_rate = (total_billable / total_hours * 100) if total_hours > 0 else 0
             color = "\U0001f7e2" if util_rate >= 70 else "\U0001f534"
@@ -276,7 +262,6 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
                 "icon_color": None,
             })
 
-    # ── Allocation-specific KPIs ───────────────────────────────────────
     alloc_hours_col = _numeric_col(df, "allocated_hours")
     if alloc_hours_col is not None:
         total_alloc = alloc_hours_col.sum()
@@ -288,7 +273,6 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
             "icon_color": None,
         })
 
-    # ── Capacity KPI ───────────────────────────────────────────────────
     capacity_col = _numeric_col(df, "capacity_hours_monthly")
     if capacity_col is not None:
         total_capacity = capacity_col.sum()
@@ -300,7 +284,6 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
             "icon_color": None,
         })
 
-    # ── At-risk / Overloaded ───────────────────────────────────────────
     status_col = _safe_col(df, "employment_status")
     if status_col is not None:
         active = (status_col == "Active").sum()
@@ -321,7 +304,6 @@ def calculate_kpis(df: pd.DataFrame) -> dict:
                 "icon_color": "accent_red",
             })
 
-    # Ensure we always have exactly 6 KPIs (pad or trim)
     while len(kpis) < 6:
         kpis.append({
             "label": "N/A",
@@ -346,19 +328,16 @@ def get_chart_data(df: pd.DataFrame) -> dict:
     """
     charts = {}
 
-    # ── Department distribution ────────────────────────────────────────
     dept_col = _safe_col(df, "department")
     if dept_col is not None:
         charts["department_dist"] = dept_col.value_counts().head(10)
 
-    # ── Hours by category (timesheet) ─────────────────────────────────
     cat_col = _safe_col(df, "task_category")
     hours_col = _numeric_col(df, "hours_logged")
     if cat_col is not None and hours_col is not None:
         category_hours = pd.DataFrame({"category": cat_col, "hours": hours_col})
         charts["hours_by_category"] = category_hours.groupby("category")["hours"].sum().sort_values(ascending=False).head(8)
 
-    # ── Utilization by department ──────────────────────────────────────
     dept_col2 = _safe_col(df, "department")
     billable_col = _numeric_col(df, "billable_hours")
     hours_col2 = _numeric_col(df, "hours_logged")
@@ -368,12 +347,10 @@ def get_chart_data(df: pd.DataFrame) -> dict:
         dept_util["utilization"] = (dept_util["billable"] / dept_util["hours"].replace(0, pd.NA) * 100).fillna(0).round(1)
         charts["utilization_by_dept"] = dept_util["utilization"].sort_values(ascending=False)
 
-    # ── Experience distribution ────────────────────────────────────────
     exp_col = _safe_col(df, "experience_years")
     if exp_col is not None:
         charts["experience_dist"] = exp_col.value_counts().sort_index()
 
-    # ── Top projects by hours ──────────────────────────────────────────
     proj_col = _safe_col(df, "project_id")
     hours_col3 = _numeric_col(df, "hours_logged")
     if proj_col is not None and hours_col3 is not None:
@@ -477,9 +454,6 @@ def generate_insights(metrics: pd.DataFrame, assignments: list[dict] | None = No
     return pd.DataFrame(alerts, columns=["severity", "type", "subject", "evidence", "recommendation"])
 
 
-# ---------------------------------------------------------------------------
-# Session state management
-# ---------------------------------------------------------------------------
 def initialise_session_state() -> None:
     """Set default session state keys if not already present."""
     defaults = {
@@ -491,6 +465,7 @@ def initialise_session_state() -> None:
         "selected_file": None,
         "planning_items": [],
         "uploader_version": 0,
+        "using_database_files": True,
     }
     for key, val in defaults.items():
         if key not in st.session_state:
@@ -508,6 +483,7 @@ def reset_session_state() -> None:
     st.session_state["selected_file"] = None
     st.session_state["planning_items"] = []
     st.session_state["uploader_version"] = st.session_state.get("uploader_version", 0) + 1
+    st.session_state["using_database_files"] = True
     for key in (
         "nav_radio",
         "period_selector",

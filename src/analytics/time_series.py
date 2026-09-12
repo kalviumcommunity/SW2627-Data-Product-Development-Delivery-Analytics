@@ -148,7 +148,6 @@ def calculate_monthly_trend(df: pd.DataFrame, value_column: str, date_column: st
     monthly = df[value_column].resample('ME').agg(['sum', 'mean', 'count', 'std', 'min', 'max']).round(2)
     monthly.columns = ['total', 'avg', 'count', 'std', 'min', 'max']
     
-    # Add month-over-month change
     monthly['mom_change_pct'] = monthly['total'].pct_change() * 100
     
     return monthly
@@ -232,17 +231,13 @@ def calculate_seasonal_decomposition(df: pd.DataFrame, value_column: str, date_c
     if len(series) < period * 2:
         return {}
     
-    # Simple moving average for trend
     trend = series.rolling(window=period, center=True, min_periods=1).mean()
     
-    # Detrended
     detrended = series - trend
     
-    # Seasonal (average for each period position)
     seasonal_idx = np.arange(len(detrended)) % period
     seasonal = detrended.groupby(seasonal_idx).transform('mean')
     
-    # Residual
     residual = detrended - seasonal
     
     return {

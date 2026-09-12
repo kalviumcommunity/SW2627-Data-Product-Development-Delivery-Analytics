@@ -12,7 +12,6 @@ from src.ingestion.load_data import load_csv
 from src.profiling.consistency_rules import run_all_validations
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "employee_master_raw.csv": "Employee Master",
     "timesheets_raw.csv": "Timesheets",

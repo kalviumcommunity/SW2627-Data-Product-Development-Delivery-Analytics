@@ -79,7 +79,6 @@ def analyze_utilization_by_segment(df: pd.DataFrame, segment_col: str) -> pd.Dat
     if not all(col in df.columns for col in required_cols):
         return pd.DataFrame()
     
-    # Calculate utilization rate
     df = df.copy()
     df['utilization_rate'] = (df['billable_hours'] / df['total_hours'] * 100).fillna(0)
     
@@ -224,27 +223,21 @@ def get_segment_insights(df: pd.DataFrame) -> dict:
     """
     insights = {}
     
-    # Department insights
     if 'department' in df.columns:
         insights['by_department'] = analyze_by_department(df).to_dict()
     
-    # Team insights
     if 'team' in df.columns:
         insights['by_team'] = analyze_by_team(df).to_dict()
     
-    # Experience segment insights
     if 'experience_segment' in df.columns:
         insights['by_experience'] = analyze_by_experience_segment(df).to_dict()
     
-    # Utilization by segments
     for segment_col in ['department', 'team', 'experience_segment']:
         if segment_col in df.columns:
             insights[f'utilization_by_{segment_col}'] = analyze_utilization_by_segment(df, segment_col).to_dict()
     
-    # Department summary
     insights['department_summary'] = calculate_department_summary(df).to_dict()
     
-    # Employee summary
     insights['employee_summary'] = calculate_employee_summary(df).to_dict()
     
     return insights

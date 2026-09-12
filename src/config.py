@@ -44,7 +44,11 @@ def validate_security_config() -> None:
         problems.append("JWT_SECRET must be a unique value of at least 32 characters")
     if not ADMIN_EMAIL.strip():
         problems.append("ADMIN_EMAIL is required")
-    if len(ADMIN_PASSWORD) < 12 or ADMIN_PASSWORD == "replace-with-a-secure-password":
+    if (
+        len(ADMIN_PASSWORD) < 12
+        or ADMIN_PASSWORD == "replace-with-a-secure-password"
+        or ADMIN_PASSWORD.casefold() == ADMIN_EMAIL.strip().casefold()
+    ):
         problems.append("ADMIN_PASSWORD must be a unique value of at least 12 characters")
 
     if problems:

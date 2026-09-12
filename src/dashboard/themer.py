@@ -5,9 +5,6 @@ from __future__ import annotations
 import streamlit as st
 
 
-# ---------------------------------------------------------------------------
-# Design tokens — matches Figma / reference UI
-# ---------------------------------------------------------------------------
 TOKENS = {
     "bg_app": "#0B0B0B",
     "bg_sidebar": "#111111",
@@ -32,9 +29,6 @@ TOKENS = {
 }
 
 
-# ---------------------------------------------------------------------------
-# Navigation items — 7 pages with icons and accent colours
-# ---------------------------------------------------------------------------
 NAV_ITEMS = [
     {"key": "overview",        "label": "Overview",              "icon": "\U0001f4ca", "color": TOKENS["accent_cyan"]},
     {"key": "workforce",       "label": "Workforce",             "icon": "\U0001f465", "color": TOKENS["accent_cyan"]},

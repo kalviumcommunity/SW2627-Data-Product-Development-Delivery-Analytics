@@ -12,7 +12,6 @@ from src.ingestion.load_data import load_csv
 from src.ingestion.validate_sources import run_full_validation
 
 
-# Define expected schemas for each dataset
 SCHEMAS = {
     "employee_master_raw.csv": {
         "columns": [
@@ -120,7 +119,6 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         data_dir = sys.argv[1]
     else:
-        # Default to data/raw/ relative to project root
         data_dir = str(Path(__file__).parent.parent / "data" / "raw")
         print(f"No directory specified, using default: {data_dir}")
     

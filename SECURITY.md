@@ -11,7 +11,8 @@ and admin password rather than values copied from documentation.
 Before deployment:
 
 1. Generate a new random `JWT_SECRET` of at least 32 characters.
-2. Set a unique strong `ADMIN_PASSWORD` and restrict access to it.
+2. Set a unique strong `ADMIN_PASSWORD` that is not the admin email and
+   restrict access to it.
 3. Provide `JWT_SECRET`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` through the
    deployment secret manager.
 4. Set `APP_ENV=production` and `APP_DEBUG=false`.

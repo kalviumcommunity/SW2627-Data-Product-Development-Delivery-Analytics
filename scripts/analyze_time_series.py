@@ -22,7 +22,6 @@ from src.analytics.time_series import (
 import pandas as pd
 
 
-# Define the raw datasets with date columns
 RAW_DATASETS = {
     "timesheets_raw.csv": {"label": "Timesheets", "date_col": "work_date", "value_col": "billable_hours"},
     "allocations_raw.csv": {"label": "Allocations", "date_col": "allocation_start_date", "value_col": "allocated_hours"},
@@ -57,17 +56,14 @@ def main():
                 print(f"  [ERROR] Required columns not found")
                 continue
             
-            # Set time index
             df_ts = set_time_index(df, date_col)
             
-            # Time series summary
             summary = get_time_series_summary(df, date_col, value_col)
             print(f"  Date range: {summary['date_range']['start']} to {summary['date_range']['end']}")
             print(f"  Total points: {summary['total_points']}")
             print(f"  Trend direction: {summary['trend_direction']}")
             print(f"  Value stats: mean={summary['value_stats']['mean']:.2f}, std={summary['value_stats']['std']:.2f}")
             
-            # Rolling metrics
             rolling_mean_7 = calculate_rolling_mean(df_ts, value_col, 7)
             rolling_mean_30 = calculate_rolling_mean(df_ts, value_col, 30)
             rolling_std_7 = calculate_rolling_std(df_ts, value_col, 7)
@@ -76,14 +72,12 @@ def main():
             print(f"  Rolling mean (30d): {rolling_mean_30.iloc[-1]:.2f}")
             print(f"  Rolling std (7d): {rolling_std_7.iloc[-1]:.2f}")
             
-            # Monthly trend
             monthly = calculate_monthly_trend(df, value_col, date_col)
             if not monthly.empty:
                 print(f"  Monthly periods: {len(monthly)}")
                 print(f"  Latest month total: {monthly['total'].iloc[-1]:.2f}")
                 print(f"  MoM change: {monthly['mom_change_pct'].iloc[-1]:.2f}%")
             
-            # Weekly trend
             weekly = calculate_weekly_trend(df, value_col, date_col)
             if not weekly.empty:
                 print(f"  Weekly periods: {len(weekly)}")

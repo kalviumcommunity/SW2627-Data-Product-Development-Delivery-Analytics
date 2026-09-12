@@ -12,7 +12,6 @@ from src.ingestion.load_data import load_csv
 from src.features.derive_features import create_derived_columns, get_feature_summary
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "timesheets_raw.csv": "Timesheets",
     "allocations_raw.csv": "Allocations",
@@ -40,10 +39,8 @@ def main():
         try:
             df = load_csv(str(file_path))
             
-            # Create derived columns
             df_derived = create_derived_columns(df)
             
-            # Get feature summary
             summary = get_feature_summary(df_derived)
             
             print(f"  Original features: {len(df.columns)}")

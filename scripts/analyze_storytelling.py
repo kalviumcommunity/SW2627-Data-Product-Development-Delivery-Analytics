@@ -28,7 +28,6 @@ def main():
     print("DATA STORYTELLING & INSIGHT NARRATIVE")
     print("=" * 60)
     
-    # Load datasets
     print("\n--- Loading Data ---")
     datasets = {}
     for filename, label in [("timesheets_raw.csv", "Timesheets")]:
@@ -38,7 +37,6 @@ def main():
             datasets[label] = df
             print(f"Loaded {label}: {len(df)} rows")
     
-    # Generate insight narrative
     print("\n" + "=" * 60)
     print("INSIGHT NARRATIVE")
     print("=" * 60)
@@ -48,7 +46,6 @@ def main():
         narrative = generate_insight_narrative(ts, 'hours_logged')
         print(narrative[:200] + "...")
     
-    # Create story structure
     print("\n" + "=" * 60)
     print("STORY STRUCTURE")
     print("=" * 60)
@@ -62,7 +59,6 @@ def main():
     print(f"Sections: {structure['total_sections']}")
     print(f"Has Conclusion: {structure['has_conclusion']}")
     
-    # Business context
     print("\n" + "=" * 60)
     print("BUSINESS CONTEXT")
     print("=" * 60)
@@ -70,7 +66,6 @@ def main():
     context = get_business_context('utilization', 'Consulting')
     print(context)
     
-    # Validate story data
     print("\n" + "=" * 60)
     print("DATA VALIDATION")
     print("=" * 60)
@@ -81,7 +76,6 @@ def main():
     print(f"Meets minimum: {validation['meets_minimum']}")
     print(f"Data quality score: {validation['data_quality_score']}")
     
-    # Extract key insights
     print("\n" + "=" * 60)
     print("KEY INSIGHTS")
     print("=" * 60)
@@ -90,7 +84,6 @@ def main():
     for insight in insights:
         print(f"  {insight['rank']}. {insight['insight']}")
     
-    # Storytelling recommendations
     print("\n" + "=" * 60)
     print("STORYTELLING RECOMMENDATIONS")
     print("=" * 60)
@@ -101,7 +94,6 @@ def main():
     print(f"Recommended structure: {recommendations['suggested_visualizations']}")
     print(f"Key message: {recommendations['key_message']}")
     
-    # Format narrative
     print("\n" + "=" * 60)
     print("FORMATTED NARRATIVE")
     print("=" * 60)

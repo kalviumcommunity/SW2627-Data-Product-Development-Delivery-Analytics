@@ -18,7 +18,6 @@ from src.analytics.kpi_definitions import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "timesheets_raw.csv": "Timesheets",
     "allocations_raw.csv": "Allocations",
@@ -46,10 +45,8 @@ def main():
         try:
             df = load_csv(str(file_path))
             
-            # Calculate all KPIs
             df_kpi = calculate_all_kpis(df)
             
-            # Get KPI summary
             summary = get_kpi_summary(df_kpi)
             
             print(f"  Total rows: {len(df)}")
@@ -62,14 +59,12 @@ def main():
                 print(f"    Std: {stats['std']:.2f}")
                 print(f"    Range: {stats['min']:.2f} - {stats['max']:.2f}")
             
-            # Get targets
             targets = get_kpi_targets()
             print(f"\n  KPI Targets:")
             for kpi, target in targets.items():
                 if kpi in summary:
                     print(f"    {kpi}: target={target['target']}, warning={target['warning']}, critical={target['critical']}")
             
-            # Flag violations
             print(f"\n  Violation Flags:")
             for kpi in summary.keys():
                 if kpi in df.columns:
@@ -77,7 +72,6 @@ def main():
                     flag_counts = flags.value_counts().to_dict()
                     print(f"    {kpi}: {flag_counts}")
             
-            # Dashboard data
             dashboard = create_kpi_dashboard_data(df)
             print(f"\n  Dashboard Summary:")
             for kpi, data in dashboard.items():

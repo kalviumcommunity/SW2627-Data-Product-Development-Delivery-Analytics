@@ -25,9 +25,7 @@ def normalize_whitespace(df: pd.DataFrame, columns: list = None) -> pd.DataFrame
     
     for col in columns:
         if col in df.columns and df[col].dtype == 'object':
-            # Strip leading/trailing whitespace
             df[col] = df[col].str.strip()
-            # Replace multiple spaces with single space
             df[col] = df[col].str.replace(r'\s+', ' ', regex=True)
     
     print(f"  Normalized whitespace in {len(columns)} columns")
@@ -104,10 +102,8 @@ def standardize_categorical_labels(df: pd.DataFrame, column: str, mapping_dict: 
     df = df.copy()
     
     if column in df.columns:
-        # Apply mapping
         df[column] = df[column].map(mapping_dict).fillna(df[column])
         
-        # Log changes
         old_values = set(mapping_dict.keys())
         new_values = set(mapping_dict.values())
         print(f"  Standardized '{column}': {len(old_values)} old values -> {len(new_values)} new values")
@@ -133,11 +129,8 @@ def clean_text_columns(df: pd.DataFrame, columns: list = None) -> pd.DataFrame:
     
     for col in columns:
         if col in df.columns and df[col].dtype == 'object':
-            # Strip whitespace
             df[col] = df[col].str.strip()
-            # Replace multiple spaces with single space
             df[col] = df[col].str.replace(r'\s+', ' ', regex=True)
-            # Remove non-printable characters
             df[col] = df[col].apply(lambda x: ''.join(char for char in x if char.isprintable()) if isinstance(x, str) else x)
     
     print(f"  Cleaned {len(columns)} text columns")

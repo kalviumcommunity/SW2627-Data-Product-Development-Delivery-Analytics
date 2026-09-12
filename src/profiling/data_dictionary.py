@@ -115,7 +115,6 @@ def generate_data_dictionary_report(data_dict: pd.DataFrame) -> str:
     report.append("DATA DICTIONARY REPORT")
     report.append("=" * 70)
     
-    # Group by file
     files = data_dict["file"].unique()
     
     for file_name in files:

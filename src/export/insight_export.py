@@ -79,7 +79,6 @@ def generate_insight_report(df: pd.DataFrame, metric_col: str, group_col: str = 
     std_dev = float(metric_data.std())
     count = int(metric_data.count())
     
-    # Determine trend
     trend = "STABLE"
     if count > 1:
         first_half = metric_data.iloc[:len(metric_data)//2].mean()
@@ -89,7 +88,6 @@ def generate_insight_report(df: pd.DataFrame, metric_col: str, group_col: str = 
         elif second_half < first_half * 0.95:
             trend = "DECLINING"
     
-    # Group analysis if group_col provided
     group_analysis = {}
     if group_col and group_col in df.columns:
         for group in df[group_col].unique():

@@ -21,7 +21,6 @@ from src.metrics.kpi_design import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "timesheets_raw.csv": "Timesheets",
     "billing_raw.csv": "Billing",
@@ -36,7 +35,6 @@ def main():
     print("KPI CARD & SUMMARY METRIC DESIGN")
     print("=" * 60)
     
-    # Load datasets
     print("\n--- Loading Data ---")
     datasets = {}
     for filename, label in RAW_DATASETS.items():
@@ -46,7 +44,6 @@ def main():
             datasets[label] = df
             print(f"Loaded {label}: {len(df)} rows")
     
-    # Employee utilization KPI
     print("\n" + "=" * 60)
     print("EMPLOYEE UTILIZATION KPI")
     print("=" * 60)
@@ -63,12 +60,10 @@ def main():
         print(f"  Total Billable Hours: {util_kpi['total_billable_hours']:,}")
         print(f"  Trend: {util_kpi['trend']}")
         
-        # Create KPI card
         card = create_kpi_card('Employee Utilization', util_kpi['value'], util_kpi['target'], util_kpi['threshold'])
         print(f"  Card Status: {card['status']}")
         print(f"  Card Progress: {card['progress']}%")
     
-    # Revenue KPI
     print("\n" + "=" * 60)
     print("REVENUE KPI")
     print("=" * 60)
@@ -84,7 +79,6 @@ def main():
         print(f"  Avg per Transaction: ${rev_kpi['avg_per_transaction']:,.2f}")
         print(f"  Trend: {rev_kpi['trend']}")
     
-    # Allocation KPI
     print("\n" + "=" * 60)
     print("ALLOCATION EFFICIENCY KPI")
     print("=" * 60)
@@ -100,7 +94,6 @@ def main():
         print(f"  Total Planned Billable: {alloc_kpi['total_planned_billable']:,}")
         print(f"  Trend: {alloc_kpi['trend']}")
     
-    # Summary metrics
     print("\n" + "=" * 60)
     print("SUMMARY METRICS")
     print("=" * 60)
@@ -117,7 +110,6 @@ def main():
         print(f"  Std Dev: {format_number(summary['std_deviation'])}")
         print(f"  Count: {summary['count']:,}")
     
-    # Data validation
     print("\n" + "=" * 60)
     print("KPI DATA VALIDATION")
     print("=" * 60)

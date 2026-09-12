@@ -11,7 +11,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from src.ingestion.load_data import load_csv, get_file_info, generate_ingestion_report
 
 
-# Define the raw datasets to load
 RAW_DATASETS = {
     "employee_master_raw.csv": "Employee Master",
     "timesheets_raw.csv": "Timesheets",
@@ -44,7 +43,6 @@ def ingest_all_datasets(data_dir: str) -> dict:
         print(f"Loading: {label} ({filename})")
         print(f"{'-' * 60}")
         
-        # Check file info
         info = get_file_info(str(file_path))
         print(f"  File size: {info['size_mb']} MB")
         print(f"  Extension: {info['extension']}")
@@ -80,7 +78,6 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         data_dir = sys.argv[1]
     else:
-        # Default to data/raw/ relative to project root
         data_dir = str(Path(__file__).parent.parent / "data" / "raw")
         print(f"No directory specified, using default: {data_dir}")
     

@@ -16,7 +16,6 @@ from src.profiling.data_dictionary import (
 
 
 def main():
-    # Default to data/raw/ relative to project root
     data_dir = Path(__file__).parent.parent / "data" / "raw"
     dict_path = data_dir / "data_dictionary.csv"
     
@@ -27,11 +26,9 @@ def main():
     print("Loading data dictionary...")
     data_dict = load_data_dictionary(str(dict_path))
     
-    # Generate full report
     report = generate_data_dictionary_report(data_dict)
     print(report)
     
-    # Show KPI-related columns
     print(f"\n{'=' * 70}")
     print("KPI-RELATED COLUMNS")
     print(f"{'=' * 70}")
