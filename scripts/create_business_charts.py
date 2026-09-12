@@ -21,7 +21,6 @@ from src.viz.business_viz import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "employee_master_raw.csv": "Employees",
     "timesheets_raw.csv": "Timesheets",
@@ -37,7 +36,6 @@ def main():
     print("BUSINESS VISUALISATION PRINCIPLES")
     print("=" * 60)
     
-    # Load datasets
     print("\n--- Loading Data ---")
     datasets = {}
     for filename, label in RAW_DATASETS.items():
@@ -47,7 +45,6 @@ def main():
             datasets[label] = df
             print(f"Loaded {label}: {len(df)} rows")
     
-    # Color palette
     print("\n" + "=" * 60)
     print("BUSINESS COLOR PALETTE")
     print("=" * 60)
@@ -57,7 +54,6 @@ def main():
     for name, hex_code in list(colors.items())[:9]:
         print(f"  {name}: {hex_code}")
     
-    # Chart type recommendations
     print("\n" + "=" * 60)
     print("CHART TYPE RECOMMENDATIONS")
     print("=" * 60)
@@ -70,7 +66,6 @@ def main():
             chart = get_chart_type_recommendation(dt, at)
             print(f"  {dt} + {at}: {chart}")
     
-    # Number formatting
     print("\n" + "=" * 60)
     print("NUMBER FORMATTING")
     print("=" * 60)
@@ -82,7 +77,6 @@ def main():
         print(f"    Percentage: {format_number(val * 100 if val < 1 else val, 'percentage')}")
         print(f"    General: {format_number(val, 'general')}")
     
-    # KPI card data
     print("\n" + "=" * 60)
     print("KPI CARD DATA")
     print("=" * 60)
@@ -98,7 +92,6 @@ def main():
         kpi = create_kpi_card_data(value, label, fmt)
         print(f"  {kpi['label']}: {kpi['formatted_value']}")
     
-    # Chart titles
     print("\n" + "=" * 60)
     print("CHART TITLE GENERATION")
     print("=" * 60)
@@ -111,7 +104,6 @@ def main():
             title = get_chart_title(ctx, ana)
             print(f"  {title}")
     
-    # Data validation for visualization
     print("\n" + "=" * 60)
     print("DATA VALIDATION FOR VISUALIZATION")
     print("=" * 60)
@@ -124,7 +116,6 @@ def main():
         print(f"  Missing columns: {validation['missing_columns']}")
         print(f"  Row count: {validation['row_count']}")
     
-    # Business insights
     print("\n" + "=" * 60)
     print("BUSINESS INSIGHTS FROM DATA")
     print("=" * 60)

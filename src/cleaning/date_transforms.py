@@ -22,10 +22,8 @@ def parse_dates(df: pd.DataFrame, columns: list = None, format: str = 'auto') ->
     df = df.copy()
     
     if columns is None:
-        # Find columns that might be dates
         columns = []
         for col in df.select_dtypes(include=['object']).columns:
-            # Check if column contains date-like strings
             sample = df[col].dropna().head(10)
             if sample.str.match(r'\d{4}-\d{2}-\d{2}').any():
                 columns.append(col)
@@ -59,14 +57,12 @@ def extract_date_features(df: pd.DataFrame, date_column: str, prefix: str = None
         print(f"  Column '{date_column}' not found")
         return df
     
-    # Ensure column is datetime
     if not pd.api.types.is_datetime64_any_dtype(df[date_column]):
         df[date_column] = pd.to_datetime(df[date_column], errors='coerce')
     
     if prefix is None:
         prefix = date_column
     
-    # Extract features
     df[f'{prefix}_year'] = df[date_column].dt.year
     df[f'{prefix}_month'] = df[date_column].dt.month
     df[f'{prefix}_day'] = df[date_column].dt.day
@@ -100,14 +96,12 @@ def calculate_time_since(df: pd.DataFrame, date_column: str, reference_date: dat
         print(f"  Column '{date_column}' not found")
         return df
     
-    # Ensure column is datetime
     if not pd.api.types.is_datetime64_any_dtype(df[date_column]):
         df[date_column] = pd.to_datetime(df[date_column], errors='coerce')
     
     if reference_date is None:
         reference_date = pd.Timestamp.now()
     
-    # Calculate difference
     diff = reference_date - df[date_column]
     
     if unit == 'days':
@@ -140,7 +134,6 @@ def create_date_ranges(df: pd.DataFrame, start_col: str, end_col: str, name: str
         print(f"  Columns '{start_col}' or '{end_col}' not found")
         return df
     
-    # Ensure columns are datetime
     if not pd.api.types.is_datetime64_any_dtype(df[start_col]):
         df[start_col] = pd.to_datetime(df[start_col], errors='coerce')
     if not pd.api.types.is_datetime64_any_dtype(df[end_col]):
@@ -149,7 +142,6 @@ def create_date_ranges(df: pd.DataFrame, start_col: str, end_col: str, name: str
     if name is None:
         name = f'{start_col}_to_{end_col}'
     
-    # Calculate duration
     df[f'{name}_days'] = (df[end_col] - df[start_col]).dt.days
     
     print(f"  Created date range from '{start_col}' to '{end_col}'")

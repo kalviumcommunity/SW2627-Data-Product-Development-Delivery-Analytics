@@ -17,7 +17,6 @@ from src.analytics.distribution_analysis import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "timesheets_raw.csv": "Timesheets",
     "allocations_raw.csv": "Allocations",
@@ -45,7 +44,6 @@ def main():
         try:
             df = load_csv(str(file_path))
             
-            # Get distribution summary
             summary = get_distribution_summary(df)
             
             print(f"  Total rows: {len(df)}")

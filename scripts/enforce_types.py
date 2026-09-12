@@ -16,7 +16,6 @@ from src.cleaning.type_enforcement import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "employee_master_raw.csv": "Employee Master",
     "timesheets_raw.csv": "Timesheets",
@@ -45,7 +44,6 @@ def main():
         try:
             df = load_csv(str(file_path))
             
-            # Get type summary before
             print(f"\n  Current types:")
             summary = get_type_summary(df)
             for dtype, cols in summary["columns_by_type"].items():

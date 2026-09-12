@@ -12,8 +12,11 @@ def render_login() -> bool:
     if st.session_state.get("access_token"):
         return True
 
+    st.markdown(
+        "<style>div[data-testid='InputInstructions']{display:none!important;}</style>",
+        unsafe_allow_html=True,
+    )
     st.markdown("## Sign in to Workforce Planner")
-    st.caption("Use the account configured for the FastAPI service.")
     with st.form("login_form", enter_to_submit=True):
         email = st.text_input("Email", autocomplete="email")
         password = st.text_input("Password", type="password", autocomplete="current-password")

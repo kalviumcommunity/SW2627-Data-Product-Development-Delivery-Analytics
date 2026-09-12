@@ -27,7 +27,6 @@ def main():
     print("INSIGHT EXPORT & REPORT GENERATION")
     print("=" * 60)
     
-    # Load datasets
     print("\n--- Loading Data ---")
     datasets = {}
     for filename, label in [("timesheets_raw.csv", "Timesheets"), ("billing_raw.csv", "Billing")]:
@@ -37,7 +36,6 @@ def main():
             datasets[label] = df
             print(f"Loaded {label}: {len(df)} rows")
     
-    # Export to CSV
     print("\n" + "=" * 60)
     print("EXPORT TO CSV")
     print("=" * 60)
@@ -49,7 +47,6 @@ def main():
         print(f"Rows exported: {result['rows_exported']}")
         print(f"Columns exported: {result['columns_exported']}")
     
-    # Export to JSON
     print("\n" + "=" * 60)
     print("EXPORT TO JSON")
     print("=" * 60)
@@ -60,7 +57,6 @@ def main():
         print(f"Success: {result['success']}")
         print(f"Rows exported: {result['rows_exported']}")
     
-    # Generate insight report
     print("\n" + "=" * 60)
     print("INSIGHT REPORT")
     print("=" * 60)
@@ -75,7 +71,6 @@ def main():
         print(f"Trend: {report['trend']}")
         print(f"Group analysis: {len(report['group_analysis'])} groups")
     
-    # Comparative report
     print("\n" + "=" * 60)
     print("COMPARATIVE REPORT")
     print("=" * 60)
@@ -90,7 +85,6 @@ def main():
         print(f"Percentage change: {report['percentage_change']:.2f}%")
         print(f"Trend: {report['trend']}")
     
-    # Validate data
     print("\n" + "=" * 60)
     print("DATA VALIDATION")
     print("=" * 60)
@@ -102,7 +96,6 @@ def main():
         print(f"Missing columns: {validation['missing_columns']}")
         print(f"Null count: {validation['null_count']}")
     
-    # Format recommendations
     print("\n" + "=" * 60)
     print("EXPORT FORMAT RECOMMENDATIONS")
     print("=" * 60)

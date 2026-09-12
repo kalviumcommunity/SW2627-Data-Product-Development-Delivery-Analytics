@@ -50,7 +50,6 @@ def check_value_ranges(df: pd.DataFrame, column_ranges: dict) -> dict:
     
     for col, (min_val, max_val) in column_ranges.items():
         if col in df.columns:
-            # Try to convert to numeric
             try:
                 numeric_col = pd.to_numeric(df[col], errors='coerce')
                 below_min = (numeric_col < min_val).sum()
@@ -155,14 +154,12 @@ def validate_timesheet_hours(df: pd.DataFrame) -> dict:
     results = {}
     
     if 'hours_worked' in df.columns:
-        # Check hours are positive
         negative_hours = (df['hours_worked'] < 0).sum()
         results['negative_hours'] = {
             'count': int(negative_hours),
             'status': 'PASS' if negative_hours == 0 else 'FAIL'
         }
         
-        # Check hours are reasonable (0-24)
         unreasonable_hours = ((df['hours_worked'] < 0) | (df['hours_worked'] > 24)).sum()
         results['unreasonable_hours'] = {
             'count': int(unreasonable_hours),
@@ -170,7 +167,6 @@ def validate_timesheet_hours(df: pd.DataFrame) -> dict:
         }
     
     if 'billable_hours' in df.columns:
-        # Check billable hours are non-negative
         negative_billable = (df['billable_hours'] < 0).sum()
         results['negative_billable_hours'] = {
             'count': int(negative_billable),
@@ -193,7 +189,6 @@ def validate_allocation_percentages(df: pd.DataFrame) -> dict:
     results = {}
     
     if 'allocation_percentage' in df.columns:
-        # Check percentages are between 0 and 100
         invalid_pct = ((df['allocation_percentage'] < 0) | (df['allocation_percentage'] > 100)).sum()
         results['invalid_percentages'] = {
             'count': int(invalid_pct),
@@ -201,7 +196,6 @@ def validate_allocation_percentages(df: pd.DataFrame) -> dict:
         }
     
     if 'expected_utilization' in df.columns:
-        # Check utilization is between 0 and 100
         invalid_util = ((df['expected_utilization'] < 0) | (df['expected_utilization'] > 100)).sum()
         results['invalid_utilization'] = {
             'count': int(invalid_util),
@@ -224,7 +218,6 @@ def validate_billing_rates(df: pd.DataFrame) -> dict:
     results = {}
     
     if 'billing_rate' in df.columns:
-        # Check rates are positive
         negative_rates = (df['billing_rate'] < 0).sum()
         results['negative_rates'] = {
             'count': int(negative_rates),
@@ -232,7 +225,6 @@ def validate_billing_rates(df: pd.DataFrame) -> dict:
         }
     
     if 'billed_amount' in df.columns:
-        # Check amounts are non-negative
         negative_amounts = (df['billed_amount'] < 0).sum()
         results['negative_amounts'] = {
             'count': int(negative_amounts),
@@ -263,11 +255,9 @@ def run_all_validations(df: pd.DataFrame, dataset_name: str) -> dict:
         'validations': {}
     }
     
-    # Run null threshold check
     null_results = check_null_thresholds(df)
     results['validations']['null_thresholds'] = null_results
     
-    # Run business rules based on dataset
     if dataset_name == 'Timesheets':
         results['validations']['timesheet_hours'] = validate_timesheet_hours(df)
     elif dataset_name == 'Allocations':
@@ -275,7 +265,6 @@ def run_all_validations(df: pd.DataFrame, dataset_name: str) -> dict:
     elif dataset_name == 'Billing':
         results['validations']['billing_rates'] = validate_billing_rates(df)
     
-    # Print summary
     total_checks = 0
     passed_checks = 0
     failed_checks = 0

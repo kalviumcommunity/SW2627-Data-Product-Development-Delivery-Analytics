@@ -26,7 +26,6 @@ def main():
     print("EXECUTIVE REPORTING & STAKEHOLDER COMMUNICATION")
     print("=" * 60)
     
-    # Load datasets
     print("\n--- Loading Data ---")
     datasets = {}
     for filename, label in [("timesheets_raw.csv", "Timesheets"), ("billing_raw.csv", "Billing")]:
@@ -36,7 +35,6 @@ def main():
             datasets[label] = df
             print(f"Loaded {label}: {len(df)} rows")
     
-    # Executive summary
     print("\n" + "=" * 60)
     print("EXECUTIVE SUMMARY")
     print("=" * 60)
@@ -46,7 +44,6 @@ def main():
         summary = generate_executive_summary(ts, 'hours_logged')
         print(summary['executive_summary'])
     
-    # Stakeholder report
     print("\n" + "=" * 60)
     print("STAKEHOLDER REPORT")
     print("=" * 60)
@@ -57,7 +54,6 @@ def main():
         formatted = format_report_for_presentation(report)
         print(formatted[:800] + "...")
     
-    # Reporting recommendations
     print("\n" + "=" * 60)
     print("REPORTING RECOMMENDATIONS")
     print("=" * 60)
@@ -72,7 +68,6 @@ def main():
         print(f"Success criteria: {recs['success_criteria']}")
         print(f"Improvement focus: {recs['improvement_focus']}")
     
-    # Data validation
     print("\n" + "=" * 60)
     print("DATA VALIDATION")
     print("=" * 60)

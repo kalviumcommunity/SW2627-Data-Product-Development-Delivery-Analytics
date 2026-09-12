@@ -60,11 +60,9 @@ def get_table_info(conn: sqlite3.Connection, table_name: str) -> Dict:
     """
     cursor = conn.cursor()
     
-    # Get column info
     cursor.execute(f"PRAGMA table_info({table_name})")
     columns = cursor.fetchall()
     
-    # Get row count
     cursor.execute(f"SELECT COUNT(*) FROM {table_name}")
     row_count = cursor.fetchone()[0]
     

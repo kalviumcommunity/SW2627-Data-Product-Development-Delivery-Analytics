@@ -2,8 +2,8 @@ name: Weekly Data Pipeline
 
 on:
   schedule:
-    - cron: "0 6 * * 1"  # Every Monday at 6:00 AM UTC
-  workflow_dispatch:       # Allow manual trigger for testing
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
 
 permissions:
   contents: write

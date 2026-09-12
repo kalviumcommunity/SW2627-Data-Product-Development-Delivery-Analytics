@@ -37,7 +37,6 @@ def profile_dataframe(df: pd.DataFrame, name: str = "DataFrame") -> dict:
             "unique_percentage": round(df[col].nunique() / len(df) * 100, 2)
         }
         
-        # Add numeric stats if applicable
         if pd.api.types.is_numeric_dtype(df[col]):
             col_info["min"] = float(df[col].min()) if not df[col].isnull().all() else None
             col_info["max"] = float(df[col].max()) if not df[col].isnull().all() else None
@@ -45,7 +44,6 @@ def profile_dataframe(df: pd.DataFrame, name: str = "DataFrame") -> dict:
             col_info["median"] = float(df[col].median()) if not df[col].isnull().all() else None
             col_info["std"] = round(float(df[col].std()), 2) if not df[col].isnull().all() else None
         
-        # Add categorical stats if applicable
         if pd.api.types.is_object_dtype(df[col]):
             value_counts = df[col].value_counts().head(5)
             col_info["top_values"] = value_counts.to_dict()

@@ -9,9 +9,6 @@ import streamlit as st
 from .themer import TOKENS
 
 
-# ---------------------------------------------------------------------------
-# Top header
-# ---------------------------------------------------------------------------
 def render_top_header(active_page_label: str) -> str:
     """Render the top header bar with brand, period selector, and utility buttons.
 
@@ -76,9 +73,6 @@ def render_top_header(active_page_label: str) -> str:
     return period
 
 
-# ---------------------------------------------------------------------------
-# Page header
-# ---------------------------------------------------------------------------
 def render_page_header(title: str, subtitle: str) -> None:
     """Render a page title and subtitle.
 
@@ -94,9 +88,6 @@ def render_page_header(title: str, subtitle: str) -> None:
     st.markdown(html, unsafe_allow_html=True)
 
 
-# ---------------------------------------------------------------------------
-# KPI card
-# ---------------------------------------------------------------------------
 def render_kpi_card(
     container,
     label: str,
@@ -141,9 +132,6 @@ def render_kpi_card(
     container.markdown(card, unsafe_allow_html=True)
 
 
-# ---------------------------------------------------------------------------
-# Status badge
-# ---------------------------------------------------------------------------
 def render_status_badge(status: str) -> str:
     """Return HTML for a coloured status badge.
 
@@ -167,9 +155,6 @@ def render_status_badge(status: str) -> str:
     return f"<span class='status-badge {cls}'>{text}</span>"
 
 
-# ---------------------------------------------------------------------------
-# Section card
-# ---------------------------------------------------------------------------
 def render_section_card_open(title: str, subtitle: str | None = None) -> None:
     """Open a section card with a title and optional subtitle.
 
@@ -193,9 +178,6 @@ def close_section_card() -> None:
     st.markdown("</div>", unsafe_allow_html=True)
 
 
-# ---------------------------------------------------------------------------
-# Placeholder / empty state
-# ---------------------------------------------------------------------------
 def render_placeholder(text: str, height: int = 220) -> None:
     """Render a dashed-border placeholder box.
 

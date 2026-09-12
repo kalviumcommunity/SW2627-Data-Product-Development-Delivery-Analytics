@@ -82,7 +82,6 @@ def analyze_utilization_distribution(df: pd.DataFrame) -> dict:
     
     util_data = df['utilization_rate'].dropna()
     
-    # Define utilization bands
     bands = [0, 20, 40, 60, 80, 100, float('inf')]
     labels = ['0-20%', '20-40%', '40-60%', '60-80%', '80-100%', '100%+']
     

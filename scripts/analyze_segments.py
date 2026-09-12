@@ -20,7 +20,6 @@ from src.analytics.groupby_analysis import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "timesheets_raw.csv": "Timesheets",
     "allocations_raw.csv": "Allocations",
@@ -51,23 +50,19 @@ def main():
             print(f"  Total rows: {len(df)}")
             print(f"  Columns: {list(df.columns)}")
             
-            # Get segment insights
             insights = get_segment_insights(df)
             
-            # Print department analysis
             if 'by_department' in insights and insights['by_department']:
                 print(f"\n  Department Analysis (billable_hours):")
                 dept_df = pd.DataFrame(insights['by_department']).T
                 print(dept_df.head())
             
-            # Print top performers
             if 'billable_hours' in df.columns:
                 top_performers = find_top_performers(df, 'billable_hours', 5)
                 if not top_performers.empty:
                     print(f"\n  Top 5 by billable_hours:")
                     print(top_performers[['employee_id', 'billable_hours']].head() if 'employee_id' in top_performers.columns else top_performers.head())
             
-            # Print department summary
             dept_summary = calculate_department_summary(df)
             if not dept_summary.empty:
                 print(f"\n  Department Summary:")

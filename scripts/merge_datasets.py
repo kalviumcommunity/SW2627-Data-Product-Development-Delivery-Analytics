@@ -17,7 +17,6 @@ from src.merging.merge_datasets import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "employee_master_raw.csv": "Employee Master",
     "timesheets_raw.csv": "Timesheets",
@@ -33,7 +32,6 @@ def main():
     print("MULTI-SOURCE MERGING DEMO")
     print("=" * 60)
     
-    # Load all datasets
     datasets = {}
     for filename, label in RAW_DATASETS.items():
         file_path = data_dir / filename
@@ -45,7 +43,6 @@ def main():
         print("\n[ERROR] Need at least 2 datasets to demonstrate merging")
         return
     
-    # Validate keys before merge
     print("\n" + "=" * 60)
     print("KEY VALIDATION")
     print("=" * 60)
@@ -58,7 +55,6 @@ def main():
         )
         print(f"\nEmployee ID overlap: {validation.get('overlap_pct', 0)}%")
     
-    # Create analytics dataset
     if all(k in datasets for k in ['Timesheets', 'Allocations', 'Billing', 'Employee Master']):
         analytics_df = create_analytics_dataset(
             datasets['Timesheets'],

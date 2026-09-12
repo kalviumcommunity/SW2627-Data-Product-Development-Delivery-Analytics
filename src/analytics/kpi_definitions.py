@@ -131,42 +131,35 @@ def calculate_all_kpis(df: pd.DataFrame) -> pd.DataFrame:
     """
     df = df.copy()
     
-    # Billable Utilization Rate
     if 'billable_hours' in df.columns and 'total_hours' in df.columns:
         df['kpi_billable_utilization_rate'] = calculate_billable_utilization_rate(
             df['billable_hours'], df['total_hours']
         )
     
-    # Allocation Efficiency
     if 'hours_worked' in df.columns and 'allocated_hours' in df.columns:
         df['kpi_allocation_efficiency'] = calculate_allocation_efficiency(
             df['hours_worked'], df['allocated_hours']
         )
     
-    # Revenue per Hour
     if 'billed_amount' in df.columns and 'billable_hours' in df.columns:
         df['kpi_revenue_per_hour'] = calculate_revenue_per_hour(
             df['billed_amount'], df['billable_hours']
         )
     
-    # Non-Billable Load
     if 'non_billable_hours' in df.columns and 'total_hours' in df.columns:
         df['kpi_non_billable_load'] = calculate_non_billable_load(
             df['non_billable_hours'], df['total_hours']
         )
     
-    # Timesheet Compliance
     if 'timesheet_status' in df.columns:
         approved = (df['timesheet_status'] == 'Approved').astype(int)
         total = pd.Series(1, index=df.index)
         df['kpi_timesheet_compliance'] = calculate_timesheet_compliance(approved, total)
     
-    # Billing Accuracy
     if 'billed_amount' in df.columns and 'billing_rate' in df.columns and 'billable_hours' in df.columns:
         billed_hours = df['billed_amount'] / df['billing_rate'].replace(0, np.nan)
         df['kpi_billing_accuracy'] = calculate_billing_accuracy(billed_hours, df['billable_hours'])
     
-    # Write-Off Rate
     if 'writeoff_hours' in df.columns and 'billable_hours' in df.columns:
         df['kpi_writeoff_rate'] = calculate_writeoff_rate(
             df['writeoff_hours'], df['billable_hours']
@@ -240,7 +233,6 @@ def flag_kpi_violations(df: pd.DataFrame, kpi_col: str) -> pd.Series:
     
     target_info = targets[kpi_col]
     
-    # For metrics where lower is better (non_billable_load, writeoff_rate)
     lower_is_better = kpi_col in ['kpi_non_billable_load', 'kpi_writeoff_rate']
     
     if lower_is_better:
@@ -275,7 +267,6 @@ def create_kpi_dashboard_data(df: pd.DataFrame) -> dict:
     for kpi_col, stats in kpi_summary.items():
         target_info = targets.get(kpi_col, {})
         
-        # Determine status based on mean vs target
         mean_val = stats['mean']
         status = 'on_target'
         
@@ -296,7 +287,7 @@ def create_kpi_dashboard_data(df: pd.DataFrame) -> dict:
             'warning_threshold': target_info.get('warning'),
             'critical_threshold': target_info.get('critical'),
             'status': status,
-            'trend': 'stable'  # Would need historical data for trend
+            'trend': 'stable'
         }
     
     return dashboard

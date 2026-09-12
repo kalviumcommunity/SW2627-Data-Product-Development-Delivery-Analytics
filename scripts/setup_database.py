@@ -20,7 +20,6 @@ from src.sql.db_integration import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "employee_master_raw.csv": "employees",
     "timesheets_raw.csv": "timesheets",
@@ -37,12 +36,10 @@ def main():
     print("SQL DATABASE INTEGRATION")
     print("=" * 60)
     
-    # Create in-memory database
     print("\n--- Database Setup ---")
     conn = create_connection()
     print(f"SQLite version: {get_sqlite_version(conn)}")
     
-    # Load all datasets
     print("\n--- Loading Data ---")
     dataframes = {}
     for filename, table_name in RAW_DATASETS.items():
@@ -52,28 +49,23 @@ def main():
             dataframes[table_name] = df
             print(f"Loaded {table_name}: {len(df)} rows, {len(df.columns)} columns")
     
-    # Create tables
     print("\n--- Creating Tables ---")
     tables = create_tables_from_dataframes(conn, dataframes)
     print(f"Created {len(tables)} tables")
     
-    # Get table info
     print("\n--- Table Information ---")
     for table in tables:
         info = get_table_info(conn, table)
         print(f"  {info['table_name']}: {info['row_count']} rows, {len(info['columns'])} columns")
     
-    # Get database statistics
     print("\n--- Database Statistics ---")
     stats = get_database_stats(conn)
     print(f"Total tables: {stats['total_tables']}")
     for table_name, table_info in stats['tables'].items():
         print(f"  {table_name}: {table_info['row_count']} rows")
     
-    # Execute sample queries
     print("\n--- Sample Queries ---")
     
-    # Query 1: Employee count by department
     query1 = """
     SELECT department, COUNT(*) as employee_count
     FROM employees
@@ -85,7 +77,6 @@ def main():
     result1 = execute_query(conn, query1)
     print(result1.to_string(index=False))
     
-    # Query 2: Timesheet summary
     query2 = """
     SELECT 
         employee_id,
@@ -100,7 +91,6 @@ def main():
     result2 = execute_query(conn, query2)
     print(result2.to_string(index=False))
     
-    # Close connection
     conn.close()
     
     print(f"\n{'=' * 60}")

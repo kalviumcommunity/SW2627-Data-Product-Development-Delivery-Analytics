@@ -30,7 +30,6 @@ def generate_insight_narrative(df: pd.DataFrame, metric_col: str, group_col: str
     std_dev = float(metric_data.std())
     count = int(metric_data.count())
     
-    # Determine trend direction
     if count > 1:
         first_half = metric_data.iloc[:len(metric_data)//2].mean()
         second_half = metric_data.iloc[len(metric_data)//2:].mean()
@@ -38,7 +37,6 @@ def generate_insight_narrative(df: pd.DataFrame, metric_col: str, group_col: str
     else:
         trend = 'INSUFFICIENT DATA'
     
-    # Build narrative
     narrative = f"""
 Data Story: {metric_col} Analysis
 
@@ -190,7 +188,6 @@ def format_narrative_text(text: str, max_length: int = None) -> str:
     if max_length and len(text) > max_length:
         text = text[:max_length] + '...'
     
-    # Clean up whitespace
     text = ' '.join(text.split())
     
     return text

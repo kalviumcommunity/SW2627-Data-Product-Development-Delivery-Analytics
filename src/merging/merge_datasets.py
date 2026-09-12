@@ -28,11 +28,9 @@ def validate_keys_before_merge(df1: pd.DataFrame, df2: pd.DataFrame, key_column:
         results['error'] = f'Column {key_column} not found in second DataFrame'
         return results
     
-    # Get unique keys
     keys1 = set(df1[key_column].dropna())
     keys2 = set(df2[key_column].dropna())
     
-    # Check for overlaps
     common_keys = keys1 & keys2
     only_in_df1 = keys1 - keys2
     only_in_df2 = keys2 - keys1
@@ -63,19 +61,16 @@ def merge_with_validation(df1: pd.DataFrame, df2: pd.DataFrame, on: str, how: st
     Returns:
         Merged DataFrame
     """
-    # Validate keys
     validation = validate_keys_before_merge(df1, df2, on)
     
     if 'error' in validation:
         print(f"  [ERROR] {validation['error']}")
         return pd.DataFrame()
     
-    # Perform merge
     initial_rows = len(df1)
     df_merged = pd.merge(df1, df2, on=on, how=how)
     final_rows = len(df_merged)
     
-    # Log results
     print(f"  Merged {on}: {initial_rows} rows -> {final_rows} rows")
     print(f"  Overlap: {validation['overlap_pct']}%")
     
@@ -98,13 +93,10 @@ def check_row_count_integrity(df_merged: pd.DataFrame, df_original: pd.DataFrame
     original_rows = len(df_original)
     
     if merge_type == 'left':
-        # Left merge should have at least as many rows as original
         has_duplicates = merged_rows > original_rows
     elif merge_type == 'inner':
-        # Inner merge should have fewer or equal rows
         has_duplicates = merged_rows > original_rows
     else:
-        # Other merges
         has_duplicates = merged_rows > original_rows * 1.5
     
     return {
@@ -162,18 +154,14 @@ def create_analytics_dataset(timesheets: pd.DataFrame, allocations: pd.DataFrame
     print("CREATING ANALYTICS DATASET")
     print("=" * 60)
     
-    # Start with timesheets
     df = timesheets.copy()
     print(f"\nStarting with timesheets: {len(df)} rows")
     
-    # Merge with employees
     if 'employee_id' in df.columns and 'employee_id' in employees.columns:
         df = pd.merge(df, employees, on='employee_id', how='left')
         print(f"After merging with employees: {len(df)} rows")
     
-    # Merge with allocations
     if 'employee_id' in df.columns and 'employee_id' in allocations.columns:
-        # Aggregate allocations by employee
         alloc_agg = allocations.groupby('employee_id').agg({
             'allocated_hours': 'sum',
             'allocation_percentage': 'mean'
@@ -182,9 +170,7 @@ def create_analytics_dataset(timesheets: pd.DataFrame, allocations: pd.DataFrame
         df = pd.merge(df, alloc_agg, on='employee_id', how='left')
         print(f"After merging with allocations: {len(df)} rows")
     
-    # Merge with billing
     if 'employee_id' in df.columns and 'employee_id' in billing.columns:
-        # Aggregate billing by employee
         billing_agg = billing.groupby('employee_id').agg({
             'billed_amount': 'sum',
             'billable_hours': 'sum'

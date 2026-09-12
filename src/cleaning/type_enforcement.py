@@ -53,7 +53,6 @@ def enforce_numeric(df: pd.DataFrame, columns: list, handle_errors: str = "coerc
     for col in columns:
         if col in df.columns:
             try:
-                # Remove common non-numeric characters
                 if df[col].dtype == 'object':
                     df[col] = df[col].astype(str).str.replace('[^0-9.-]', '', regex=True)
                 
@@ -113,7 +112,6 @@ def clean_currency(df: pd.DataFrame, columns: list) -> pd.DataFrame:
     for col in columns:
         if col in df.columns:
             try:
-                # Remove currency symbols and commas
                 df[col] = df[col].astype(str).str.replace('[$,€£¥]', '', regex=True)
                 df[col] = pd.to_numeric(df[col], errors='coerce')
                 print(f"  Cleaned currency column: {col}")
@@ -139,7 +137,6 @@ def clean_percentage(df: pd.DataFrame, columns: list) -> pd.DataFrame:
     for col in columns:
         if col in df.columns:
             try:
-                # Remove percentage signs
                 df[col] = df[col].astype(str).str.replace('%', '', regex=True)
                 df[col] = pd.to_numeric(df[col], errors='coerce')
                 print(f"  Cleaned percentage column: {col}")

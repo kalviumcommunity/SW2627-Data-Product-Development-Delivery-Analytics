@@ -17,7 +17,6 @@ def render_sidebar() -> str:
         The key of the currently selected navigation item.
     """
     with st.sidebar:
-        # ── Brand ──────────────────────────────────────────────────────
         st.markdown(
             "<div style='padding:8px 0 14px 0;'>"
             "<div class='brand-title'>Workforce Planner</div>"
@@ -26,7 +25,6 @@ def render_sidebar() -> str:
             unsafe_allow_html=True,
         )
 
-        # ── Section label ──────────────────────────────────────────────
         st.markdown(
             "<div style='font-size:10px; text-transform:uppercase; "
             "letter-spacing:0.8px; color:#64748B; padding:6px 4px;'>"
@@ -34,7 +32,6 @@ def render_sidebar() -> str:
             unsafe_allow_html=True,
         )
 
-        # ── Navigation radio ───────────────────────────────────────────
         current = get_active_page_key()
         labels = [item["icon"] + "  " + item["label"] for item in NAV_ITEMS]
         default_idx = next(
@@ -54,10 +51,8 @@ def render_sidebar() -> str:
             st.session_state["active_page"] = selected_key
             st.rerun()
 
-        # ── Spacer ─────────────────────────────────────────────────────
         st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
 
-        # ── Data section label ─────────────────────────────────────────
         st.markdown(
             "<div style='font-size:10px; text-transform:uppercase; "
             "letter-spacing:0.8px; color:#64748B; padding:6px 4px;'>"
@@ -65,7 +60,6 @@ def render_sidebar() -> str:
             unsafe_allow_html=True,
         )
 
-        # ── File uploader (LU 2.52) ────────────────────────────────────
         uploaded_files = st.file_uploader(
             "Upload dataset",
             type=["csv", "json"],
@@ -86,6 +80,7 @@ def render_sidebar() -> str:
 
             if loaded_files:
                 st.session_state["uploaded_files"] = loaded_files
+                st.session_state["using_database_files"] = False
                 if st.session_state.get("selected_file") not in loaded_files:
                     st.session_state["selected_file"] = next(iter(loaded_files))
 
@@ -95,6 +90,7 @@ def render_sidebar() -> str:
             if database_files:
                 files = database_files
                 st.session_state["uploaded_files"] = database_files
+                st.session_state["using_database_files"] = True
                 st.session_state["selected_file"] = next(iter(database_files))
         if files:
             selected_file = st.selectbox(
@@ -110,12 +106,10 @@ def render_sidebar() -> str:
             st.session_state["file_name"] = selected_file
             st.success(f"Loaded {len(files)} dataset(s)")
 
-        # ── Reset button (LU 2.53) ──────────────────────────────────────
         if st.button("\u21ba  Reset", use_container_width=True, key="reset_btn"):
             reset_session_state()
             st.rerun()
 
-        # ── User profile ───────────────────────────────────────────────
         current_user = st.session_state.get("current_user", {})
         if st.button("Sign out", use_container_width=True, key="sign_out_btn"):
             logout()

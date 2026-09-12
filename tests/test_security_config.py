@@ -32,3 +32,14 @@ def test_production_accepts_strong_configuration(monkeypatch):
     monkeypatch.setattr(config, "ADMIN_PASSWORD", "strong-password-2026")
 
     config.validate_security_config()
+
+
+def test_production_rejects_password_equal_to_email(monkeypatch):
+    monkeypatch.setattr(config, "APP_ENV", "production")
+    monkeypatch.setattr(config, "APP_DEBUG", False)
+    monkeypatch.setattr(config, "JWT_SECRET", "x" * 64)
+    monkeypatch.setattr(config, "ADMIN_EMAIL", "admin@example.com")
+    monkeypatch.setattr(config, "ADMIN_PASSWORD", "admin@example.com")
+
+    with pytest.raises(RuntimeError, match="ADMIN_PASSWORD"):
+        config.validate_security_config()

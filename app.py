@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import streamlit as st
 import pandas as pd
+from src.config import DATABASE_PATH
 
 from src.dashboard import (
     inject_global_css,
@@ -22,6 +23,7 @@ from src.dashboard import (
     get_dataset_summary,
     calculate_kpis,
     get_chart_data,
+    load_database_files,
     filter_dataset,
     calculate_capacity_metrics,
     generate_insights,
@@ -31,9 +33,6 @@ from src.dashboard.api_client import create_assignment, delete_assignment, get_a
 from src.dashboard.auth import render_login
 
 
-# ---------------------------------------------------------------------------
-# Page config
-# ---------------------------------------------------------------------------
 st.set_page_config(
     page_title="Workforce Utilization Platform",
     page_icon="\U0001f4ca",
@@ -41,54 +40,55 @@ st.set_page_config(
 )
 
 
-# ---------------------------------------------------------------------------
-# Inject dark theme CSS
-# ---------------------------------------------------------------------------
 inject_global_css()
 
 
-# ---------------------------------------------------------------------------
-# Initialise session state
-# ---------------------------------------------------------------------------
 initialise_session_state()
 
 
-# ---------------------------------------------------------------------------
-# Sidebar navigation
-# ---------------------------------------------------------------------------
 if not render_login():
     st.stop()
 
-# Load the initial datasets before drawing navigation so the authenticated UI
-# appears as one page instead of showing the sidebar while data is loading.
 if not st.session_state.get("uploaded_files"):
     with st.spinner("Loading dashboard data..."):
         database_files = load_database_files()
     if database_files:
         st.session_state["uploaded_files"] = database_files
+        st.session_state["using_database_files"] = True
         st.session_state["selected_file"] = next(iter(database_files))
+
+
+@st.fragment(run_every="5s")
+def refresh_database_snapshot() -> None:
+    current_signature = DATABASE_PATH.stat().st_mtime_ns if DATABASE_PATH.exists() else None
+    previous_signature = st.session_state.get("database_signature")
+    st.session_state["database_signature"] = current_signature
+    if previous_signature is None or previous_signature == current_signature:
+        return
+    if not st.session_state.get("using_database_files", True):
+        return
+    load_database_files.clear()
+    database_files = load_database_files()
+    if database_files:
+        st.session_state["uploaded_files"] = database_files
+        st.session_state["selected_file"] = next(iter(database_files))
+    st.rerun(scope="app")
+
+
+refresh_database_snapshot()
 
 active_key = render_sidebar()
 
 
-# ---------------------------------------------------------------------------
-# Map key → label for header
-# ---------------------------------------------------------------------------
 page_label = next(
     (item["label"] for item in NAV_ITEMS if item["key"] == active_key),
     "Overview",
 )
 
 
-# ---------------------------------------------------------------------------
-# Top header (period selector is functional — stored in session_state)
-# ---------------------------------------------------------------------------
 render_top_header(page_label)
 
 
-# ===========================================================================
-# Page renderers
-# ===========================================================================
 
 def render_dataset_info() -> None:
     """Show dataset info panel when a file has been uploaded."""
@@ -160,17 +160,14 @@ def render_overview() -> None:
     )
     analysis_df = enrich_with_employee_dimensions(df, files) if df is not None else None
 
-    # ── Dataset info (if uploaded) ─────────────────────────────────────
     render_dataset_info()
 
-    # ── KPI cards row (dynamic or placeholder) ─────────────────────────
     kpi_cols = st.columns(6)
 
     if df is not None:
         kpi_data = calculate_kpis(df)
         kpis = kpi_data["kpis"]
     else:
-        # Placeholder KPIs when no data uploaded
         kpis = [
             {"label": "Total Records", "value": "--", "icon": "\U0001f4ca", "delta": None, "icon_color": None},
             {"label": "Columns", "value": "--", "icon": "\U0001f4c8", "delta": None, "icon_color": None},
@@ -192,7 +189,6 @@ def render_overview() -> None:
 
     st.markdown("<div style='height:14px;'></div>", unsafe_allow_html=True)
 
-    # ── Charts row ─────────────────────────────────────────────────────
     chart_left, chart_right = st.columns([2, 1])
 
     with chart_left:
@@ -259,7 +255,6 @@ def render_overview() -> None:
 
     st.markdown("<div style='height:14px;'></div>", unsafe_allow_html=True)
 
-    # ── Second row ─────────────────────────────────────────────────────
     trend_left, dist_right = st.columns([2, 1])
 
     with trend_left:
@@ -325,7 +320,6 @@ def render_workforce() -> None:
         render_placeholder("Upload a dataset to view workforce data", height=400)
         return
 
-    # Search and filter row
     col1, col2, col3, col4 = st.columns([2, 1, 1, 1])
 
     with col1:
@@ -361,7 +355,6 @@ def render_workforce() -> None:
         else:
             team_filter = "All"
 
-    # Apply workforce-specific filters after the shared search and period filters.
     filtered = df.copy()
 
     if dept_filter != "All" and "department" in df.columns:
@@ -375,7 +368,6 @@ def render_workforce() -> None:
 
     st.markdown(f"**Showing {len(filtered)} of {len(df)} records**")
 
-    # Show table
     st.dataframe(filtered, use_container_width=True, height=400)
 
 
@@ -725,9 +717,6 @@ def render_reports() -> None:
     )
 
 
-# ---------------------------------------------------------------------------
-# Page routing
-# ---------------------------------------------------------------------------
 PAGE_RENDERERS = {
     "overview":       render_overview,
     "workforce":      render_workforce,

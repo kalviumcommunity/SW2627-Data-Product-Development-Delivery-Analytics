@@ -20,7 +20,6 @@ from src.analytics.anomaly_detection import (
 )
 
 
-# Define the raw datasets
 RAW_DATASETS = {
     "timesheets_raw.csv": "Timesheets",
     "allocations_raw.csv": "Allocations",
@@ -35,7 +34,6 @@ def main():
     print("ANOMALY DETECTION & RISK IDENTIFICATION")
     print("=" * 60)
     
-    # Load all datasets
     datasets = {}
     for filename, label in RAW_DATASETS.items():
         file_path = data_dir / filename
@@ -47,7 +45,6 @@ def main():
         print("[ERROR] Timesheets dataset not found")
         return
     
-    # Create derived columns for KPIs
     print("\n" + "=" * 60)
     print("CREATING DERIVED COLUMNS")
     print("=" * 60)
@@ -59,7 +56,6 @@ def main():
     print("ANOMALY DETECTION RESULTS")
     print("=" * 60)
     
-    # Detect anomalies in numeric columns
     print("\n--- General Anomaly Detection ---")
     anomalies = detect_anomalies(timesheets, method='iqr')
     print(f"Total rows analyzed: {anomalies['total_rows']}")
@@ -69,13 +65,11 @@ def main():
         if stats['count'] > 0:
             print(f"  {col}: {stats['count']} anomalies ({stats['percentage']}%)")
     
-    # Detect utilization anomalies
     print("\n--- Utilization Anomalies ---")
     util_anomalies = detect_utilization_anomalies(timesheets)
     for metric, stats in util_anomalies.items():
         print(f"  {metric}: {stats['outlier_count']} outliers ({stats['percentage']}%)")
     
-    # Calculate risk scores
     print("\n--- Risk Score Calculation ---")
     timesheets = timesheets.copy()
     timesheets['risk_score'] = calculate_risk_scores(timesheets)
@@ -83,7 +77,6 @@ def main():
     print(f"Average risk score: {timesheets['risk_score'].mean():.2f}")
     print(f"Max risk score: {timesheets['risk_score'].max():.2f}")
     
-    # Get risk summary
     print("\n--- Risk Summary ---")
     risk_summary = get_risk_summary(timesheets)
     print(f"Total records: {risk_summary['total_records']}")
@@ -95,7 +88,6 @@ def main():
         if count > 0:
             print(f"  {level}: {count}")
     
-    # Identify high-risk records
     print("\n--- High Risk Records ---")
     high_risk = identify_high_risk_records(timesheets)
     print(f"High risk records: {len(high_risk)}")

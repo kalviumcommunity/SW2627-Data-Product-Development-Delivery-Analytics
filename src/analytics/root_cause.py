@@ -40,21 +40,17 @@ def investigate_low_utilization(df: pd.DataFrame, employee_id: str = None, thres
         results['avg_utilization'] = round(low_util['kpi_billable_utilization_rate'].mean(), 2)
         results['min_utilization'] = round(low_util['kpi_billable_utilization_rate'].min(), 2)
         
-        # Analyze task distribution for low utilization employees
         if 'task_category' in low_util.columns:
             task_dist = low_util['task_category'].value_counts(normalize=True).round(4).to_dict()
             results['task_distribution'] = task_dist
         
-        # Analyze non-billable hours
         if 'non_billable_hours' in low_util.columns:
             results['avg_non_billable'] = round(low_util['non_billable_hours'].mean(), 2)
             results['total_non_billable'] = round(low_util['non_billable_hours'].sum(), 2)
         
-        # Analyze admin hours
         if 'admin_hours' in low_util.columns:
             results['avg_admin'] = round(low_util['admin_hours'].mean(), 2)
         
-        # Analyze training hours
         if 'training_hours' in low_util.columns:
             results['avg_training'] = round(low_util['training_hours'].mean(), 2)
     
@@ -80,7 +76,6 @@ def identify_bottlenecks(df: pd.DataFrame, department: str = None) -> dict:
     bottlenecks = {}
     
     if 'kpi_billable_utilization_rate' in dept_data.columns:
-        # Low utilization as bottleneck indicator
         low_util = dept_data[dept_data['kpi_billable_utilization_rate'] < 60]
         bottlenecks['low_utilization_count'] = len(low_util)
         bottlenecks['low_utilization_pct'] = round(len(low_util) / len(dept_data) * 100, 2)

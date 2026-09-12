@@ -6,7 +6,6 @@ Demonstrates the read-process-output workflow pattern.
 import sys
 from pathlib import Path
 
-# Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.ingestion.load_data import load_csv, get_file_info
