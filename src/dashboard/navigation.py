@@ -26,8 +26,7 @@ def render_sidebar() -> str:
         )
 
         st.markdown(
-            "<div style='font-size:10px; text-transform:uppercase; "
-            "letter-spacing:0.8px; color:#64748B; padding:6px 4px;'>"
+            "<div class='sidebar-eyebrow'>"
             "Navigation</div>",
             unsafe_allow_html=True,
         )
@@ -54,8 +53,7 @@ def render_sidebar() -> str:
         st.markdown("<div style='height:10px;'></div>", unsafe_allow_html=True)
 
         st.markdown(
-            "<div style='font-size:10px; text-transform:uppercase; "
-            "letter-spacing:0.8px; color:#64748B; padding:6px 4px;'>"
+            "<div class='sidebar-eyebrow'>"
             "Data</div>",
             unsafe_allow_html=True,
         )

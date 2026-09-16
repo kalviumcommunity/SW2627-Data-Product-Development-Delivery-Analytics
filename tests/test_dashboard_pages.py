@@ -35,3 +35,22 @@ def test_login_form_supports_enter_submission():
     auth_source = (APP_PATH.parent / "src" / "dashboard" / "auth.py").read_text(encoding="utf-8")
 
     assert 'st.form("login_form", enter_to_submit=True)' in auth_source
+
+
+def test_dashboard_theme_uses_streamlit_theme_and_chart_template():
+    app_source = _app_source()
+    themer_source = (APP_PATH.parent / "src" / "dashboard" / "themer.py").read_text(encoding="utf-8")
+    theme_config = (APP_PATH.parent / ".streamlit" / "config.toml").read_text(encoding="utf-8")
+
+    assert "get_plotly_template" in app_source
+    assert '"bg_app": "transparent"' in themer_source
+    assert 'currentColor' in themer_source
+    assert 'st.get_option("theme.base")' in themer_source
+    assert 'data-testid="stWidgetLabel"' in themer_source
+    assert 'data-testid="stMetricValue"' in themer_source
+    assert 'section[data-testid="stSidebar"] [role="radiogroup"] label *' in themer_source
+    assert 'data-testid="stMainBlockContainer"' in themer_source
+    assert '.stMarkdown li' in themer_source
+    assert '[theme.dark]' in theme_config
+    assert 'backgroundColor = "#000000"' in theme_config
+    assert 'textColor = "#FFFFFF"' in theme_config

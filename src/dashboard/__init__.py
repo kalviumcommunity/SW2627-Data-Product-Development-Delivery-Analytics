@@ -1,6 +1,6 @@
 """Dashboard module for Streamlit workforce planner application."""
 
-from .themer import inject_global_css, TOKENS, NAV_ITEMS
+from .themer import inject_global_css, TOKENS, NAV_ITEMS, get_plotly_template
 from .navigation import render_sidebar
 from .layout import (
     render_top_header,
@@ -29,6 +29,7 @@ __all__ = [
     "inject_global_css",
     "TOKENS",
     "NAV_ITEMS",
+    "get_plotly_template",
     "render_sidebar",
     "render_top_header",
     "render_page_header",

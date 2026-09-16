@@ -28,6 +28,7 @@ from src.dashboard import (
     calculate_capacity_metrics,
     generate_insights,
     enrich_with_employee_dimensions,
+    get_plotly_template,
 )
 from src.dashboard.api_client import create_assignment, delete_assignment, get_assignments, get_employees, update_assignment
 from src.dashboard.auth import render_login
@@ -207,7 +208,7 @@ def render_overview() -> None:
                     color_discrete_sequence=["#06B6D4"],
                 )
                 fig.update_layout(
-                    template="plotly_dark",
+                    template=get_plotly_template(),
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
                     height=280,
@@ -223,7 +224,7 @@ def render_overview() -> None:
                     color_discrete_sequence=["#06B6D4", "#3B82F6", "#8B5CF6", "#F59E0B", "#EF4444"],
                 )
                 fig.update_layout(
-                    template="plotly_dark",
+                    template=get_plotly_template(),
                     paper_bgcolor="rgba(0,0,0,0)",
                     height=280,
                     margin=dict(l=0, r=0, t=10, b=0),
@@ -270,7 +271,7 @@ def render_overview() -> None:
                 color_discrete_sequence=["#3B82F6"],
             )
             fig.update_layout(
-                template="plotly_dark",
+                template=get_plotly_template(),
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
                 height=280,
@@ -295,7 +296,7 @@ def render_overview() -> None:
                 color_discrete_sequence=["#06B6D4", "#3B82F6", "#8B5CF6", "#F59E0B", "#10B981"],
             )
             fig.update_layout(
-                template="plotly_dark",
+                template=get_plotly_template(),
                 paper_bgcolor="rgba(0,0,0,0)",
                 height=200,
                 margin=dict(l=0, r=0, t=10, b=0),
@@ -534,12 +535,12 @@ def render_capacity() -> None:
         grouped["capacity_load_pct"] = (grouped["allocated_hours"] / grouped["capacity_hours_monthly"].replace(0, pd.NA) * 100).fillna(0).round(1)
         fig = px.bar(grouped, x="department", y="capacity_load_pct", color="capacity_load_pct", color_continuous_scale="Blues", labels={"capacity_load_pct": "Capacity Load %"})
         fig.add_hline(y=100, line_dash="dash", line_color="#EF4444")
-        fig.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=320)
+        fig.update_layout(template=get_plotly_template(), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=320)
         st.plotly_chart(fig, use_container_width=True)
     with right:
         status_counts = metrics["capacity_status"].value_counts().rename_axis("status").reset_index(name="employees")
         fig = px.pie(status_counts, names="status", values="employees", color="status", color_discrete_map={"Overloaded": "#EF4444", "On target": "#10B981", "Available": "#F59E0B"})
-        fig.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", height=320)
+        fig.update_layout(template=get_plotly_template(), paper_bgcolor="rgba(0,0,0,0)", height=320)
         fig.update_traces(hovertemplate="%{label}<br>%{value} employees<extra></extra>")
         st.plotly_chart(fig, use_container_width=True)
 
@@ -595,13 +596,13 @@ def render_team_analytics() -> None:
         grouped["capacity_load_pct"] = (grouped["allocated_hours"] / grouped["capacity_hours_monthly"].replace(0, pd.NA) * 100).fillna(0).round(1)
         fig = px.bar(grouped, x="team", y="capacity_load_pct", color="capacity_load_pct", color_continuous_scale="Blues", labels={"capacity_load_pct": "Capacity Load %"})
         fig.add_hline(y=100, line_dash="dash", line_color="#EF4444")
-        fig.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=320)
+        fig.update_layout(template=get_plotly_template(), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=320)
         st.plotly_chart(fig, use_container_width=True)
     with right:
         grouped["utilization_pct"] = (grouped["billable_hours"] / grouped["hours_logged"].replace(0, pd.NA) * 100).fillna(0).round(1)
         fig = px.bar(grouped, x="team", y="utilization_pct", color="utilization_pct", color_continuous_scale="Teal", labels={"utilization_pct": "Billable Utilization %"})
         fig.add_hline(y=70, line_dash="dash", line_color="#10B981")
-        fig.update_layout(template="plotly_dark", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=320)
+        fig.update_layout(template=get_plotly_template(), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=320)
         st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("### Employee drill-down")
