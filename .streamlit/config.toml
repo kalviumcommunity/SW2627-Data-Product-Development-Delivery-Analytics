@@ -1,0 +1,17 @@
+[theme.dark]
+backgroundColor = "#000000"
+secondaryBackgroundColor = "#111111"
+textColor = "#FFFFFF"
+borderColor = "#333333"
+
+[theme.dark.sidebar]
+backgroundColor = "#111111"
+secondaryBackgroundColor = "#171717"
+textColor = "#FFFFFF"
+borderColor = "#333333"
+
+[theme.light]
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#31333F"
+borderColor = "#D6D6D6"

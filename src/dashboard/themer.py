@@ -1,4 +1,4 @@
-"""Dark enterprise theme tokens and CSS injection for Streamlit dashboard."""
+"""Theme tokens and CSS injection for the Streamlit dashboard."""
 
 from __future__ import annotations
 
@@ -6,15 +6,15 @@ import streamlit as st
 
 
 TOKENS = {
-    "bg_app": "#0B0B0B",
-    "bg_sidebar": "#111111",
-    "bg_card": "#171717",
-    "bg_card_hover": "#202020",
-    "border": "#303030",
-    "border_strong": "#4A4A4A",
-    "text_primary": "#FFFFFF",
-    "text_secondary": "#A3A3A3",
-    "text_muted": "#737373",
+    "bg_app": "transparent",
+    "bg_sidebar": "transparent",
+    "bg_card": "transparent",
+    "bg_card_hover": "color-mix(in srgb, currentColor 8%, transparent)",
+    "border": "var(--border-color, rgba(128, 128, 128, 0.25))",
+    "border_strong": "color-mix(in srgb, currentColor 35%, transparent)",
+    "text_primary": "inherit",
+    "text_secondary": "color-mix(in srgb, currentColor 68%, transparent)",
+    "text_muted": "color-mix(in srgb, currentColor 50%, transparent)",
     "accent_blue": "#3B82F6",
     "accent_indigo": "#6366F1",
     "accent_cyan": "#06B6D4",
@@ -45,8 +45,13 @@ def get_active_page_key() -> str:
     return st.session_state.get("active_page", "overview")
 
 
+def get_plotly_template() -> str:
+    """Return the Plotly template matching Streamlit's configured theme."""
+    return "plotly_dark" if st.get_option("theme.base") == "dark" else "plotly_white"
+
+
 def inject_global_css() -> None:
-    """Inject dark-theme CSS into the Streamlit app."""
+    """Inject theme-aware CSS into the Streamlit app."""
     t = TOKENS
     css = f"""
     <style>
@@ -55,17 +60,54 @@ def inject_global_css() -> None:
         background-color: {t['bg_app']};
         color: {t['text_primary']};
     }}
+    [data-testid="stAppViewContainer"],
+    [data-testid="stHeader"] {{
+        background-color: {t['bg_app']};
+    }}
+    section[data-testid="stMain"],
+    [data-testid="stMainBlockContainer"] {{
+        background-color: {t['bg_app']};
+    }}
 
     /* ── Typography ────────────────────────────────────────────────── */
     html, body, [class*="css"] {{
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }}
+    [data-testid="stWidgetLabel"] *,
+    [data-testid="stTextInput"] label,
+    [data-testid="stTextInput"] label *,
+    [data-testid="stNumberInput"] label,
+    [data-testid="stNumberInput"] label *,
+    [data-testid="stDateInput"] label,
+    [data-testid="stDateInput"] label *,
+    [data-testid="stTimeInput"] label,
+    [data-testid="stTimeInput"] label * {{
+        color: {t['text_primary']} !important;
+    }}
+    section[data-testid="stSidebar"] [role="radiogroup"] label,
+    section[data-testid="stSidebar"] [role="radiogroup"] label *,
+    section[data-testid="stSidebar"] [role="radiogroup"] label p,
+    section[data-testid="stSidebar"] [data-testid="stFileUploader"] label,
+    section[data-testid="stSidebar"] [data-testid="stFileUploader"] label * {{
+        color: {t['text_primary']} !important;
+    }}
     h1, h2, h3, h4 {{
         color: {t['text_primary']} !important;
         font-weight: 600;
     }}
-    .stMarkdown p {{
-        color: #CBD5E1;
+    .stMarkdown p,
+    .stMarkdown li {{
+        color: {t['text_primary']} !important;
+        font-weight: 500;
+    }}
+    [data-testid="stMetricLabel"] p,
+    [data-testid="stCaptionContainer"] p {{
+        color: {t['text_secondary']} !important;
+    }}
+    [data-testid="stMetricValue"],
+    [data-testid="stMetricValue"] div,
+    [data-testid="stMetricValue"] p {{
+        color: {t['text_primary']} !important;
     }}
 
     /* ── Sidebar ───────────────────────────────────────────────────── */
@@ -86,9 +128,29 @@ def inject_global_css() -> None:
     [data-testid="stNumberInput"] input,
     [data-testid="stDateInput"] input,
     [data-testid="stTimeInput"] input {{
-        background: #161616 !important;
+        background: {t['bg_app']} !important;
         border-color: {t['border']} !important;
         color: {t['text_primary']} !important;
+    }}
+    [data-baseweb="select"] *,
+    [data-baseweb="input"] *,
+    [data-testid="stTextInput"] input::placeholder,
+    [data-testid="stNumberInput"] input::placeholder {{
+        color: {t['text_secondary']} !important;
+    }}
+    [data-baseweb="popover"],
+    [data-baseweb="menu"],
+    [role="listbox"] {{
+        background: {t['bg_card']} !important;
+        color: {t['text_primary']} !important;
+        border-color: {t['border']} !important;
+    }}
+    .sidebar-eyebrow {{
+        color: {t['text_secondary']};
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        padding: 6px 4px;
     }}
     button[kind="secondary"],
     button[kind="primary"] {{
@@ -180,7 +242,7 @@ def inject_global_css() -> None:
         margin-bottom: 2px !important;
     }}
     div[role="radiogroup"] label:hover {{
-        background: rgba(255,255,255,0.04) !important;
+        background: color-mix(in srgb, currentColor 6%, transparent) !important;
     }}
 
     /* ── Brand title in sidebar ────────────────────────────────────── */
@@ -251,7 +313,7 @@ def inject_global_css() -> None:
         min-height: 54px;
         border: 1px solid {t['border']};
         border-radius: 6px;
-        background: rgba(255,255,255,0.015);
+        background: color-mix(in srgb, currentColor 2%, transparent);
     }}
     </style>
     """
